@@ -1,0 +1,761 @@
+{
+  "root": {
+    "type": "root",
+    "children": [
+      {
+        "type": "text",
+        "id": "550e8400-e29b-41d4-a716-446655440100",
+        "text": {
+          "ops": [
+            {
+              "insert": "Solar Pricing System Check"
+            },
+            {
+              "insert": "\n",
+              "attributes": {
+                "paragraph": true
+              }
+            }
+          ]
+        },
+        "format": null,
+        "collapsed": false,
+        "completed": false,
+        "children": [
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440101",
+            "text": {
+              "ops": [
+                {
+                  "insert": "PRICING ANALYSIS RESULTS",
+                  "attributes": {
+                    "bold": true
+                  }
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": [
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440102",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "John Smith - Standard Pricing",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@check10": "Good baseline example",
+                  "@check1": "John Smith",
+                  "@check2": 2500,
+                  "@check3": 8.5,
+                  "@check4": 135000,
+                  "@check5": 15882,
+                  "@check6": 1800,
+                  "@check7": 0.72,
+                  "@check8": 6.2,
+                  "@check9": "None - pricing appears consistent"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440103",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Test Customer - PRICING ANOMALY",
+                      "attributes": {
+                        "bold": true,
+                        "italic": true
+                      }
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@check10": "Review pricing formula - system appears overpriced",
+                  "@check1": "Test (R8000 bill)",
+                  "@check2": 8000,
+                  "@check3": 21.6,
+                  "@check4": 750400,
+                  "@check5": 34741,
+                  "@check6": 6400,
+                  "@check7": 0.8,
+                  "@check8": 9.8,
+                  "@check9": "CRITICAL: Cost per kWp is 2.2x higher than standard (R34,741 vs R15,882)"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440104",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Nihil Customer - EXTREME PRICING ISSUE",
+                      "attributes": {
+                        "bold": true,
+                        "italic": true
+                      }
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@check10": "URGENT: Review high-consumption pricing model - appears severely overpriced",
+                  "@check1": "Nihil (R50k bill)",
+                  "@check2": 50000,
+                  "@check3": 114.9,
+                  "@check4": 5989900,
+                  "@check5": 52132,
+                  "@check6": 40000,
+                  "@check7": 0.8,
+                  "@check8": 12.5,
+                  "@check9": "CRITICAL: Cost per kWp is 3.3x higher than standard (R52,132 vs R15,882)"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440105",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Voluptas Customer - MICRO SYSTEM ISSUE",
+                      "attributes": {
+                        "bold": true,
+                        "italic": true
+                      }
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@check10": "Consider minimum viable system size or fixed base costs",
+                  "@check1": "Voluptas (R79 bill)",
+                  "@check2": 79,
+                  "@check3": 0.3,
+                  "@check4": 10900,
+                  "@check5": 36333,
+                  "@check6": 63,
+                  "@check7": 0.8,
+                  "@check8": 14.4,
+                  "@check9": "WARNING: Very small system with high cost per kWp - minimum system costs"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440106",
+            "text": {
+              "ops": [
+                {
+                  "insert": "SYSTEM CHECK SUMMARY",
+                  "attributes": {
+                    "bold": true
+                  }
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h2",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": [
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440107",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Standard Cost Range: R15,000 - R25,000 per kWp",
+                      "attributes": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440108",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Anomalies Found: 3 major pricing inconsistencies",
+                      "attributes": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440109",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "High-consumption customers appear overpriced",
+                      "attributes": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440110",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Micro systems have disproportionate costs",
+                      "attributes": {
+                        "bold": true
+                      }
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "bullet",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440111",
+            "text": {
+              "ops": [
+                {
+                  "insert": "RECOMMENDED PRICING FORMULA",
+                  "attributes": {
+                    "bold": true
+                  }
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h2",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": [
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440112",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Base Cost per kWp: R18,000 - R22,000",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "number",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440113",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Minimum System Cost: R80,000 (covers installation overhead)",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "number",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440114",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Battery Cost: R8,000 - R12,000 per kWh",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "number",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440115",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Inverter Cost: R8,000 - R15,000 per kW",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "number",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440116",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Installation & Overhead: 15-25% of equipment cost",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "number",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "views": {
+      "table": {
+        "id": "table",
+        "type": "table",
+        "rank": "V",
+        "columns": {
+          "/text": {
+            "id": "/text",
+            "fieldPath": "/text",
+            "rank": "7",
+            "width": 480
+          },
+          "/attributes/agent": {
+            "id": "/attributes/agent",
+            "fieldPath": "/attributes/agent",
+            "rank": "A",
+            "hidden": true
+          },
+          "/attributes/date": {
+            "id": "/attributes/date",
+            "fieldPath": "/attributes/date",
+            "rank": "F"
+          },
+          "/attributes/assignee": {
+            "id": "/attributes/assignee",
+            "fieldPath": "/attributes/assignee",
+            "rank": "N"
+          },
+          "/attributes/comment": {
+            "id": "/attributes/comment",
+            "fieldPath": "/attributes/comment",
+            "rank": "V",
+            "hidden": true
+          },
+          "/attributes/reaction": {
+            "id": "/attributes/reaction",
+            "fieldPath": "/attributes/reaction",
+            "rank": "c",
+            "hidden": true
+          },
+          "/attributes/timer": {
+            "id": "/attributes/timer",
+            "fieldPath": "/attributes/timer",
+            "rank": "k",
+            "hidden": true
+          },
+          "/attributes/media": {
+            "id": "/attributes/media",
+            "fieldPath": "/attributes/media",
+            "rank": "s",
+            "hidden": true
+          },
+          "/attributes/created/at": {
+            "id": "/attributes/created/at",
+            "fieldPath": "/attributes/created/at",
+            "rank": "t",
+            "hidden": true
+          },
+          "/attributes/created/by": {
+            "id": "/attributes/created/by",
+            "fieldPath": "/attributes/created/by",
+            "rank": "u",
+            "hidden": true
+          },
+          "/attributes/updated/at": {
+            "id": "/attributes/updated/at",
+            "fieldPath": "/attributes/updated/at",
+            "rank": "vF",
+            "hidden": true
+          },
+          "/attributes/updated/by": {
+            "id": "/attributes/updated/by",
+            "fieldPath": "/attributes/updated/by",
+            "rank": "wF",
+            "hidden": true
+          },
+          "/attributes/completed/at": {
+            "id": "/attributes/completed/at",
+            "fieldPath": "/attributes/completed/at",
+            "rank": "x",
+            "hidden": true
+          },
+          "/attributes/completed/by": {
+            "id": "/attributes/completed/by",
+            "fieldPath": "/attributes/completed/by",
+            "rank": "y",
+            "hidden": true
+          },
+          "/attributes/@check1": {
+            "id": "/attributes/@check1",
+            "fieldPath": "/attributes/@check1",
+            "rank": "z",
+            "hidden": false
+          },
+          "/attributes/@check2": {
+            "id": "/attributes/@check2",
+            "fieldPath": "/attributes/@check2",
+            "rank": "zV",
+            "hidden": false
+          },
+          "/attributes/@check3": {
+            "id": "/attributes/@check3",
+            "fieldPath": "/attributes/@check3",
+            "rank": "zk",
+            "hidden": false
+          },
+          "/attributes/@check4": {
+            "id": "/attributes/@check4",
+            "fieldPath": "/attributes/@check4",
+            "rank": "zs",
+            "hidden": false
+          },
+          "/attributes/@check5": {
+            "id": "/attributes/@check5",
+            "fieldPath": "/attributes/@check5",
+            "rank": "zw",
+            "hidden": false
+          },
+          "/attributes/@check6": {
+            "id": "/attributes/@check6",
+            "fieldPath": "/attributes/@check6",
+            "rank": "zy",
+            "hidden": false
+          },
+          "/attributes/@check7": {
+            "id": "/attributes/@check7",
+            "fieldPath": "/attributes/@check7",
+            "rank": "zz",
+            "hidden": false
+          },
+          "/attributes/@check8": {
+            "id": "/attributes/@check8",
+            "fieldPath": "/attributes/@check8",
+            "rank": "zzV",
+            "hidden": false
+          },
+          "/attributes/@check9": {
+            "id": "/attributes/@check9",
+            "fieldPath": "/attributes/@check9",
+            "rank": "zzk",
+            "hidden": false
+          },
+          "/attributes/@check10": {
+            "id": "/attributes/@check10",
+            "fieldPath": "/attributes/@check10",
+            "rank": "zzs",
+            "hidden": false
+          }
+        }
+      }
+    },
+    "fields": {
+      "@check10": {
+        "type": "string",
+        "displayName": "Recommendations"
+      },
+      "@check1": {
+        "type": "string",
+        "displayName": "Customer Name"
+      },
+      "@check2": {
+        "type": "number",
+        "displayName": "Monthly Bill (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@check3": {
+        "type": "number",
+        "displayName": "System Size (kWp)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "decimal"
+        }
+      },
+      "@check4": {
+        "type": "number",
+        "displayName": "Total Cost (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@check5": {
+        "type": "number",
+        "displayName": "Cost per kWp (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@check6": {
+        "type": "number",
+        "displayName": "Monthly Savings (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@check7": {
+        "type": "number",
+        "displayName": "Savings Ratio (%)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "unit",
+          "config": {
+            "type": "standard",
+            "unit": "percent"
+          }
+        }
+      },
+      "@check8": {
+        "type": "number",
+        "displayName": "Payback Period (Years)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "decimal"
+        }
+      },
+      "@check9": {
+        "type": "string",
+        "displayName": "Pricing Issues"
+      }
+    }
+  },
+  "preferences": {
+    "defaultView": "table"
+  }
+}

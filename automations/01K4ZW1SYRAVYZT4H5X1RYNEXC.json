@@ -1,0 +1,159 @@
+{
+  "version": "2",
+  "flowTitle": "Monthly Cost Update Reminder System",
+  "trigger": {
+    "valid": true,
+    "displayName": "Monthly Cost Update Trigger",
+    "type": "PIECE_TRIGGER",
+    "settings": {
+      "pieceName": "@taskade/automade-internalpiece-schedule",
+      "pieceVersion": "1.0.0",
+      "triggerName": "schedule.monthly",
+      "input": {
+        "timezone": "Africa/Johannesburg",
+        "timeOfDay": "09:00",
+        "dayOfMonth": "1"
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440401",
+      "valid": true,
+      "displayName": "Generate Monthly Cost Update Checklist",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "ai.generate",
+        "input": {
+          "input": "Monthly cost update checklist for solar suppliers - batteries, panels, inverters, and installation teams",
+          "prompt": "Create a comprehensive monthly supplier contact checklist for solar component pricing updates"
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440402",
+      "valid": false,
+      "displayName": "Create Battery Supplier Task",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "task.create",
+        "input": {
+          "content": "📞 CONTACT BATTERY SUPPLIERS - Update Pylontech, BlueNova, Hubble pricing",
+          "position": "afterbegin",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "1q5m78aS38jzufAu"
+          }
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440403",
+      "valid": false,
+      "displayName": "Create Solar Panel Task",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "task.create",
+        "input": {
+          "content": "☀️ CONTACT SOLAR PANEL SUPPLIERS - Update panel pricing and check new models",
+          "position": "afterbegin",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "1q5m78aS38jzufAu"
+          }
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440404",
+      "valid": false,
+      "displayName": "Create Inverter Task",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "task.create",
+        "input": {
+          "content": "⚡ CONTACT INVERTER SUPPLIERS - Update SolarEdge, Fronius, Sunsynk pricing",
+          "position": "afterbegin",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "1q5m78aS38jzufAu"
+          }
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440405",
+      "valid": false,
+      "displayName": "Create Installation Cost Task",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "task.create",
+        "input": {
+          "content": "🔧 UPDATE INSTALLATION COSTS - Check electrician rates, permits, transport costs",
+          "position": "afterbegin",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "1q5m78aS38jzufAu"
+          }
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440406",
+      "valid": false,
+      "displayName": "Create Deadline Reminder",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "task.create",
+        "input": {
+          "content": "⏰ DEADLINE: Complete all cost updates within 7 days of this reminder",
+          "dueDate": "",
+          "position": "afterbegin",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "1q5m78aS38jzufAu"
+          }
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440407",
+      "valid": false,
+      "displayName": "Create Summary Report Task",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-taskade",
+        "pieceVersion": "1.0.0",
+        "actionName": "task.create",
+        "input": {
+          "content": "📊 MONTHLY SUMMARY: Review and compile all updated pricing into master spreadsheet",
+          "position": "afterbegin",
+          "projectId": {
+            "type": "flow-template-variable-input-type",
+            "id": "1q5m78aS38jzufAu"
+          }
+        }
+      }
+    }
+  ],
+  "variables": {
+    "1q5m78aS38jzufAu": {
+      "id": "1q5m78aS38jzufAu",
+      "rank": "V",
+      "type": "string",
+      "format": "taskade-project-id"
+    }
+  }
+}

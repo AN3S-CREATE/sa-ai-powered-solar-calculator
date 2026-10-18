@@ -1,0 +1,8 @@
+{
+  "version": "2",
+  "flowTitle": "AI Reality Test",
+  "trigger": {
+    "type": "EMPTY"
+  },
+  "actions": []
+}

@@ -1,0 +1,64 @@
+{
+  "version": "2",
+  "flowTitle": "Solar Pricing Validation System",
+  "trigger": {
+    "valid": true,
+    "displayName": "Pricing Validation Trigger",
+    "type": "MANUAL",
+    "settings": {
+      "inputUiInfo": {},
+      "paramsSchema": {
+        "type": "object",
+        "properties": {
+          "totalCost": {
+            "type": "number"
+          },
+          "systemSize": {
+            "type": "number"
+          },
+          "batterySize": {
+            "type": "number"
+          },
+          "monthlyBill": {
+            "type": "number"
+          },
+          "inverterSize": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440210",
+      "valid": true,
+      "displayName": "Calculate Precise System Cost",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "ai.ask",
+        "input": {
+          "input": "System details for pricing calculation",
+          "prompt": "Calculate precise solar system cost using specific pricing tiers"
+        }
+      }
+    },
+    {
+      "name": "550e8400-e29b-41d4-a716-446655440220",
+      "valid": true,
+      "displayName": "Research Current SA Solar Pricing",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-media",
+        "pieceVersion": "1.0.0",
+        "actionName": "web.search",
+        "input": {
+          "query": "South Africa solar panel installation cost per kWp 2024 battery inverter pricing"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "version": "2",
+  "flowTitle": "Load Solar Knowledge into Agent",
+  "trigger": {
+    "valid": true,
+    "displayName": "Manual Trigger",
+    "type": "MANUAL",
+    "settings": {
+      "inputUiInfo": {},
+      "paramsSchema": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "type": "string",
+            "description": "Input for topic"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "actions": [
+    {
+      "name": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+      "valid": true,
+      "displayName": "Search for Solar Information",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-media",
+        "pieceVersion": "1.0.0",
+        "actionName": "web.search",
+        "input": {
+          "query": "{{ trigger[\"topic\"] }} solar energy renewable technology"
+        }
+      }
+    },
+    {
+      "name": "a47ac10b-58cc-4372-a567-0e02b2c3d480",
+      "valid": false,
+      "displayName": "Add Knowledge to Agent",
+      "type": "PIECE",
+      "settings": {
+        "pieceName": "@taskade/automade-internalpiece-openai",
+        "pieceVersion": "1.0.0",
+        "actionName": "agent.add_knowledge.v2",
+        "input": {
+          "title": "Solar Knowledge: {{ trigger[\"topic\"] }}",
+          "agentId": {
+            "type": "flow-template-variable-input-type",
+            "id": "01K50T1A1F12Z63DDM6SE1HZV9"
+          },
+          "knowledge": "{{ f47ac10b-58cc-4372-a567-0e02b2c3d479[\"summary\"] }}",
+          "knowledgeType": "text"
+        }
+      }
+    }
+  ],
+  "variables": {
+    "01K50T1A1F12Z63DDM6SE1HZV9": {
+      "id": "01K50T1A1F12Z63DDM6SE1HZV9",
+      "rank": "V",
+      "type": "string",
+      "format": "taskade-space-agent-id"
+    }
+  }
+}

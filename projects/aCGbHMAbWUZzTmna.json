@@ -1,0 +1,2924 @@
+{
+  "root": {
+    "type": "root",
+    "children": [
+      {
+        "type": "text",
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "text": {
+          "ops": [
+            {
+              "insert": "Solar Calculator Database"
+            },
+            {
+              "insert": "\n",
+              "attributes": {
+                "paragraph": true
+              }
+            }
+          ]
+        },
+        "format": null,
+        "collapsed": false,
+        "completed": false,
+        "children": [
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440001",
+            "text": {
+              "ops": [
+                {
+                  "insert": "John Smith - Cape Town Solar Installation",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "checkbox",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Cape Town, Western Cape",
+              "@calc6": "North-facing",
+              "@calc7": 120,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 8.5,
+              "@calc10": 15,
+              "@calc11": 8,
+              "@calc12": 1800,
+              "@calc13": 21600,
+              "@calc14": 6.2,
+              "@calc15": 0.16,
+              "@calc16": 135000,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "sectional"
+              },
+              "@calc1": "John Smith",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "pending"
+              },
+              "@calc2": "john.smith@email.com",
+              "@calc3": "+27 82 123 4567",
+              "@calc4": 2500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440002",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sarah Johnson - Johannesburg Residential",
+                  "attributes": {}
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "checkbox",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South-facing",
+              "@calc7": 150,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 12,
+              "@calc10": 20,
+              "@calc11": 12,
+              "@calc12": 2400,
+              "@calc13": 28800,
+              "@calc14": 5.8,
+              "@calc15": 0.17,
+              "@calc16": 168000,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sarah Johnson",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "approved"
+              },
+              "@calc2": "sarah.j@gmail.com",
+              "@calc3": "+27 83 987 6543",
+              "@calc4": 3200
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "c86c1099-cd0c-4c90-a4ac-fcf3b3afe1c0",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Andries - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "East",
+              "@calc7": 230,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 5,
+              "@calc10": 7.4,
+              "@calc11": 6,
+              "@calc12": 1480,
+              "@calc13": 17760,
+              "@calc14": 7.6,
+              "@calc15": 0.13,
+              "@calc16": 134200,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "sectional"
+              },
+              "@calc1": "Andries",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "create@an3s.info",
+              "@calc3": "+27824029429",
+              "@calc4": 1850
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "1ad2742d-50a1-4bc0-9790-9ab5cc4d7211",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "West",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 21.6,
+              "@calc10": 53.3,
+              "@calc11": 25.9,
+              "@calc12": 6400,
+              "@calc13": 76800,
+              "@calc14": 9.8,
+              "@calc15": 0.1,
+              "@calc16": 750400,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "Test@test.com",
+              "@calc3": "12352465",
+              "@calc4": 8000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "93d0246f-316c-449a-9d6e-1332ab4d55e4",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "West",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 21.6,
+              "@calc10": 53.3,
+              "@calc11": 25.9,
+              "@calc12": 6400,
+              "@calc13": 76800,
+              "@calc14": 9.8,
+              "@calc15": 0.1,
+              "@calc16": 750400,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "Test@test.com",
+              "@calc3": "12352465",
+              "@calc4": 8000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "7309da74-6fdc-4941-9087-20620ff20c59",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North",
+              "@calc7": 20,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 4.6,
+              "@calc10": 8,
+              "@calc11": 5.5,
+              "@calc12": 1600,
+              "@calc13": 19200,
+              "@calc14": 6.9,
+              "@calc15": 0.14,
+              "@calc16": 133000,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 2000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "84597e18-4980-4f1e-9a57-12e3401e9957",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Dayyaan - Cape Town, Western Cape"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Cape Town, Western Cape",
+              "@calc6": "South",
+              "@calc7": 250,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 9.9,
+              "@calc10": 12,
+              "@calc11": 11.9,
+              "@calc12": 2400,
+              "@calc13": 28800,
+              "@calc14": 8.5,
+              "@calc15": 0.12,
+              "@calc16": 244500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Dayyaan",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "dayyaanwilliams3@gmail.com",
+              "@calc3": "0826896918",
+              "@calc4": 3000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "18736919-6f3c-4045-a0e9-64ff8c47962a",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Dayyaan - Cape Town, Western Cape"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Cape Town, Western Cape",
+              "@calc6": "South",
+              "@calc7": 250,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 9.9,
+              "@calc10": 12,
+              "@calc11": 11.9,
+              "@calc12": 2400,
+              "@calc13": 28800,
+              "@calc14": 8.5,
+              "@calc15": 0.12,
+              "@calc16": 244500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Dayyaan",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "dayyaanwilliams3@gmail.com",
+              "@calc3": "0826896918",
+              "@calc4": 3000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "2479fee9-2299-4e66-9eae-1b04797909cb",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Dayyaan - Cape Town, Western Cape"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Cape Town, Western Cape",
+              "@calc6": "South",
+              "@calc7": 250,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 9.9,
+              "@calc10": 12,
+              "@calc11": 11.9,
+              "@calc12": 2400,
+              "@calc13": 28800,
+              "@calc14": 8.5,
+              "@calc15": 0.12,
+              "@calc16": 244500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Dayyaan",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "dayyaanwilliams3@gmail.com",
+              "@calc3": "0826896918",
+              "@calc4": 3000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "fa7de39f-00a5-4965-a680-a856262f8a29",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Brian - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "West",
+              "@calc7": 220,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 5.4,
+              "@calc10": 8,
+              "@calc11": 6.5,
+              "@calc12": 1600,
+              "@calc13": 19200,
+              "@calc14": 7.6,
+              "@calc15": 0.13,
+              "@calc16": 145000,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Brian",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "brianleonardroberts7@gmail.com",
+              "@calc3": "0786533281",
+              "@calc4": 2000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "90e666b9-d3eb-4d36-9d21-7d08bc60137b",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Brian - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "West",
+              "@calc7": 220,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 5.4,
+              "@calc10": 8,
+              "@calc11": 6.5,
+              "@calc12": 1600,
+              "@calc13": 19200,
+              "@calc14": 7.6,
+              "@calc15": 0.13,
+              "@calc16": 145000,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Brian",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "brianleonardroberts7@gmail.com",
+              "@calc3": "0786533281",
+              "@calc4": 2000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "8d1a0566-b4d0-4caf-875f-eafc8496f73f",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South-East",
+              "@calc7": 10,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 3.1,
+              "@calc10": 4,
+              "@calc11": 3.7,
+              "@calc12": 800,
+              "@calc13": 9600,
+              "@calc14": 8.2,
+              "@calc15": 0.12,
+              "@calc16": 78500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 1000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "26d76c1b-c05d-4a89-afa2-18feb8d35f63",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South-East",
+              "@calc7": 10,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 3.1,
+              "@calc10": 4,
+              "@calc11": 3.7,
+              "@calc12": 800,
+              "@calc13": 9600,
+              "@calc14": 8.2,
+              "@calc15": 0.12,
+              "@calc16": 78500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 1000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "2a833613-da5c-449c-9de3-aa0319f2ead3",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Nihil accusantium co - Exercitationem quisq"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Exercitationem quisq",
+              "@calc6": "North",
+              "@calc7": 83,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 114.9,
+              "@calc10": 533.3,
+              "@calc11": 137.9,
+              "@calc12": 40000,
+              "@calc13": 480000,
+              "@calc14": 12.5,
+              "@calc15": 0.08,
+              "@calc16": 5989900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "rental"
+              },
+              "@calc1": "Nihil accusantium co",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "defimod@mailinator.com",
+              "@calc3": "+1 (364) 287-6559",
+              "@calc4": 50000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "e652d885-394b-4113-b93a-ceaa0c50bc0c",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Nihil accusantium co - Exercitationem quisq"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Exercitationem quisq",
+              "@calc6": "North",
+              "@calc7": 83,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 114.9,
+              "@calc10": 533.3,
+              "@calc11": 137.9,
+              "@calc12": 40000,
+              "@calc13": 480000,
+              "@calc14": 12.5,
+              "@calc15": 0.08,
+              "@calc16": 5989900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "rental"
+              },
+              "@calc1": "Nihil accusantium co",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "defimod@mailinator.com",
+              "@calc3": "+1 (364) 287-6559",
+              "@calc4": 50000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "5943fde1-1d2a-45b8-9390-f10f102387e2",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Nihil accusantium co - Exercitationem quisq"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Exercitationem quisq",
+              "@calc6": "North",
+              "@calc7": 83,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 114.9,
+              "@calc10": 533.3,
+              "@calc11": 137.9,
+              "@calc12": 40000,
+              "@calc13": 480000,
+              "@calc14": 12.5,
+              "@calc15": 0.08,
+              "@calc16": 5989900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "rental"
+              },
+              "@calc1": "Nihil accusantium co",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "defimod@mailinator.com",
+              "@calc3": "+1 (364) 287-6559",
+              "@calc4": 50000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "a1f85271-aeac-4fcf-8807-a64be84c51f4",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Nihil accusantium co - Exercitationem quisq"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Exercitationem quisq",
+              "@calc6": "North",
+              "@calc7": 83,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 114.9,
+              "@calc10": 533.3,
+              "@calc11": 137.9,
+              "@calc12": 40000,
+              "@calc13": 480000,
+              "@calc14": 12.5,
+              "@calc15": 0.08,
+              "@calc16": 5989900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "rental"
+              },
+              "@calc1": "Nihil accusantium co",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "defimod@mailinator.com",
+              "@calc3": "+1 (364) 287-6559",
+              "@calc4": 50000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "57f4efd8-b1da-47ee-bc92-64da7dc0b743",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Creampie - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South",
+              "@calc7": 120,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 5.3,
+              "@calc10": 6,
+              "@calc11": 6.4,
+              "@calc12": 1200,
+              "@calc13": 14400,
+              "@calc14": 8.9,
+              "@calc15": 0.11,
+              "@calc16": 127500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Creampie",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "creampie@test.co.za",
+              "@calc3": "0663335698",
+              "@calc4": 1500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "56a470ea-c207-4685-9649-ab2dca7f8415",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Creampie - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South",
+              "@calc7": 120,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 5.3,
+              "@calc10": 6,
+              "@calc11": 6.4,
+              "@calc12": 1200,
+              "@calc13": 14400,
+              "@calc14": 8.9,
+              "@calc15": 0.11,
+              "@calc16": 127500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Creampie",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "creampie@test.co.za",
+              "@calc3": "0663335698",
+              "@calc4": 1500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "3d0bc21c-5987-443f-9292-c6edcb807323",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 7.3,
+              "@calc10": 12,
+              "@calc11": 8.8,
+              "@calc12": 2400,
+              "@calc13": 28800,
+              "@calc14": 7.1,
+              "@calc15": 0.14,
+              "@calc16": 205500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "sectional"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 3000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "c143bc8f-2f9e-4ed4-907c-f075ce8e78a4",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South-West",
+              "@calc7": 150,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 15.3,
+              "@calc10": 20,
+              "@calc11": 18.4,
+              "@calc12": 4000,
+              "@calc13": 48000,
+              "@calc14": 8.1,
+              "@calc15": 0.12,
+              "@calc16": 389500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 5000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "6f0017ec-e7a9-418b-9ebf-5fd67de42f7a",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Big Daddy - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "East",
+              "@calc7": 60,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 4.1,
+              "@calc10": 6,
+              "@calc11": 4.9,
+              "@calc12": 1200,
+              "@calc13": 14400,
+              "@calc14": 7.6,
+              "@calc15": 0.13,
+              "@calc16": 109500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "rental"
+              },
+              "@calc1": "Big Daddy",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "bigbaddaddy@daddy.com",
+              "@calc3": "+27871353676",
+              "@calc4": 1500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "bdf37b6a-9d4f-4f18-9237-21a5d45c6bbc",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South-West",
+              "@calc7": 150,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 15.3,
+              "@calc10": 20,
+              "@calc11": 18.4,
+              "@calc12": 4000,
+              "@calc13": 48000,
+              "@calc14": 8.1,
+              "@calc15": 0.12,
+              "@calc16": 389500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 5000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "a2678483-b253-4a68-ab66-9741f4d7bdc2",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North",
+              "@calc7": 400,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 11.5,
+              "@calc10": 20,
+              "@calc11": 13.8,
+              "@calc12": 4000,
+              "@calc13": 48000,
+              "@calc14": 6.9,
+              "@calc15": 0.14,
+              "@calc16": 332500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "Test",
+              "@calc3": "Test",
+              "@calc4": 5000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "62d866e6-8f60-430f-95d7-166c968b3f62",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South-East",
+              "@calc7": 120,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 15.3,
+              "@calc10": 20,
+              "@calc11": 18.4,
+              "@calc12": 4000,
+              "@calc13": 48000,
+              "@calc14": 8.1,
+              "@calc15": 0.12,
+              "@calc16": 389500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 5000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "6d7002e6-ff40-413d-ba52-eb5c1b6aef5f",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North",
+              "@calc7": 400,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 11.5,
+              "@calc10": 20,
+              "@calc11": 13.8,
+              "@calc12": 4000,
+              "@calc13": 48000,
+              "@calc14": 6.9,
+              "@calc15": 0.14,
+              "@calc16": 332500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "Test",
+              "@calc3": "Test",
+              "@calc4": 5000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "a887daa9-d453-482b-9e7b-ef6e9d93a057",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "South-East",
+              "@calc7": 120,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 15.3,
+              "@calc10": 20,
+              "@calc11": 18.4,
+              "@calc12": 4000,
+              "@calc13": 48000,
+              "@calc14": 8.1,
+              "@calc15": 0.12,
+              "@calc16": 389500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 5000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "1723cc39-c1a3-480a-825c-86fdc65ba458",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Dayyaan - Cape Town, Western Cape"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Cape Town, Western Cape",
+              "@calc6": "East",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 6.3,
+              "@calc10": 10,
+              "@calc11": 7.6,
+              "@calc12": 2000,
+              "@calc13": 24000,
+              "@calc14": 7.3,
+              "@calc15": 0.14,
+              "@calc16": 174500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Dayyaan",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "dayyaanwilliams4@gmail.com",
+              "@calc3": "0826896918",
+              "@calc4": 2500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "134a3647-d1cd-4be2-88af-796fb84c0869",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Dayyaan - Cape Town, Western Cape"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Cape Town, Western Cape",
+              "@calc6": "East",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 6.3,
+              "@calc10": 10,
+              "@calc11": 7.6,
+              "@calc12": 2000,
+              "@calc13": 24000,
+              "@calc14": 7.3,
+              "@calc15": 0.14,
+              "@calc16": 174500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Dayyaan",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "dayyaanwilliams4@gmail.com",
+              "@calc3": "0826896918",
+              "@calc4": 2500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "11e3b777-8550-4a68-9dff-be239fa5a742",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-West",
+              "@calc7": 50,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 4.8,
+              "@calc10": 8,
+              "@calc11": 5.8,
+              "@calc12": 1600,
+              "@calc13": 19200,
+              "@calc14": 7.1,
+              "@calc15": 0.14,
+              "@calc16": 136000,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 2000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "2f01bfc8-7ba9-4b95-9f76-aeef138788e5",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-West",
+              "@calc7": 50,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 4.8,
+              "@calc10": 8,
+              "@calc11": 5.8,
+              "@calc12": 1600,
+              "@calc13": 19200,
+              "@calc14": 7.1,
+              "@calc15": 0.14,
+              "@calc16": 136000,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 2000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "d581d7bd-edb5-4435-b929-11494b58d0da",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 7.3,
+              "@calc10": 12,
+              "@calc11": 8.8,
+              "@calc12": 2400,
+              "@calc13": 28800,
+              "@calc14": 7.1,
+              "@calc15": 0.14,
+              "@calc16": 205500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "tedst",
+              "@calc3": "test",
+              "@calc4": 3000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "9968a70c-0c2d-405c-8fcb-b2a5f15b46fc",
+            "text": {
+              "ops": [
+                {
+                  "insert": "test - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 7.3,
+              "@calc10": 12,
+              "@calc11": 8.8,
+              "@calc12": 2400,
+              "@calc13": 28800,
+              "@calc14": 7.1,
+              "@calc15": 0.14,
+              "@calc16": 205500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "tedst",
+              "@calc3": "test",
+              "@calc4": 3000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "81fc5ab7-1414-4ff4-91ce-b9df32d79a4e",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Voluptas aut quo est - Alias delectus at s"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Alias delectus at s",
+              "@calc6": "South",
+              "@calc7": 38,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 0.3,
+              "@calc10": 0.8,
+              "@calc11": 0.4,
+              "@calc12": 63,
+              "@calc13": 756,
+              "@calc14": 14.4,
+              "@calc15": 0.07,
+              "@calc16": 10900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "rental"
+              },
+              "@calc1": "Voluptas aut quo est",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "jezaredu@mailinator.com",
+              "@calc3": "+1 (377) 998-4281",
+              "@calc4": 79
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "0ffbe684-a63a-4c20-9638-c8042a017288",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Voluptas aut quo est - Alias delectus at s"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Alias delectus at s",
+              "@calc6": "South",
+              "@calc7": 38,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 0.3,
+              "@calc10": 0.8,
+              "@calc11": 0.4,
+              "@calc12": 63,
+              "@calc13": 756,
+              "@calc14": 14.4,
+              "@calc15": 0.07,
+              "@calc16": 10900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "rental"
+              },
+              "@calc1": "Voluptas aut quo est",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "jezaredu@mailinator.com",
+              "@calc3": "+1 (377) 998-4281",
+              "@calc4": 79
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "1a4eaa8f-d254-4474-97b8-31bd41d113cc",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Voluptas aut quo est - Alias delectus at s"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Alias delectus at s",
+              "@calc6": "South",
+              "@calc7": 38,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 0.3,
+              "@calc10": 0.8,
+              "@calc11": 0.4,
+              "@calc12": 63,
+              "@calc13": 756,
+              "@calc14": 14.4,
+              "@calc15": 0.07,
+              "@calc16": 10900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "rental"
+              },
+              "@calc1": "Voluptas aut quo est",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "jezaredu@mailinator.com",
+              "@calc3": "+1 (377) 998-4281",
+              "@calc4": 79
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "d3872006-e45a-4648-9c73-96b22b6a10ba",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sunt aliquam aut la - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "",
+              "@calc7": 0,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 9.5,
+              "@calc10": 23.3,
+              "@calc11": 11.4,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 9.8,
+              "@calc15": 0.1,
+              "@calc16": 328900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sunt aliquam aut la",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nabakih@mailinator.com",
+              "@calc3": "1234566",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "740a0a1c-fbc1-4c48-8e60-947b81776356",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sunt aliquam aut la - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 1500,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 8.5,
+              "@calc10": 23.3,
+              "@calc11": 10.2,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 9.3,
+              "@calc15": 0.11,
+              "@calc16": 313900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sunt aliquam aut la",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nabakih@mailinator.com",
+              "@calc3": "1234566",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "a165c1fe-956e-4c92-8f96-04535c12bd4f",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sunt aliquam aut la - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 1500,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 8.5,
+              "@calc10": 23.3,
+              "@calc11": 10.2,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 9.3,
+              "@calc15": 0.11,
+              "@calc16": 313900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sunt aliquam aut la",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nabakih@mailinator.com",
+              "@calc3": "1234566",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "527528cf-a6d4-400d-9df7-a4bf57c399fb",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sunt aliquam aut la - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 1500,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 8.5,
+              "@calc10": 23.3,
+              "@calc11": 10.2,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 9.3,
+              "@calc15": 0.11,
+              "@calc16": 313900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sunt aliquam aut la",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nabakih@mailinator.com",
+              "@calc3": "1234566",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "966673e0-e0be-4b7b-bd6f-f797a33f7221",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sunt aliquam aut la - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 304,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 8.5,
+              "@calc10": 23.3,
+              "@calc11": 10.2,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 9.3,
+              "@calc15": 0.11,
+              "@calc16": 313900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sunt aliquam aut la",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nabakih@mailinator.com",
+              "@calc3": "1234566",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "c14aed29-f1ac-4b60-93cb-a73bad5fa99a",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sunt aliquam aut la - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 304,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 8.5,
+              "@calc10": 23.3,
+              "@calc11": 10.2,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 9.3,
+              "@calc15": 0.11,
+              "@calc16": 313900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sunt aliquam aut la",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nabakih@mailinator.com",
+              "@calc3": "1234566",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "78fb3470-9bb3-4557-972b-b5f37f946a4f",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sunt aliquam aut la - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 304,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 8.5,
+              "@calc10": 23.3,
+              "@calc11": 10.2,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 9.3,
+              "@calc15": 0.11,
+              "@calc16": 313900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sunt aliquam aut la",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nabakih@mailinator.com",
+              "@calc3": "1234566",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "031b4a7c-7398-4f45-9af1-4a9dcda9f837",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Sunt aliquam aut la - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-East",
+              "@calc7": 304,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "medium"
+              },
+              "@calc9": 8.5,
+              "@calc10": 23.3,
+              "@calc11": 10.2,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 9.3,
+              "@calc15": 0.11,
+              "@calc16": 313900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Sunt aliquam aut la",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nabakih@mailinator.com",
+              "@calc3": "1234566",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "1328d074-b047-465e-8edf-84973300e9e6",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Aut ullam repellendu - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "",
+              "@calc7": 0,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 9.5,
+              "@calc10": 37.3,
+              "@calc11": 11.4,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 13.1,
+              "@calc15": 0.08,
+              "@calc16": 440900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Aut ullam repellendu",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nohi@mailinator.com",
+              "@calc3": "123456789",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "dced17e3-cb36-483e-be34-9f6112c38b9c",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Aut ullam repellendu - Johannesburg, Gauteng"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "@calc5": "Johannesburg, Gauteng",
+              "@calc6": "North-West",
+              "@calc7": 305,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "high"
+              },
+              "@calc9": 8.5,
+              "@calc10": 37.3,
+              "@calc11": 10.2,
+              "@calc12": 2800,
+              "@calc13": 33600,
+              "@calc14": 12.7,
+              "@calc15": 0.08,
+              "@calc16": 425900,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Aut ullam repellendu",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "nohi@mailinator.com",
+              "@calc3": "123456789",
+              "@calc4": 3500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "0f207519-1f83-4c09-8a50-0765d5dbe19f",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Quote Request - Customer - 9/19/2025"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "note": {
+                "type": "text/markdown",
+                "value": "Quote request with selected products. Total: R146,740 "
+              },
+              "@calc5": "Johannesburg",
+              "@calc6": "north",
+              "@calc7": 35,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 3.4,
+              "@calc10": 6,
+              "@calc11": 4.1,
+              "@calc12": 1200,
+              "@calc13": 14400,
+              "@calc14": 6.9,
+              "@calc15": 0.14,
+              "@calc16": 146740,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "Anonymous Customer",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "",
+              "@calc3": "",
+              "@calc4": 1500
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "7c92cfcd-3fd0-41fb-96be-c82c34352f42",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Quote Request - test - 19/09/2025"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "note": {
+                "type": "text/markdown",
+                "value": "Auto-saved calculation on 2025-09-19T17:47:32.501Z"
+              },
+              "@calc5": "Johannesburg",
+              "@calc6": "north",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 12.5,
+              "@calc10": 28,
+              "@calc11": 15,
+              "@calc12": 5600,
+              "@calc13": 67200,
+              "@calc14": 6.1,
+              "@calc15": 0.16,
+              "@calc16": 411500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "tes",
+              "@calc3": "546546",
+              "@calc4": 7000
+            },
+            "children": []
+          },
+          {
+            "type": "text",
+            "id": "51d6b212-3d68-472a-9295-4e4b4d9e4451",
+            "text": {
+              "ops": [
+                {
+                  "insert": "Quote Request - test - 24/09/2025"
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": null,
+            "collapsed": false,
+            "completed": false,
+            "attributes": {
+              "note": {
+                "type": "text/markdown",
+                "value": "Auto-saved calculation on 2025-09-24T12:01:22.921Z"
+              },
+              "@calc5": "Middelburg",
+              "@calc6": "north",
+              "@calc7": 100,
+              "@calc8": {
+                "type": "Select",
+                "optionId": "low"
+              },
+              "@calc9": 12.5,
+              "@calc10": 28,
+              "@calc11": 15,
+              "@calc12": 5600,
+              "@calc13": 67200,
+              "@calc14": 6.1,
+              "@calc15": 0.16,
+              "@calc16": 411500,
+              "@calc17": {
+                "type": "Select",
+                "optionId": "freehold"
+              },
+              "@calc1": "test",
+              "@calc18": {
+                "type": "Select",
+                "optionId": "quote"
+              },
+              "@calc2": "test",
+              "@calc3": "test",
+              "@calc4": 7000
+            },
+            "children": []
+          }
+        ]
+      }
+    ],
+    "views": {
+      "table": {
+        "id": "table",
+        "type": "table",
+        "rank": "V",
+        "columns": {
+          "/text": {
+            "id": "/text",
+            "fieldPath": "/text",
+            "rank": "7",
+            "width": 480
+          },
+          "/attributes/agent": {
+            "id": "/attributes/agent",
+            "fieldPath": "/attributes/agent",
+            "rank": "A",
+            "hidden": true
+          },
+          "/attributes/date": {
+            "id": "/attributes/date",
+            "fieldPath": "/attributes/date",
+            "rank": "F"
+          },
+          "/attributes/assignee": {
+            "id": "/attributes/assignee",
+            "fieldPath": "/attributes/assignee",
+            "rank": "N"
+          },
+          "/attributes/comment": {
+            "id": "/attributes/comment",
+            "fieldPath": "/attributes/comment",
+            "rank": "V",
+            "hidden": true
+          },
+          "/attributes/reaction": {
+            "id": "/attributes/reaction",
+            "fieldPath": "/attributes/reaction",
+            "rank": "c",
+            "hidden": true
+          },
+          "/attributes/timer": {
+            "id": "/attributes/timer",
+            "fieldPath": "/attributes/timer",
+            "rank": "k",
+            "hidden": true
+          },
+          "/attributes/media": {
+            "id": "/attributes/media",
+            "fieldPath": "/attributes/media",
+            "rank": "s",
+            "hidden": true
+          },
+          "/attributes/created/at": {
+            "id": "/attributes/created/at",
+            "fieldPath": "/attributes/created/at",
+            "rank": "t",
+            "hidden": true
+          },
+          "/attributes/created/by": {
+            "id": "/attributes/created/by",
+            "fieldPath": "/attributes/created/by",
+            "rank": "u",
+            "hidden": true
+          },
+          "/attributes/updated/at": {
+            "id": "/attributes/updated/at",
+            "fieldPath": "/attributes/updated/at",
+            "rank": "vF",
+            "hidden": true
+          },
+          "/attributes/updated/by": {
+            "id": "/attributes/updated/by",
+            "fieldPath": "/attributes/updated/by",
+            "rank": "wF",
+            "hidden": true
+          },
+          "/attributes/completed/at": {
+            "id": "/attributes/completed/at",
+            "fieldPath": "/attributes/completed/at",
+            "rank": "x",
+            "hidden": true
+          },
+          "/attributes/completed/by": {
+            "id": "/attributes/completed/by",
+            "fieldPath": "/attributes/completed/by",
+            "rank": "y",
+            "hidden": true
+          },
+          "/attributes/@calc1": {
+            "id": "/attributes/@calc1",
+            "fieldPath": "/attributes/@calc1",
+            "rank": "z",
+            "hidden": false
+          },
+          "/attributes/@calc2": {
+            "id": "/attributes/@calc2",
+            "fieldPath": "/attributes/@calc2",
+            "rank": "zV",
+            "hidden": false
+          },
+          "/attributes/@calc3": {
+            "id": "/attributes/@calc3",
+            "fieldPath": "/attributes/@calc3",
+            "rank": "zk",
+            "width": 285,
+            "hidden": false
+          },
+          "/attributes/@calc4": {
+            "id": "/attributes/@calc4",
+            "fieldPath": "/attributes/@calc4",
+            "rank": "zs",
+            "hidden": false
+          },
+          "/attributes/@calc5": {
+            "id": "/attributes/@calc5",
+            "fieldPath": "/attributes/@calc5",
+            "rank": "zw",
+            "hidden": false
+          },
+          "/attributes/@calc6": {
+            "id": "/attributes/@calc6",
+            "fieldPath": "/attributes/@calc6",
+            "rank": "zy",
+            "hidden": false
+          },
+          "/attributes/@calc7": {
+            "id": "/attributes/@calc7",
+            "fieldPath": "/attributes/@calc7",
+            "rank": "zz",
+            "hidden": false
+          },
+          "/attributes/@calc8": {
+            "id": "/attributes/@calc8",
+            "fieldPath": "/attributes/@calc8",
+            "rank": "zzV",
+            "hidden": false
+          },
+          "/attributes/@calc9": {
+            "id": "/attributes/@calc9",
+            "fieldPath": "/attributes/@calc9",
+            "rank": "zzk",
+            "width": 250,
+            "hidden": false
+          },
+          "/attributes/@calc10": {
+            "id": "/attributes/@calc10",
+            "fieldPath": "/attributes/@calc10",
+            "rank": "zzs",
+            "hidden": false
+          },
+          "/attributes/@calc11": {
+            "id": "/attributes/@calc11",
+            "fieldPath": "/attributes/@calc11",
+            "rank": "zzw",
+            "hidden": false
+          },
+          "/attributes/@calc12": {
+            "id": "/attributes/@calc12",
+            "fieldPath": "/attributes/@calc12",
+            "rank": "zzy",
+            "width": 301,
+            "hidden": false
+          },
+          "/attributes/@calc13": {
+            "id": "/attributes/@calc13",
+            "fieldPath": "/attributes/@calc13",
+            "rank": "zzz",
+            "hidden": false
+          },
+          "/attributes/@calc14": {
+            "id": "/attributes/@calc14",
+            "fieldPath": "/attributes/@calc14",
+            "rank": "zzzV",
+            "hidden": false
+          },
+          "/attributes/@calc15": {
+            "id": "/attributes/@calc15",
+            "fieldPath": "/attributes/@calc15",
+            "rank": "zzzk",
+            "hidden": false
+          },
+          "/attributes/@calc16": {
+            "id": "/attributes/@calc16",
+            "fieldPath": "/attributes/@calc16",
+            "rank": "zzzs",
+            "hidden": false
+          },
+          "/attributes/@calc17": {
+            "id": "/attributes/@calc17",
+            "fieldPath": "/attributes/@calc17",
+            "rank": "zzzw",
+            "hidden": false
+          },
+          "/attributes/@calc18": {
+            "id": "/attributes/@calc18",
+            "fieldPath": "/attributes/@calc18",
+            "rank": "zzzy",
+            "hidden": false
+          }
+        }
+      }
+    },
+    "fields": {
+      "@calc5": {
+        "type": "string",
+        "displayName": "Location"
+      },
+      "@calc6": {
+        "type": "string",
+        "displayName": "Roof Orientation"
+      },
+      "@calc7": {
+        "type": "number",
+        "displayName": "Roof Size (m²)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "decimal"
+        }
+      },
+      "@calc8": {
+        "type": "Select",
+        "displayName": "Load-shedding Frequency",
+        "options": {
+          "low": {
+            "id": "low",
+            "name": "Low (1-2 times/week)",
+            "color": "#10b981",
+            "rank": "0"
+          },
+          "medium": {
+            "id": "medium",
+            "name": "Medium (3-4 times/week)",
+            "color": "#f59e0b",
+            "rank": "1"
+          },
+          "high": {
+            "id": "high",
+            "name": "High (Daily)",
+            "color": "#ef4444",
+            "rank": "2"
+          }
+        }
+      },
+      "@calc9": {
+        "type": "number",
+        "displayName": "Recommended System Size (kWp)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "decimal"
+        }
+      },
+      "@calc10": {
+        "type": "number",
+        "displayName": "Battery Size (kWh)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "decimal"
+        }
+      },
+      "@calc11": {
+        "type": "number",
+        "displayName": "Inverter Size (kW)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "decimal"
+        }
+      },
+      "@calc12": {
+        "type": "number",
+        "displayName": "Estimated Monthly Savings (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@calc13": {
+        "type": "number",
+        "displayName": "Estimated Annual Savings (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@calc14": {
+        "type": "number",
+        "displayName": "Payback Period (Years)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "decimal"
+        }
+      },
+      "@calc15": {
+        "type": "number",
+        "displayName": "ROI (%)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "unit",
+          "config": {
+            "type": "standard",
+            "unit": "percent"
+          }
+        }
+      },
+      "@calc16": {
+        "type": "number",
+        "displayName": "Total System Cost (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@calc17": {
+        "type": "Select",
+        "displayName": "Property Type",
+        "options": {
+          "freehold": {
+            "id": "freehold",
+            "name": "Freehold",
+            "color": "#10b981",
+            "rank": "0"
+          },
+          "sectional": {
+            "id": "sectional",
+            "name": "Sectional Title/Complex",
+            "color": "#3b82f6",
+            "rank": "1"
+          },
+          "rental": {
+            "id": "rental",
+            "name": "Rental Property",
+            "color": "#f59e0b",
+            "rank": "2"
+          }
+        }
+      },
+      "@calc1": {
+        "type": "string",
+        "displayName": "User Name"
+      },
+      "@calc18": {
+        "type": "Select",
+        "displayName": "Status",
+        "options": {
+          "quote": {
+            "id": "quote",
+            "name": "Quote Requested",
+            "color": "#3b82f6",
+            "rank": "0"
+          },
+          "approved": {
+            "id": "approved",
+            "name": "HOA Approved",
+            "color": "#10b981",
+            "rank": "1"
+          },
+          "installed": {
+            "id": "installed",
+            "name": "Installed",
+            "color": "#059669",
+            "rank": "2"
+          },
+          "pending": {
+            "id": "pending",
+            "name": "Pending Approval",
+            "color": "#f59e0b",
+            "rank": "3"
+          }
+        }
+      },
+      "@calc2": {
+        "type": "string",
+        "displayName": "Email"
+      },
+      "@calc3": {
+        "type": "string",
+        "displayName": "Phone"
+      },
+      "@calc4": {
+        "type": "number",
+        "displayName": "Monthly Bill (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      }
+    }
+  },
+  "preferences": {
+    "defaultView": "table"
+  }
+}

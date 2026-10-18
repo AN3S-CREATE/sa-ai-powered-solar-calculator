@@ -1,0 +1,8 @@
+{
+  "version": "2",
+  "flowTitle": "Test Real AI Processing",
+  "trigger": {
+    "type": "EMPTY"
+  },
+  "actions": []
+}

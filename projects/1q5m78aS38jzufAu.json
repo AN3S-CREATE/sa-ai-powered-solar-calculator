@@ -1,0 +1,1000 @@
+{
+  "root": {
+    "type": "root",
+    "children": [
+      {
+        "type": "text",
+        "id": "550e8400-e29b-41d4-a716-446655440300",
+        "text": {
+          "ops": [
+            {
+              "insert": "Solar Component Pricing Database"
+            },
+            {
+              "insert": "\n",
+              "attributes": {
+                "paragraph": true
+              }
+            }
+          ]
+        },
+        "format": null,
+        "collapsed": false,
+        "completed": false,
+        "children": [
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440301",
+            "text": {
+              "ops": [
+                {
+                  "insert": "🔋 SOLAR PANELS",
+                  "attributes": {
+                    "bold": true
+                  }
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": [
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440302",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Tier 1 Monocrystalline 450W - Premium",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Supplier Name Here",
+                  "@cost2": "Solar Panel",
+                  "@cost3": "450W Monocrystalline",
+                  "@cost4": 1200,
+                  "@cost5": "per panel",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.35,
+                  "@cost8": 1620,
+                  "@cost9": "Premium tier - 25 year warranty"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440303",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Standard Monocrystalline 400W - Mid-tier",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Supplier Name Here",
+                  "@cost2": "Solar Panel",
+                  "@cost3": "400W Monocrystalline",
+                  "@cost4": 950,
+                  "@cost5": "per panel",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.3,
+                  "@cost8": 1235,
+                  "@cost9": "Standard tier - 20 year warranty"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440304",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Budget Polycrystalline 350W - Entry level",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Supplier Name Here",
+                  "@cost2": "Solar Panel",
+                  "@cost3": "350W Polycrystalline",
+                  "@cost4": 750,
+                  "@cost5": "per panel",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.25,
+                  "@cost8": 938,
+                  "@cost9": "Budget option - 15 year warranty"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440305",
+            "text": {
+              "ops": [
+                {
+                  "insert": "🔋 LITHIUM BATTERIES",
+                  "attributes": {
+                    "bold": true
+                  }
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": [
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440306",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Pylontech US3000C - 3.5kWh",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Battery Supplier",
+                  "@cost2": "Lithium Battery",
+                  "@cost3": "Pylontech US3000C",
+                  "@cost4": 28000,
+                  "@cost5": "per unit (3.5kWh)",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.25,
+                  "@cost8": 35000,
+                  "@cost9": "Stackable, 6000 cycles, 10yr warranty"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440307",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "BlueNova BN52V-108-5.4k - 5.4kWh",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Battery Supplier",
+                  "@cost2": "Lithium Battery",
+                  "@cost3": "BlueNova BN52V-108",
+                  "@cost4": 42000,
+                  "@cost5": "per unit (5.4kWh)",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.28,
+                  "@cost8": 53760,
+                  "@cost9": "South African made, 8000 cycles"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440308",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Hubble AM-5 - 5.5kWh",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Battery Supplier",
+                  "@cost2": "Lithium Battery",
+                  "@cost3": "Hubble AM-5",
+                  "@cost4": 38000,
+                  "@cost5": "per unit (5.5kWh)",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.3,
+                  "@cost8": 49400,
+                  "@cost9": "Modular design, 6000+ cycles"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440309",
+            "text": {
+              "ops": [
+                {
+                  "insert": "⚡ INVERTERS",
+                  "attributes": {
+                    "bold": true
+                  }
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": [
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440310",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "SolarEdge SE5000H - 5kW Hybrid",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Inverter Supplier",
+                  "@cost2": "Hybrid Inverter",
+                  "@cost3": "SolarEdge SE5000H",
+                  "@cost4": 45000,
+                  "@cost5": "per unit (5kW)",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.25,
+                  "@cost8": 56250,
+                  "@cost9": "Premium brand, 12yr warranty, monitoring"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440311",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Fronius Primo GEN24 8.0 Plus - 8kW",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Inverter Supplier",
+                  "@cost2": "Hybrid Inverter",
+                  "@cost3": "Fronius Primo GEN24 8.0",
+                  "@cost4": 65000,
+                  "@cost5": "per unit (8kW)",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.22,
+                  "@cost8": 79300,
+                  "@cost9": "Austrian quality, emergency power, 10yr warranty"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440312",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Sunsynk 8kW Hybrid - Budget Option",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Inverter Supplier",
+                  "@cost2": "Hybrid Inverter",
+                  "@cost3": "Sunsynk 8kW",
+                  "@cost4": 28000,
+                  "@cost5": "per unit (8kW)",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.35,
+                  "@cost8": 37800,
+                  "@cost9": "Good value, 5yr warranty, local support"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440313",
+            "text": {
+              "ops": [
+                {
+                  "insert": "🔧 INSTALLATION & LABOR",
+                  "attributes": {
+                    "bold": true
+                  }
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": [
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440314",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Electrical Installation - Certified Electrician",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Installation Team",
+                  "@cost2": "Labor",
+                  "@cost3": "Electrical Work",
+                  "@cost4": 8000,
+                  "@cost5": "per day",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.2,
+                  "@cost8": 9600,
+                  "@cost9": "Certified electrician, COC included"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440315",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Roof Mounting & Panel Installation",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Installation Team",
+                  "@cost2": "Labor",
+                  "@cost3": "Roof Installation",
+                  "@cost4": 6000,
+                  "@cost5": "per day",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.25,
+                  "@cost8": 7500,
+                  "@cost9": "Roof work, mounting rails, panel installation"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440316",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Permits & Documentation",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Admin/Legal",
+                  "@cost2": "Permits",
+                  "@cost3": "Municipal & Eskom",
+                  "@cost4": 3500,
+                  "@cost5": "per project",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.15,
+                  "@cost8": 4025,
+                  "@cost9": "Municipal approval, Eskom application, SSEG"
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "id": "550e8400-e29b-41d4-a716-446655440317",
+            "text": {
+              "ops": [
+                {
+                  "insert": "📊 OVERHEAD COSTS",
+                  "attributes": {
+                    "bold": true
+                  }
+                },
+                {
+                  "insert": "\n",
+                  "attributes": {
+                    "paragraph": true
+                  }
+                }
+              ]
+            },
+            "format": {
+              "node": "h1",
+              "children": null
+            },
+            "collapsed": false,
+            "completed": false,
+            "children": [
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440318",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Monthly Business Overhead",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Business",
+                  "@cost2": "Overhead",
+                  "@cost3": "Monthly Fixed Costs",
+                  "@cost4": 45000,
+                  "@cost5": "per month",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0,
+                  "@cost8": 45000,
+                  "@cost9": "Office rent, insurance, salaries, utilities"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440319",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Transport & Logistics",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Logistics",
+                  "@cost2": "Transport",
+                  "@cost3": "Delivery & Site Visits",
+                  "@cost4": 2500,
+                  "@cost5": "per project",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0.1,
+                  "@cost8": 2750,
+                  "@cost9": "Fuel, vehicle maintenance, delivery costs"
+                },
+                "children": []
+              },
+              {
+                "type": "text",
+                "id": "550e8400-e29b-41d4-a716-446655440320",
+                "text": {
+                  "ops": [
+                    {
+                      "insert": "Warranty & Service Reserve",
+                      "attributes": {}
+                    },
+                    {
+                      "insert": "\n",
+                      "attributes": {
+                        "paragraph": true
+                      }
+                    }
+                  ]
+                },
+                "format": {
+                  "node": "checkbox",
+                  "children": null
+                },
+                "collapsed": false,
+                "completed": false,
+                "attributes": {
+                  "@cost1": "Service",
+                  "@cost2": "Warranty",
+                  "@cost3": "Service & Maintenance",
+                  "@cost4": 5000,
+                  "@cost5": "per project",
+                  "@cost6": {
+                    "type": "DateTime",
+                    "dateTime": {
+                      "date": "2024-01-15"
+                    }
+                  },
+                  "@cost7": 0,
+                  "@cost8": 5000,
+                  "@cost9": "Future service calls, warranty claims"
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "views": {
+      "table": {
+        "id": "table",
+        "type": "table",
+        "rank": "V",
+        "columns": {
+          "/text": {
+            "id": "/text",
+            "fieldPath": "/text",
+            "rank": "7",
+            "width": 480
+          },
+          "/attributes/agent": {
+            "id": "/attributes/agent",
+            "fieldPath": "/attributes/agent",
+            "rank": "A",
+            "hidden": true
+          },
+          "/attributes/date": {
+            "id": "/attributes/date",
+            "fieldPath": "/attributes/date",
+            "rank": "F"
+          },
+          "/attributes/assignee": {
+            "id": "/attributes/assignee",
+            "fieldPath": "/attributes/assignee",
+            "rank": "N"
+          },
+          "/attributes/comment": {
+            "id": "/attributes/comment",
+            "fieldPath": "/attributes/comment",
+            "rank": "V",
+            "hidden": true
+          },
+          "/attributes/reaction": {
+            "id": "/attributes/reaction",
+            "fieldPath": "/attributes/reaction",
+            "rank": "c",
+            "hidden": true
+          },
+          "/attributes/timer": {
+            "id": "/attributes/timer",
+            "fieldPath": "/attributes/timer",
+            "rank": "k",
+            "hidden": true
+          },
+          "/attributes/media": {
+            "id": "/attributes/media",
+            "fieldPath": "/attributes/media",
+            "rank": "s",
+            "hidden": true
+          },
+          "/attributes/created/at": {
+            "id": "/attributes/created/at",
+            "fieldPath": "/attributes/created/at",
+            "rank": "t",
+            "hidden": true
+          },
+          "/attributes/created/by": {
+            "id": "/attributes/created/by",
+            "fieldPath": "/attributes/created/by",
+            "rank": "u",
+            "hidden": true
+          },
+          "/attributes/updated/at": {
+            "id": "/attributes/updated/at",
+            "fieldPath": "/attributes/updated/at",
+            "rank": "vF",
+            "hidden": true
+          },
+          "/attributes/updated/by": {
+            "id": "/attributes/updated/by",
+            "fieldPath": "/attributes/updated/by",
+            "rank": "wF",
+            "hidden": true
+          },
+          "/attributes/completed/at": {
+            "id": "/attributes/completed/at",
+            "fieldPath": "/attributes/completed/at",
+            "rank": "x",
+            "hidden": true
+          },
+          "/attributes/completed/by": {
+            "id": "/attributes/completed/by",
+            "fieldPath": "/attributes/completed/by",
+            "rank": "y",
+            "hidden": true
+          },
+          "/attributes/@cost1": {
+            "id": "/attributes/@cost1",
+            "fieldPath": "/attributes/@cost1",
+            "rank": "z",
+            "hidden": false
+          },
+          "/attributes/@cost2": {
+            "id": "/attributes/@cost2",
+            "fieldPath": "/attributes/@cost2",
+            "rank": "zV",
+            "hidden": false
+          },
+          "/attributes/@cost3": {
+            "id": "/attributes/@cost3",
+            "fieldPath": "/attributes/@cost3",
+            "rank": "zk",
+            "hidden": false
+          },
+          "/attributes/@cost4": {
+            "id": "/attributes/@cost4",
+            "fieldPath": "/attributes/@cost4",
+            "rank": "zs",
+            "hidden": false
+          },
+          "/attributes/@cost5": {
+            "id": "/attributes/@cost5",
+            "fieldPath": "/attributes/@cost5",
+            "rank": "zw",
+            "hidden": false
+          },
+          "/attributes/@cost6": {
+            "id": "/attributes/@cost6",
+            "fieldPath": "/attributes/@cost6",
+            "rank": "zy",
+            "hidden": false
+          },
+          "/attributes/@cost7": {
+            "id": "/attributes/@cost7",
+            "fieldPath": "/attributes/@cost7",
+            "rank": "zz",
+            "hidden": false
+          },
+          "/attributes/@cost8": {
+            "id": "/attributes/@cost8",
+            "fieldPath": "/attributes/@cost8",
+            "rank": "zzV",
+            "hidden": false
+          },
+          "/attributes/@cost9": {
+            "id": "/attributes/@cost9",
+            "fieldPath": "/attributes/@cost9",
+            "rank": "zzk",
+            "hidden": false
+          }
+        }
+      }
+    },
+    "fields": {
+      "@cost1": {
+        "type": "string",
+        "displayName": "Supplier Name"
+      },
+      "@cost2": {
+        "type": "string",
+        "displayName": "Product Category"
+      },
+      "@cost3": {
+        "type": "string",
+        "displayName": "Product Model"
+      },
+      "@cost4": {
+        "type": "number",
+        "displayName": "Unit Cost (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@cost5": {
+        "type": "string",
+        "displayName": "Unit Type"
+      },
+      "@cost6": {
+        "type": "DateTime",
+        "title": "Last Updated"
+      },
+      "@cost7": {
+        "type": "number",
+        "displayName": "Markup %",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "unit",
+          "config": {
+            "type": "standard",
+            "unit": "percent"
+          }
+        }
+      },
+      "@cost8": {
+        "type": "number",
+        "displayName": "Final Price (ZAR)",
+        "render": {
+          "type": "text"
+        },
+        "format": {
+          "type": "currency",
+          "config": {
+            "type": "standard",
+            "code": "ZAR"
+          }
+        }
+      },
+      "@cost9": {
+        "type": "string",
+        "displayName": "Notes"
+      }
+    }
+  },
+  "preferences": {
+    "defaultView": "table"
+  }
+}
