@@ -1,12 +1,12 @@
 {
   "image": "",
   "robots": "index",
-  "siteName": "Geologix IO Energy",
-  "pageTitle": "Geologix IO Energy | Intelligent Operations Solar & Hybrid Energy Intelligence Calculator",
+  "siteName": "AN3S Solar Intelligence",
+  "pageTitle": "AN3S Solar Intelligence | Offline Solar Planning",
   "watermark": "none",
-  "description": "A living app built with Taskade Genesis. One prompt, one app. Projects remember, agents learn, and workflows move.",
-  "darkThemeColor": "",
-  "lightThemeColor": "",
-  "useCustomColors": false,
-  "siteTwitterHandle": "@GeologixIOEnergy"
+  "description": "Private, offline-first solar planning and quotation intelligence for South African homes and businesses.",
+  "darkThemeColor": "#03041d",
+  "lightThemeColor": "#03041d",
+  "useCustomColors": true,
+  "siteTwitterHandle": ""
 }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowLeft, Battery, Zap, Sun, Shield, Star, Check, Info, Calculator, ShoppingCart, CreditCard, Mail, Phone, DollarSign, Calendar } from 'lucide-react';
+import { ArrowLeft, Battery, Zap, Sun, Shield, Check, Calculator, CreditCard, Mail } from 'lucide-react';
 import { CalculatorResults, CalculatorData } from '../App';
+import { createNode } from '../lib/genesis-data/client';
+import BrandHeader from './BrandHeader';
 
 interface ProductRecommendationsProps {
   results: CalculatorResults;
@@ -401,20 +403,8 @@ Please contact the customer to provide a detailed quote and schedule a site asse
 Generated on: ${new Date().toLocaleString()}
       `.trim();
 
-      // Create mailto link
-      const mailtoLink = `mailto:sales@iogreenenergy.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-      
-      // Open email client
-      window.open(mailtoLink);
-      
-      // Also save to database
-      await fetch('/api/taskade/projects/aCGbHMAbWUZzTmna/nodes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          '/text': `Quote Request - Customer - ${new Date().toLocaleDateString()}`,
+      await createNode('aCGbHMAbWUZzTmna', {
+          Name: `Quote Request - Customer - ${new Date().toLocaleDateString('en-ZA')}`,
           '/attributes/@calc1': 'Anonymous Customer',
           '/attributes/@calc2': '',
           '/attributes/@calc3': '',
@@ -434,16 +424,48 @@ Generated on: ${new Date().toLocaleString()}
           '/attributes/@calc17': calculatorData.propertyType,
           '/attributes/@calc18': 'quote',
           '/attributes/note': `Quote request with selected products. Total: R${pricing.total.toLocaleString()} ${financingDetails ? `| Financing: ${financingDetails.name}` : ''}`
-        }),
       });
 
-      alert('Quote request sent successfully! Our sales team will contact you within 24 hours.');
+      try {
+        await navigator.clipboard.writeText(`${emailSubject}\n\n${emailBody}`);
+      } catch {
+        // Clipboard access is optional; the local quote record is already persisted.
+      }
+
+      alert('Quote request saved locally. A copy-ready summary was placed on the clipboard when browser permissions allowed it.');
       
     } catch (error) {
       console.error('Error sending quote request:', error);
-      alert('There was an error sending your quote request. Please try again or contact us directly at sales@iogreenenergy.com');
+      alert('The local quote request could not be saved. Please export your workspace data and try again.');
     } finally {
       setIsSubmittingQuote(false);
+    }
+  };
+
+  const handleSaveConfiguration = async () => {
+    try {
+      const summary = selectedProducts
+        .map((selected) => {
+          const product = products.find((candidate) => candidate.id === selected.productId);
+          return `${product?.brand ?? ''} ${product?.name ?? selected.productId} x${selected.quantity}`.trim();
+        })
+        .join('; ');
+      await createNode('aCGbHMAbWUZzTmna', {
+        Name: `Saved Configuration - ${new Date().toLocaleDateString('en-ZA')}`,
+        '/attributes/@calc4': calculatorData.monthlyBill,
+        '/attributes/@calc5': calculatorData.location,
+        '/attributes/@calc9': results.systemSize,
+        '/attributes/@calc10': results.batterySize,
+        '/attributes/@calc11': results.inverterSize,
+        '/attributes/@calc16': pricing.total,
+        '/attributes/@calc17': calculatorData.propertyType,
+        '/attributes/@calc18': 'saved-configuration',
+        '/attributes/note': summary,
+      });
+      window.alert('Configuration saved to the local workspace.');
+    } catch (error) {
+      console.error('[RUNTIME:DATA] Configuration save failed.', error);
+      window.alert('The configuration could not be saved locally.');
     }
   };
 
@@ -458,164 +480,161 @@ Generated on: ${new Date().toLocaleString()}
     else if (product.type === 'inverter') recommendedQuantity = recommendations.inverters;
 
     return (
-      <div 
-        className={`bg-[#333333]/80 backdrop-blur-sm rounded-2xl border transition-all duration-300 ${
-          isSelected 
-            ? 'border-[#D4FF00]/50 shadow-lg shadow-[#D4FF00]/20' 
-            : 'border-[#333333] hover:border-[#D4FF00]/30'
-        } ${product.recommended ? 'ring-2 ring-[#D4FF00]/30' : ''}`}
+      <article
+        className={`an3s-panel transition duration-base hover:-translate-y-0.5 hover:shadow-glow-cyan ${
+          isSelected ? 'ring-2 ring-cyan/50' : ''
+        }`}
+        data-tone={product.recommended ? 'pink' : 'blue'}
       >
         {product.recommended && (
-          <div className="bg-[#D4FF00] text-[#1E1E1E] text-xs px-3 py-1 rounded-t-2xl text-center font-bold">
-            RECOMMENDED
-          </div>
+          <span className="an3s-panel-tab ml-5">Recommended</span>
         )}
         
-        <div className="p-6">
-          <div className="flex items-start justify-between mb-4">
+        <div className="p-5 sm:p-6">
+          <div className="mb-5 flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#D4FF00]/20 rounded-xl flex items-center justify-center">
-                <Icon className="w-5 h-5 text-[#D4FF00]" />
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center text-cyan-glow">
+                <Icon className="h-7 w-7" strokeWidth={1.5} />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">{product.name}</h3>
-                <p className="text-sm text-[#CCCCCC]">{product.brand}</p>
+                <h3 className="text-lg font-semibold text-ink">{product.name}</h3>
+                <p className="text-sm text-ink-muted">{product.brand}</p>
               </div>
             </div>
             <button
+              type="button"
               onClick={() => toggleProductSelection(product.id)}
-              className={`w-6 h-6 rounded border-2 flex items-center justify-center transition-colors ${
+              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-md border transition duration-fast ${
                 isSelected
-                  ? 'bg-[#D4FF00] border-[#D4FF00] text-[#1E1E1E]'
-                  : 'border-[#CCCCCC]/50 hover:border-[#D4FF00]'
+                  ? 'border-cyan bg-cyan-glow text-deep-space shadow-glow-cyan'
+                  : 'border-line-strong text-ink-muted hover:border-cyan hover:text-cyan-glow'
               }`}
+              aria-pressed={isSelected}
+              aria-label={`${isSelected ? 'Remove' : 'Select'} ${product.name}`}
             >
-              {isSelected && <Check className="w-4 h-4" />}
+              {isSelected && <Check className="h-5 w-5" />}
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 mb-4">
+          <div className="mb-5 grid grid-cols-2 gap-x-5 gap-y-4 border-y border-line py-4">
             <div>
-              <p className="text-xs text-[#CCCCCC]">Capacity</p>
-              <p className="text-sm font-semibold text-white">{product.capacity}</p>
+              <p className="text-xs uppercase tracking-[0.08em] text-ink-muted">Capacity</p>
+              <p className="text-sm font-semibold text-ink">{product.capacity}</p>
             </div>
             {product.efficiency && (
               <div>
-                <p className="text-xs text-[#CCCCCC]">Efficiency</p>
-                <p className="text-sm font-semibold text-white">{product.efficiency}</p>
+                <p className="text-xs uppercase tracking-[0.08em] text-ink-muted">Efficiency</p>
+                <p className="text-sm font-semibold text-ink">{product.efficiency}</p>
               </div>
             )}
             <div>
-              <p className="text-xs text-[#CCCCCC]">Warranty</p>
-              <p className="text-sm font-semibold text-white">{product.warranty}</p>
+              <p className="text-xs uppercase tracking-[0.08em] text-ink-muted">Warranty</p>
+              <p className="text-sm font-semibold text-ink">{product.warranty}</p>
             </div>
             <div>
-              <p className="text-xs text-[#CCCCCC]">Unit Price</p>
-              <p className="text-sm font-semibold text-[#D4FF00]">R{product.price.toLocaleString()}</p>
+              <p className="text-xs uppercase tracking-[0.08em] text-ink-muted">Unit price</p>
+              <p className="text-sm font-semibold text-cyan-glow">R{product.price.toLocaleString('en-ZA')}</p>
             </div>
           </div>
 
           {isSelected && (
-            <div className="mb-4 p-3 bg-[#1E1E1E] rounded-lg border border-[#D4FF00]/20">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm text-[#CCCCCC]">Quantity:</span>
+            <div className="mb-5 border-b border-line pb-5">
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <span className="text-sm text-ink-muted">Quantity</span>
                 <div className="flex items-center gap-2">
                   <button
+                    type="button"
                     onClick={() => updateProductQuantity(product.id, quantity - 1)}
-                    className="w-6 h-6 bg-[#333333] hover:bg-[#D4FF00]/20 rounded text-[#D4FF00] flex items-center justify-center"
+                    className="flex h-11 w-11 items-center justify-center rounded-md border border-line-strong text-cyan-glow hover:border-cyan"
                     disabled={quantity <= 1}
+                    aria-label={`Decrease ${product.name} quantity`}
                   >
                     -
                   </button>
-                  <span className="text-white font-medium w-8 text-center">{quantity}</span>
+                  <span className="w-8 text-center font-semibold tabular-nums text-ink">{quantity}</span>
                   <button
+                    type="button"
                     onClick={() => updateProductQuantity(product.id, quantity + 1)}
-                    className="w-6 h-6 bg-[#333333] hover:bg-[#D4FF00]/20 rounded text-[#D4FF00] flex items-center justify-center"
+                    className="flex h-11 w-11 items-center justify-center rounded-md border border-line-strong text-cyan-glow hover:border-cyan"
+                    aria-label={`Increase ${product.name} quantity`}
                   >
                     +
                   </button>
                 </div>
               </div>
               <div className="flex items-center justify-between text-sm">
-                <span className="text-[#CCCCCC]">Recommended: {recommendedQuantity}</span>
-                <span className="text-[#D4FF00] font-semibold">
-                  Total: R{(product.price * quantity).toLocaleString()}
+                <span className="text-ink-muted">Recommended: {recommendedQuantity}</span>
+                <span className="font-semibold text-cyan-glow">
+                  Total: R{(product.price * quantity).toLocaleString('en-ZA')}
                 </span>
               </div>
             </div>
           )}
 
-          <div className="mb-4">
-            <p className="text-xs text-[#CCCCCC] mb-2">Key Features</p>
-            <div className="flex flex-wrap gap-1">
-              {product.features.slice(0, 3).map((feature, index) => (
-                <span key={index} className="text-xs bg-[#333333] text-[#CCCCCC] px-2 py-1 rounded">
-                  {feature}
-                </span>
-              ))}
-              {product.features.length > 3 && (
-                <span className="text-xs text-[#CCCCCC]">+{product.features.length - 3} more</span>
-              )}
-            </div>
-          </div>
+          <p className="mb-2 text-xs uppercase tracking-[0.08em] text-ink-muted">Key features</p>
+          <ul className="divide-y divide-line text-sm text-ink-soft">
+            {product.features.map((feature) => (
+              <li key={feature} className="flex gap-2 py-2">
+                <span className="text-pink-glow" aria-hidden="true">+</span>
+                {feature}
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      </article>
     );
   };
 
   return (
-    <div className="min-h-screen bg-[#1E1E1E]">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,255,0,0.05),transparent_50%)]"></div>
-      
-      <div className="relative z-10">
-        <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-space text-ink">
+      <div className="an3s-starfield" aria-hidden="true" />
+      <BrandHeader />
+      <div className="page-content relative z-10">
+        <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14">
           {/* Header */}
-          <div className="flex items-center gap-4 mb-8">
+          <div className="mb-10 flex items-start gap-4">
             <button
+              type="button"
               onClick={onBack}
-              className="w-10 h-10 bg-[#333333]/80 hover:bg-[#333333] rounded-full flex items-center justify-center transition-colors"
+              className="an3s-action-secondary flex h-11 w-11 shrink-0 items-center justify-center"
+              aria-label="Back to calculator"
             >
-              <ArrowLeft className="w-5 h-5 text-white" />
+              <ArrowLeft className="h-5 w-5" />
             </button>
             <div>
-              <h1 className="text-3xl font-bold text-white">Product Recommendations</h1>
-              <p className="text-[#CCCCCC]">Based on your {results.systemSize}kW solar system calculation</p>
+              <div className="an3s-eyebrow mb-3">System configuration</div>
+              <h1 className="text-3xl font-extrabold text-ink sm:text-5xl">Product recommendations</h1>
+              <p className="mt-2 text-ink-muted">Based on your {results.systemSize} kW solar-system calculation.</p>
             </div>
           </div>
 
           {/* System Summary */}
-          <div className="bg-[#333333]/80 backdrop-blur-sm rounded-2xl border border-[#D4FF00]/20 p-6 mb-8">
-            <h2 className="text-xl font-semibold text-white mb-4">Your System Requirements</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+          <section className="an3s-panel mb-10" data-tone="blue">
+            <span className="an3s-panel-tab ml-5">Your system</span>
+            <div className="grid gap-0 p-6 md:grid-cols-3">
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#D4FF00]/20 rounded-xl flex items-center justify-center mx-auto mb-2">
-                  <Sun className="w-6 h-6 text-[#D4FF00]" />
-                </div>
-                <p className="text-2xl font-bold text-white">{recommendations.panels}</p>
-                <p className="text-sm text-[#CCCCCC]">Solar Panels Needed</p>
-                <p className="text-xs text-[#CCCCCC]/70">~{results.systemSize}kW total</p>
+                <Sun className="mx-auto mb-3 h-8 w-8 text-pink-glow" strokeWidth={1.5} />
+                <p className="text-3xl font-extrabold text-ink">{recommendations.panels}</p>
+                <p className="text-sm text-ink-soft">Solar panels</p>
+                <p className="text-xs text-ink-muted">~{results.systemSize} kW total</p>
+              </div>
+              <div className="border-y border-line py-6 text-center md:border-x md:border-y-0 md:py-0">
+                <Battery className="mx-auto mb-3 h-8 w-8 text-violet-glow" strokeWidth={1.5} />
+                <p className="text-3xl font-extrabold text-ink">{recommendations.batteries}</p>
+                <p className="text-sm text-ink-soft">Battery units</p>
+                <p className="text-xs text-ink-muted">~{results.batterySize} kWh total</p>
               </div>
               <div className="text-center">
-                <div className="w-12 h-12 bg-[#D4FF00]/20 rounded-xl flex items-center justify-center mx-auto mb-2">
-                  <Battery className="w-6 h-6 text-[#D4FF00]" />
-                </div>
-                <p className="text-2xl font-bold text-white">{recommendations.batteries}</p>
-                <p className="text-sm text-[#CCCCCC]">Battery Units Needed</p>
-                <p className="text-xs text-[#CCCCCC]/70">~{results.batterySize}kWh total</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-[#D4FF00]/20 rounded-xl flex items-center justify-center mx-auto mb-2">
-                  <Zap className="w-6 h-6 text-[#D4FF00]" />
-                </div>
-                <p className="text-2xl font-bold text-white">{recommendations.inverters}</p>
-                <p className="text-sm text-[#CCCCCC]">Inverter Required</p>
-                <p className="text-xs text-[#CCCCCC]/70">~{results.inverterSize}kW capacity</p>
+                <Zap className="mx-auto mb-3 h-8 w-8 text-cyan-glow" strokeWidth={1.5} />
+                <p className="text-3xl font-extrabold text-ink">{recommendations.inverters}</p>
+                <p className="text-sm text-ink-soft">Inverter</p>
+                <p className="text-xs text-ink-muted">~{results.inverterSize} kW capacity</p>
               </div>
             </div>
-          </div>
+          </section>
 
           {/* Category Filter */}
-          <div className="flex gap-4 mb-8">
+          <div className="mb-8 flex gap-3 overflow-x-auto pb-2" role="group" aria-label="Product categories">
             {[
               { key: 'all', label: 'All Products', icon: Shield },
               { key: 'panel', label: 'Solar Panels', icon: Sun },
@@ -625,11 +644,12 @@ Generated on: ${new Date().toLocaleString()}
               <button
                 key={key}
                 onClick={() => setSelectedCategory(key as any)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all font-medium ${
+                className={`flex shrink-0 items-center gap-2 rounded-md border px-4 py-2 text-sm font-bold uppercase tracking-[0.08em] transition duration-fast ${
                   selectedCategory === key
-                    ? 'bg-[#D4FF00] text-[#1E1E1E]'
-                    : 'bg-[#333333]/80 text-[#CCCCCC] hover:bg-[#333333]'
+                    ? 'border-pink bg-gradient-glow text-deep-space shadow-glow-pink'
+                    : 'border-line-strong bg-panel text-ink-muted hover:border-cyan hover:text-cyan-glow'
                 }`}
+                aria-pressed={selectedCategory === key}
               >
                 <Icon className="w-4 h-4" />
                 {label}
@@ -638,7 +658,7 @@ Generated on: ${new Date().toLocaleString()}
           </div>
 
           {/* Products Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="mb-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredProducts.map(product => (
               <ProductCard key={product.id} product={product} />
             ))}
@@ -646,10 +666,10 @@ Generated on: ${new Date().toLocaleString()}
 
           {/* Pricing Summary */}
           {selectedProducts.length > 0 && (
-            <div className="bg-[#333333]/80 backdrop-blur-sm rounded-2xl border border-[#D4FF00]/20 p-6 mb-8">
+            <section className="an3s-panel mb-8 p-6" data-tone="pink">
               <div className="flex items-center gap-3 mb-6">
-                <Calculator className="w-6 h-6 text-[#D4FF00]" />
-                <h3 className="text-xl font-semibold text-white">Pricing Summary</h3>
+                <Calculator className="h-6 w-6 text-pink-glow" />
+                <h2 className="text-xl font-semibold text-ink">Pricing summary</h2>
               </div>
               
               {/* Selected Products Breakdown */}
@@ -661,15 +681,15 @@ Generated on: ${new Date().toLocaleString()}
                   const lineTotal = product.price * selectedProduct.quantity;
                   
                   return (
-                    <div key={selectedProduct.productId} className="flex items-center justify-between p-3 bg-[#1E1E1E] rounded-lg">
+                    <div key={selectedProduct.productId} className="flex items-center justify-between gap-4 border-b border-line py-3 last:border-b-0">
                       <div className="flex-1">
-                        <p className="text-white font-medium">{product.name}</p>
-                        <p className="text-sm text-[#CCCCCC]">
+                        <p className="font-medium text-ink">{product.name}</p>
+                        <p className="text-sm text-ink-muted">
                           {selectedProduct.quantity} × R{product.price.toLocaleString()}
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-[#D4FF00] font-semibold">R{lineTotal.toLocaleString()}</p>
+                        <p className="font-semibold text-cyan-glow">R{lineTotal.toLocaleString('en-ZA')}</p>
                       </div>
                     </div>
                   );
@@ -677,18 +697,18 @@ Generated on: ${new Date().toLocaleString()}
               </div>
 
               {/* Pricing Totals */}
-              <div className="border-t border-[#CCCCCC]/20 pt-4 space-y-2">
-                <div className="flex justify-between text-[#CCCCCC]">
+              <div className="space-y-2 border-t border-line pt-4">
+                <div className="flex justify-between text-ink-muted">
                   <span>Subtotal:</span>
                   <span>R{pricing.subtotal.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-[#CCCCCC]">
+                <div className="flex justify-between text-ink-muted">
                   <span>VAT (15%):</span>
                   <span>R{pricing.vat.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-xl font-bold text-white border-t border-[#CCCCCC]/20 pt-2">
+                <div className="flex justify-between border-t border-line pt-3 text-xl font-bold text-ink">
                   <span>Total (incl. VAT):</span>
-                  <span className="text-[#D4FF00]">R{pricing.total.toLocaleString()}</span>
+                  <span className="text-cyan-glow">R{pricing.total.toLocaleString('en-ZA')}</span>
                 </div>
               </div>
 
@@ -696,7 +716,7 @@ Generated on: ${new Date().toLocaleString()}
               <div className="mt-6">
                 <button
                   onClick={() => setShowFinancing(!showFinancing)}
-                  className="flex items-center gap-2 text-[#D4FF00] hover:text-[#D4FF00]/80 font-medium"
+                  className="inline-flex min-h-11 items-center gap-2 text-sm font-bold uppercase tracking-[0.12em] text-cyan-glow hover:text-cyan"
                 >
                   <CreditCard className="w-4 h-4" />
                   {showFinancing ? 'Hide' : 'View'} Financing Options
@@ -706,56 +726,56 @@ Generated on: ${new Date().toLocaleString()}
               {/* Financing Options */}
               {showFinancing && (
                 <div className="mt-6 space-y-4">
-                  <h4 className="text-lg font-semibold text-white">Financing Options</h4>
+                  <h3 className="text-lg font-semibold text-ink">Financing options</h3>
                   <div className="grid md:grid-cols-2 gap-4">
                     {financingOptions.map(option => {
                       const calc = calculateFinancing(pricing.total, option);
                       return (
                         <div
                           key={option.id}
-                          className={`p-4 border rounded-lg cursor-pointer transition-colors ${
+                          className={`cursor-pointer rounded-md border p-4 transition duration-fast ${
                             selectedFinancing === option.id
-                              ? 'border-[#D4FF00] bg-[#D4FF00]/10'
-                              : 'border-[#CCCCCC]/30 hover:border-[#CCCCCC]/50'
+                              ? 'border-cyan bg-cyan/10 shadow-glow-cyan'
+                              : 'border-line-strong hover:border-cyan/70'
                           }`}
                           onClick={() => setSelectedFinancing(option.id)}
                         >
                           <div className="flex items-center justify-between mb-2">
-                            <h5 className="font-semibold text-white">{option.name}</h5>
+                            <h4 className="font-semibold text-ink">{option.name}</h4>
                             {selectedFinancing === option.id && (
-                              <Check className="w-5 h-5 text-[#D4FF00]" />
+                              <Check className="h-5 w-5 text-cyan-glow" />
                             )}
                           </div>
-                          <p className="text-sm text-[#CCCCCC] mb-3">{option.description}</p>
+                          <p className="mb-3 text-sm text-ink-muted">{option.description}</p>
                           
                           <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
-                              <span className="text-[#CCCCCC]">Down Payment:</span>
-                              <span className="text-[#D4FF00] font-medium">R{calc.downPayment.toLocaleString()}</span>
+                              <span className="text-ink-muted">Down payment:</span>
+                              <span className="font-medium text-cyan-glow">R{calc.downPayment.toLocaleString('en-ZA')}</span>
                             </div>
                             {option.id !== 'cash' && (
                               <>
                                 <div className="flex justify-between">
-                                  <span className="text-[#CCCCCC]">Monthly Payment:</span>
-                                  <span className="text-[#D4FF00] font-medium">R{calc.monthlyPayment.toLocaleString()}</span>
+                                  <span className="text-ink-muted">Monthly payment:</span>
+                                  <span className="font-medium text-cyan-glow">R{calc.monthlyPayment.toLocaleString('en-ZA')}</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="text-[#CCCCCC]">Term:</span>
-                                  <span className="text-white">{option.termMonths} months</span>
+                                  <span className="text-ink-muted">Term:</span>
+                                  <span className="text-ink">{option.termMonths} months</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="text-[#CCCCCC]">Total Interest:</span>
-                                  <span className="text-white">R{calc.totalInterest.toLocaleString()}</span>
+                                  <span className="text-ink-muted">Total interest:</span>
+                                  <span className="text-ink">R{calc.totalInterest.toLocaleString('en-ZA')}</span>
                                 </div>
                               </>
                             )}
                           </div>
                           
-                          <div className="mt-3 pt-3 border-t border-[#CCCCCC]/20">
-                            <ul className="text-xs text-[#CCCCCC] space-y-1">
+                          <div className="mt-3 border-t border-line pt-3">
+                            <ul className="space-y-1 text-xs text-ink-muted">
                               {option.features.map((feature, index) => (
                                 <li key={index} className="flex items-center">
-                                  <Check className="w-3 h-3 text-[#D4FF00] mr-1" />
+                                  <Check className="mr-1 h-3 w-3 text-cyan-glow" />
                                   {feature}
                                 </li>
                               ))}
@@ -773,45 +793,35 @@ Generated on: ${new Date().toLocaleString()}
                 <button 
                   onClick={handleRequestQuote}
                   disabled={isSubmittingQuote}
-                  className="flex-1 bg-[#D4FF00] text-[#1E1E1E] px-6 py-3 rounded-lg hover:bg-[#D4FF00]/90 transition-all duration-300 font-bold flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="an3s-action-primary flex flex-1 items-center justify-center gap-2 px-6 py-3 disabled:opacity-50"
                 >
                   {isSubmittingQuote ? (
                     <>
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#1E1E1E]"></div>
-                      Sending Quote...
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-deep-space border-t-transparent" />
+                      Saving locally...
                     </>
                   ) : (
                     <>
                       <Mail className="w-5 h-5" />
-                      Request Quote
+                      Save quote request
                     </>
                   )}
                 </button>
-                <button className="px-6 py-3 border border-[#D4FF00] text-[#D4FF00] rounded-lg hover:bg-[#D4FF00]/10 transition-all duration-300 font-medium">
+                <button
+                  type="button"
+                  onClick={() => void handleSaveConfiguration()}
+                  className="an3s-action-secondary px-6 py-3"
+                >
                   Save Configuration
                 </button>
               </div>
 
-              {/* Contact Info */}
-              <div className="mt-4 p-3 bg-[#1E1E1E] rounded-lg border border-[#D4FF00]/20">
-                <div className="flex items-center gap-4 text-sm text-[#CCCCCC]">
-                  <div className="flex items-center gap-1">
-                    <Mail className="w-4 h-4 text-[#D4FF00]" />
-                    <span>sales@iogreenenergy.com</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Phone className="w-4 h-4 text-[#D4FF00]" />
-                    <span>+27 21 123 4567</span>
-                  </div>
-                </div>
-                <p className="text-xs text-[#CCCCCC] mt-2">
-                  <Info className="w-4 h-4 inline mr-1 text-[#D4FF00]" />
-                  Pricing includes equipment only. Installation, permits, and additional components will be quoted separately based on site requirements.
-                </p>
-              </div>
-            </div>
+              <p className="mt-5 border-t border-line pt-4 text-xs leading-5 text-ink-muted">
+                Planning estimates use the local exported data. Confirm equipment availability, installation, permits, financing terms, and current supplier pricing before purchase.
+              </p>
+            </section>
           )}
-        </div>
+        </main>
       </div>
     </div>
   );

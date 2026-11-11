@@ -57,21 +57,21 @@ export const CalculationResults: React.FC<CalculationResultsProps> = ({ calculat
 
   const getColorClasses = (color: string) => {
     const colors = {
-      yellow: 'bg-[#1E1E1E] text-[#D4FF00] border-[#D4FF00]/30',
-      blue: 'bg-[#1E1E1E] text-[#D4FF00] border-[#D4FF00]/30',
-      purple: 'bg-[#1E1E1E] text-[#D4FF00] border-[#D4FF00]/30',
-      green: 'bg-[#1E1E1E] text-[#D4FF00] border-[#D4FF00]/30',
-      emerald: 'bg-[#1E1E1E] text-[#D4FF00] border-[#D4FF00]/30',
-      indigo: 'bg-[#1E1E1E] text-[#D4FF00] border-[#D4FF00]/30'
+      yellow: 'bg-[#03041D] text-[#48E1FD] border-[#48E1FD]/30',
+      blue: 'bg-[#03041D] text-[#48E1FD] border-[#48E1FD]/30',
+      purple: 'bg-[#03041D] text-[#48E1FD] border-[#48E1FD]/30',
+      green: 'bg-[#03041D] text-[#48E1FD] border-[#48E1FD]/30',
+      emerald: 'bg-[#03041D] text-[#48E1FD] border-[#48E1FD]/30',
+      indigo: 'bg-[#03041D] text-[#48E1FD] border-[#48E1FD]/30'
     };
     return colors[color as keyof typeof colors] || colors.blue;
   };
 
   return (
-    <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
+    <div className="bg-[#080A24] rounded-xl shadow-lg p-6 border border-[#B2B1B6]/20">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-[#D4FF00] mb-2">Your Solar Solution</h2>
-        <p className="text-[#CCCCCC]">Customized recommendations for {calculation.userName}</p>
+        <h2 className="text-2xl font-bold text-[#48E1FD] mb-2">Your Solar Solution</h2>
+        <p className="text-[#B2B1B6]">Customized recommendations for {calculation.userName}</p>
       </div>
 
       {/* Results Grid */}
@@ -84,68 +84,68 @@ export const CalculationResults: React.FC<CalculationResultsProps> = ({ calculat
               className={`p-4 rounded-lg border-2 ${getColorClasses(card.color)} transition-transform hover:scale-105`}
             >
               <div className="flex items-center justify-between mb-2">
-                <Icon className="w-6 h-6 text-[#D4FF00]" />
+                <Icon className="w-6 h-6 text-[#48E1FD]" />
                 <span className="text-2xl font-bold text-white">{card.value}</span>
               </div>
               <h3 className="font-semibold text-sm mb-1 text-white">{card.title}</h3>
-              <p className="text-xs text-[#CCCCCC]">{card.description}</p>
+              <p className="text-xs text-[#B2B1B6]">{card.description}</p>
             </div>
           );
         })}
       </div>
 
       {/* Financial Summary */}
-      <div className="bg-gradient-to-r from-[#1E1E1E] to-[#333333] rounded-lg p-6 mb-6 border border-[#D4FF00]/20">
+      <div className="bg-gradient-to-r from-[#03041D] to-[#080A24] rounded-lg p-6 mb-6 border border-[#48E1FD]/20">
         <h3 className="text-lg font-semibold text-white mb-4">Financial Summary</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="text-center">
-            <p className="text-2xl font-bold text-[#D4FF00]">
+            <p className="text-2xl font-bold text-[#48E1FD]">
               {formatCurrency(calculation.annualSavings || 0)}
             </p>
-            <p className="text-sm text-[#CCCCCC]">Annual Savings</p>
+            <p className="text-sm text-[#B2B1B6]">Annual Savings</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-[#D4FF00]">
+            <p className="text-2xl font-bold text-[#48E1FD]">
               {formatPercentage(calculation.roi || 0)}
             </p>
-            <p className="text-sm text-[#CCCCCC]">Return on Investment</p>
+            <p className="text-sm text-[#B2B1B6]">Return on Investment</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-[#D4FF00]">
+            <p className="text-2xl font-bold text-[#48E1FD]">
               {formatCurrency((calculation.annualSavings || 0) * 20)}
             </p>
-            <p className="text-sm text-[#CCCCCC]">20-Year Savings</p>
+            <p className="text-sm text-[#B2B1B6]">20-Year Savings</p>
           </div>
         </div>
       </div>
 
       {/* Environmental Impact */}
-      <div className="bg-[#1E1E1E] rounded-lg p-6 mb-6 border border-[#D4FF00]/20">
+      <div className="bg-[#03041D] rounded-lg p-6 mb-6 border border-[#48E1FD]/20">
         <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-          <Home className="w-5 h-5 mr-2 text-[#D4FF00]" />
+          <Home className="w-5 h-5 mr-2 text-[#48E1FD]" />
           Environmental Impact
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <p className="text-lg font-semibold text-[#D4FF00]">
+            <p className="text-lg font-semibold text-[#48E1FD]">
               {Math.round((calculation.systemSize || 0) * 1.5 * 365)} kWh/year
             </p>
-            <p className="text-sm text-[#CCCCCC]">Clean energy generated</p>
+            <p className="text-sm text-[#B2B1B6]">Clean energy generated</p>
           </div>
           <div>
-            <p className="text-lg font-semibold text-[#D4FF00]">
+            <p className="text-lg font-semibold text-[#48E1FD]">
               {Math.round((calculation.systemSize || 0) * 1.2)} tons CO₂
             </p>
-            <p className="text-sm text-[#CCCCCC]">Annual carbon offset</p>
+            <p className="text-sm text-[#B2B1B6]">Annual carbon offset</p>
           </div>
         </div>
       </div>
 
       {/* Property-Specific Notes */}
       {calculation.propertyType === 'sectional' && (
-        <div className="bg-[#1E1E1E] border border-[#D4FF00]/30 rounded-lg p-4 mb-6">
-          <h4 className="font-semibold text-[#D4FF00] mb-2">Sectional Title Requirements</h4>
-          <p className="text-sm text-[#CCCCCC]">
+        <div className="bg-[#03041D] border border-[#48E1FD]/30 rounded-lg p-4 mb-6">
+          <h4 className="font-semibold text-[#48E1FD] mb-2">Sectional Title Requirements</h4>
+          <p className="text-sm text-[#B2B1B6]">
             As this is a sectional title property, you'll need HOA/Body Corporate approval. 
             Check our Regulatory Support tab for assistance with the approval process.
           </p>
@@ -153,9 +153,9 @@ export const CalculationResults: React.FC<CalculationResultsProps> = ({ calculat
       )}
 
       {/* Next Steps */}
-      <div className="mt-6 p-4 bg-[#1E1E1E] rounded-lg border border-[#D4FF00]/20">
-        <h4 className="font-semibold text-[#D4FF00] mb-2">Next Steps</h4>
-        <ul className="text-sm text-[#CCCCCC] space-y-1">
+      <div className="mt-6 p-4 bg-[#03041D] rounded-lg border border-[#48E1FD]/20">
+        <h4 className="font-semibold text-[#48E1FD] mb-2">Next Steps</h4>
+        <ul className="text-sm text-[#B2B1B6] space-y-1">
           <li>• Consult with our AI Assistant for detailed explanations</li>
           <li>• Review regulatory requirements for your property type</li>
           <li>• Generate a detailed proposal document</li>

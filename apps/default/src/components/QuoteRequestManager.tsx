@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Save, AlertTriangle, CheckCircle, Clock, Database, Shield, RefreshCw } from 'lucide-react';
+import { createNode } from '../lib/genesis-data/client';
 
 interface QuoteRequestData {
   userName: string;
@@ -31,58 +32,31 @@ export const QuoteRequestManager: React.FC<QuoteRequestManagerProps> = ({ onData
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   const [pendingData, setPendingData] = useState<QuoteRequestData | null>(null);
-  const [retryCount, setRetryCount] = useState(0);
-  const [connectionStatus, setConnectionStatus] = useState<'online' | 'offline'>('online');
+  const retryCount = 0;
 
   // Auto-save interval (every 30 seconds)
   const AUTO_SAVE_INTERVAL = 30000;
-  const MAX_RETRY_ATTEMPTS = 3;
-
-  useEffect(() => {
-    // Check online status
-    const handleOnline = () => setConnectionStatus('online');
-    const handleOffline = () => setConnectionStatus('offline');
-
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
-
-    return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
-    };
-  }, []);
+  const MAX_RETRY_ATTEMPTS = 0;
 
   useEffect(() => {
     // Auto-save mechanism
     if (!autoSaveEnabled || !pendingData) return;
 
     const interval = setInterval(() => {
-      if (pendingData && connectionStatus === 'online') {
+      if (pendingData) {
         saveQuoteRequest(pendingData, true);
       }
     }, AUTO_SAVE_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [autoSaveEnabled, pendingData, connectionStatus]);
+  }, [autoSaveEnabled, pendingData]);
 
   const saveQuoteRequest = async (data: QuoteRequestData, isAutoSave = false) => {
-    if (connectionStatus === 'offline' && !isAutoSave) {
-      // Store data locally for later sync
-      localStorage.setItem('pendingQuoteRequest', JSON.stringify(data));
-      setSaveStatus('error');
-      return;
-    }
-
     setSaveStatus('saving');
 
     try {
-      const response = await fetch('/api/taskade/projects/aCGbHMAbWUZzTmna/nodes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          '/text': `Quote Request - ${data.userName} - ${new Date().toLocaleDateString()}`,
+      await createNode('aCGbHMAbWUZzTmna', {
+          Name: `Quote Request - ${data.userName} - ${new Date().toLocaleDateString('en-ZA')}`,
           '/attributes/@calc1': data.userName,
           '/attributes/@calc2': data.email,
           '/attributes/@calc3': data.phone,
@@ -102,70 +76,26 @@ export const QuoteRequestManager: React.FC<QuoteRequestManagerProps> = ({ onData
           '/attributes/@calc17': data.propertyType,
           '/attributes/@calc18': data.status,
           '/attributes/note': `Quote request submitted on ${new Date().toISOString()}. ${isAutoSave ? 'Auto-saved' : 'Manual save'}.`
-        }),
       });
 
-      if (response.ok) {
-        setSaveStatus('success');
-        setLastSaved(new Date());
-        setRetryCount(0);
-        setPendingData(null);
-        
-        // Clear any locally stored data
-        localStorage.removeItem('pendingQuoteRequest');
-        
-        if (onDataSaved) {
-          onDataSaved(true);
-        }
-      } else {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      setSaveStatus('success');
+      setLastSaved(new Date());
+      setPendingData(null);
+      localStorage.removeItem('pendingQuoteRequest');
+
+      if (onDataSaved) {
+        onDataSaved(true);
       }
     } catch (error) {
       console.error('Error saving quote request:', error);
       setSaveStatus('error');
       
-      // Implement retry logic
-      if (retryCount < MAX_RETRY_ATTEMPTS) {
-        setTimeout(() => {
-          setRetryCount(prev => prev + 1);
-          saveQuoteRequest(data, isAutoSave);
-        }, Math.pow(2, retryCount) * 1000); // Exponential backoff
-      } else {
-        // Store locally as fallback
-        localStorage.setItem('pendingQuoteRequest', JSON.stringify(data));
-      }
+      localStorage.setItem('pendingQuoteRequest', JSON.stringify(data));
       
       if (onDataSaved) {
         onDataSaved(false);
       }
     }
-  };
-
-  const validateQuoteData = async (data: QuoteRequestData) => {
-    try {
-      // Use the pricing validation system
-      const response = await fetch('/api/taskade/webhooks/01K4ZV0WPB4T9A65P6T86E98FC/run', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          totalCost: data.totalCost,
-          systemSize: data.systemSize,
-          batterySize: data.batterySize,
-          monthlyBill: data.monthlyBill,
-          inverterSize: data.inverterSize
-        }),
-      });
-
-      if (response.ok) {
-        const validationResult = await response.json();
-        return validationResult;
-      }
-    } catch (error) {
-      console.error('Validation error:', error);
-    }
-    return null;
   };
 
   const recoverPendingData = () => {
@@ -193,13 +123,13 @@ export const QuoteRequestManager: React.FC<QuoteRequestManagerProps> = ({ onData
   const getStatusIcon = () => {
     switch (saveStatus) {
       case 'saving':
-        return <RefreshCw className="w-4 h-4 animate-spin text-blue-400" />;
+        return <RefreshCw className="h-4 w-4 animate-spin text-cyan" />;
       case 'success':
-        return <CheckCircle className="w-4 h-4 text-green-400" />;
+        return <CheckCircle className="h-4 w-4 text-success" />;
       case 'error':
-        return <AlertTriangle className="w-4 h-4 text-red-400" />;
+        return <AlertTriangle className="h-4 w-4 text-danger" />;
       default:
-        return <Database className="w-4 h-4 text-[#CCCCCC]" />;
+        return <Database className="h-4 w-4 text-ink-muted" />;
     }
   };
 
@@ -210,97 +140,86 @@ export const QuoteRequestManager: React.FC<QuoteRequestManagerProps> = ({ onData
       case 'success':
         return `Last saved: ${lastSaved?.toLocaleTimeString()}`;
       case 'error':
-        return connectionStatus === 'offline' 
-          ? 'Offline - Data stored locally' 
-          : `Save failed (Retry ${retryCount}/${MAX_RETRY_ATTEMPTS})`;
+        return `Local save failed (Retry ${retryCount}/${MAX_RETRY_ATTEMPTS})`;
       default:
         return 'Ready to save';
     }
   };
 
   return (
-    <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
-      <div className="flex items-center justify-between mb-6">
+    <section className="an3s-panel p-5 sm:p-6" data-tone="blue">
+      <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div className="flex items-center space-x-3">
-          <Shield className="w-8 h-8 text-[#D4FF00]" />
+          <Shield className="h-8 w-8 text-cyan-glow" />
           <div>
-            <h2 className="text-2xl font-bold text-[#FFFFFF]">Quote Request Protection</h2>
-            <p className="text-[#CCCCCC]">Ensuring no customer data is lost</p>
+            <h2 className="text-2xl font-bold text-ink">Quote-request protection</h2>
+            <p className="text-ink-muted">Local recovery and persistence controls</p>
           </div>
         </div>
         <div className="flex items-center space-x-2">
           {getStatusIcon()}
-          <span className="text-sm text-[#CCCCCC]">{getStatusMessage()}</span>
+          <span className="text-sm text-ink-muted">{getStatusMessage()}</span>
         </div>
       </div>
 
       {/* Connection Status */}
-      <div className={`p-4 rounded-lg mb-6 border ${
-        connectionStatus === 'online' 
-          ? 'bg-green-500/10 border-green-500/30' 
-          : 'bg-red-500/10 border-red-500/30'
-      }`}>
+      <div className="mb-6 border-y border-success/30 bg-success/10 p-4">
         <div className="flex items-center space-x-2">
-          <div className={`w-3 h-3 rounded-full ${
-            connectionStatus === 'online' ? 'bg-green-400' : 'bg-red-400'
-          }`} />
-          <span className="text-[#FFFFFF] font-medium">
-            {connectionStatus === 'online' ? 'Connected' : 'Offline Mode'}
+          <div className="h-3 w-3 rounded-full bg-success" />
+          <span className="font-medium text-ink">
+            Local storage ready
           </span>
         </div>
-        <p className="text-sm text-[#CCCCCC] mt-1">
-          {connectionStatus === 'online' 
-            ? 'Quote requests are being saved automatically'
-            : 'Quote requests will be saved locally and synced when connection is restored'
-          }
+        <p className="mt-1 text-sm text-ink-muted">
+          Quote requests are saved on this workstation without cloud synchronization.
         </p>
       </div>
 
       {/* Auto-save Settings */}
-      <div className="bg-[#1E1E1E] rounded-lg p-4 mb-6 border border-[#CCCCCC]/20">
+      <div className="mb-6 border-y border-line py-5">
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-semibold text-[#FFFFFF]">Protection Features</h3>
+          <h3 className="text-lg font-semibold text-ink">Protection features</h3>
           <label className="flex items-center space-x-2">
             <input
               type="checkbox"
               checked={autoSaveEnabled}
               onChange={(e) => setAutoSaveEnabled(e.target.checked)}
-              className="rounded border-[#CCCCCC]/30 text-[#D4FF00] focus:ring-[#D4FF00] bg-[#333333]"
+              className="rounded border-line-strong bg-panel text-cyan focus:ring-cyan"
             />
-            <span className="text-sm text-[#CCCCCC]">Auto-save enabled</span>
+            <span className="text-sm text-ink-muted">Auto-save enabled</span>
           </label>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="flex items-center space-x-3">
-            <Save className="w-5 h-5 text-[#D4FF00]" />
+            <Save className="h-5 w-5 text-cyan-glow" />
             <div>
-              <p className="text-sm font-medium text-[#FFFFFF]">Auto-save every 30s</p>
-              <p className="text-xs text-[#CCCCCC]">Prevents data loss during form completion</p>
+              <p className="text-sm font-medium text-ink">Auto-save every 30s</p>
+              <p className="text-xs text-ink-muted">Prevents data loss during form completion</p>
             </div>
           </div>
           
           <div className="flex items-center space-x-3">
-            <Clock className="w-5 h-5 text-[#D4FF00]" />
+            <Clock className="h-5 w-5 text-cyan-glow" />
             <div>
-              <p className="text-sm font-medium text-[#FFFFFF]">Retry mechanism</p>
-              <p className="text-xs text-[#CCCCCC]">Automatic retry with exponential backoff</p>
+              <p className="text-sm font-medium text-ink">Retry mechanism</p>
+              <p className="text-xs text-ink-muted">Automatic retry with exponential backoff</p>
             </div>
           </div>
           
           <div className="flex items-center space-x-3">
-            <Database className="w-5 h-5 text-[#D4FF00]" />
+            <Database className="h-5 w-5 text-cyan-glow" />
             <div>
-              <p className="text-sm font-medium text-[#FFFFFF]">Local storage backup</p>
-              <p className="text-xs text-[#CCCCCC]">Data preserved offline and synced later</p>
+              <p className="text-sm font-medium text-ink">Local storage backup</p>
+              <p className="text-xs text-ink-muted">Data remains on this workstation</p>
             </div>
           </div>
           
           <div className="flex items-center space-x-3">
-            <Shield className="w-5 h-5 text-[#D4FF00]" />
+            <Shield className="h-5 w-5 text-cyan-glow" />
             <div>
-              <p className="text-sm font-medium text-[#FFFFFF]">Data validation</p>
-              <p className="text-xs text-[#CCCCCC]">Pricing validation before saving</p>
+              <p className="text-sm font-medium text-ink">Data validation</p>
+              <p className="text-xs text-ink-muted">Pricing validation before saving</p>
             </div>
           </div>
         </div>
@@ -308,15 +227,15 @@ export const QuoteRequestManager: React.FC<QuoteRequestManagerProps> = ({ onData
 
       {/* Recovery Actions */}
       {(saveStatus === 'error' || localStorage.getItem('pendingQuoteRequest')) && (
-        <div className="bg-[#1E1E1E] border border-[#D4FF00]/30 rounded-lg p-4">
-          <h4 className="font-semibold text-[#D4FF00] mb-2">Data Recovery Available</h4>
-          <p className="text-sm text-[#CCCCCC] mb-3">
+        <div className="rounded-md border border-cyan/30 bg-cyan/10 p-4">
+          <h4 className="mb-2 font-semibold text-cyan-glow">Data recovery available</h4>
+          <p className="mb-3 text-sm text-ink-muted">
             There is unsaved quote request data that can be recovered and submitted.
           </p>
           <div className="flex space-x-3">
             <button
               onClick={forceSave}
-              className="px-4 py-2 bg-[#D4FF00] text-[#1E1E1E] rounded-lg hover:bg-[#D4FF00]/90 font-medium"
+              className="an3s-action-primary px-4 py-2"
             >
               Retry Save
             </button>
@@ -326,7 +245,7 @@ export const QuoteRequestManager: React.FC<QuoteRequestManagerProps> = ({ onData
                 setPendingData(null);
                 setSaveStatus('idle');
               }}
-              className="px-4 py-2 border border-[#CCCCCC]/30 text-[#CCCCCC] rounded-lg hover:bg-[#1E1E1E]/50"
+              className="an3s-action-secondary px-4 py-2"
             >
               Clear Stored Data
             </button>
@@ -335,39 +254,35 @@ export const QuoteRequestManager: React.FC<QuoteRequestManagerProps> = ({ onData
       )}
 
       {/* Statistics */}
-      <div className="mt-6 p-4 bg-gradient-to-r from-[#1E1E1E] to-[#333333] rounded-lg border border-[#CCCCCC]/20">
-        <h4 className="font-semibold text-[#FFFFFF] mb-2">System Status</h4>
+      <div className="mt-6 border-t border-line pt-5">
+        <h4 className="mb-2 font-semibold text-ink">System status</h4>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           <div>
-            <p className="text-lg font-bold text-[#D4FF00]">{retryCount}</p>
-            <p className="text-xs text-[#CCCCCC]">Retry Attempts</p>
+            <p className="text-lg font-bold text-cyan-glow">{retryCount}</p>
+            <p className="text-xs text-ink-muted">Retry attempts</p>
           </div>
           <div>
-            <p className="text-lg font-bold text-[#D4FF00]">
+            <p className="text-lg font-bold text-cyan-glow">
               {autoSaveEnabled ? 'ON' : 'OFF'}
             </p>
-            <p className="text-xs text-[#CCCCCC]">Auto-save</p>
+            <p className="text-xs text-ink-muted">Auto-save</p>
           </div>
           <div>
-            <p className="text-lg font-bold text-[#D4FF00]">
-              {connectionStatus === 'online' ? '✓' : '✗'}
+            <p className="text-lg font-bold text-cyan-glow">
+              ✓
             </p>
-            <p className="text-xs text-[#CCCCCC]">Connection</p>
+            <p className="text-xs text-ink-muted">Storage</p>
           </div>
           <div>
-            <p className="text-lg font-bold text-[#D4FF00]">
+            <p className="text-lg font-bold text-cyan-glow">
               {localStorage.getItem('pendingQuoteRequest') ? '1' : '0'}
             </p>
-            <p className="text-xs text-[#CCCCCC]">Pending</p>
+            <p className="text-xs text-ink-muted">Pending</p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-
-  // Export the save function for use by other components
-  QuoteRequestManager.saveQuoteRequest = saveQuoteRequest;
-  QuoteRequestManager.validateQuoteData = validateQuoteData;
 };
 
 export default QuoteRequestManager;

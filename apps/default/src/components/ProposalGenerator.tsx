@@ -42,16 +42,15 @@ export const ProposalGenerator: React.FC<ProposalGeneratorProps> = ({ calculatio
     }
   ];
 
-  const generateProposal = (format: 'pdf' | 'word' | 'email') => {
+  const generateProposal = async (format: 'pdf' | 'word' | 'email') => {
     if (!calculation) return;
 
     const proposalContent = createProposalContent();
     
     if (format === 'email') {
-      // In a real app, this would open email client or send via API
-      const subject = `Solar Proposal for ${calculation.userName}`;
-      const body = encodeURIComponent(proposalContent.substring(0, 500) + '...\n\nFull proposal attached.');
-      window.open(`mailto:${calculation.email}?subject=${subject}&body=${body}`);
+      const emailDraft = `To: ${calculation.email}\nSubject: Solar Proposal for ${calculation.userName}\n\n${proposalContent}`;
+      await navigator.clipboard.writeText(emailDraft);
+      window.alert('The proposal email draft was copied to the clipboard.');
       return;
     }
 
@@ -73,7 +72,7 @@ export const ProposalGenerator: React.FC<ProposalGeneratorProps> = ({ calculatio
     if (!calculation) return '';
 
     const template = templates.find(t => t.id === selectedTemplate);
-    const currentDate = new Date().toLocaleDateString();
+    const currentDate = new Date().toLocaleDateString('en-ZA');
 
     return `
 SOLAR ENERGY PROPOSAL
@@ -189,8 +188,8 @@ NEXT STEPS
 This proposal is valid for 30 days. Prices subject to change based on final site survey and current market conditions.
 
 Contact Information:
-IO Green Solar Solutions
-Email: info@iogreen.co.za
+AN3S Solar Intelligence
+Generated locally for planning purposes
 Phone: +27 21 123 4567
 
 Thank you for choosing clean, renewable energy!
@@ -203,15 +202,15 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
 
   if (!calculation) {
     return (
-      <div className="bg-[#333333] rounded-xl shadow-lg p-8 text-center border border-[#CCCCCC]/20">
-        <FileText className="w-16 h-16 text-[#CCCCCC] mx-auto mb-4" />
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-8 text-center border border-[#B2B1B6]/20">
+        <FileText className="w-16 h-16 text-[#B2B1B6] mx-auto mb-4" />
         <h2 className="text-2xl font-bold text-[#FFFFFF] mb-2">Proposal Generator</h2>
-        <p className="text-[#CCCCCC] mb-6">
+        <p className="text-[#B2B1B6] mb-6">
           Complete a solar calculation first to generate professional proposals and documentation.
         </p>
-        <div className="bg-[#1E1E1E] rounded-lg p-4 border border-[#CCCCCC]/20">
-          <h3 className="font-semibold text-[#D4FF00] mb-2">Available Formats</h3>
-          <ul className="text-sm text-[#CCCCCC] space-y-1">
+        <div className="bg-[#03041D] rounded-lg p-4 border border-[#B2B1B6]/20">
+          <h3 className="font-semibold text-[#48E1FD] mb-2">Available Formats</h3>
+          <ul className="text-sm text-[#B2B1B6] space-y-1">
             <li>• PDF proposals for professional presentation</li>
             <li>• Word documents for easy customization</li>
             <li>• Email templates for quick sharing</li>
@@ -225,48 +224,48 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-6 border border-[#B2B1B6]/20">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
-            <FileText className="w-8 h-8 text-[#D4FF00]" />
+            <FileText className="w-8 h-8 text-[#48E1FD]" />
             <div>
               <h2 className="text-2xl font-bold text-[#FFFFFF]">Proposal Generator</h2>
-              <p className="text-[#CCCCCC]">Create professional solar proposals and documentation</p>
+              <p className="text-[#B2B1B6]">Create professional solar proposals and documentation</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
-            <CheckCircle className="w-5 h-5 text-[#D4FF00]" />
-            <span className="text-sm text-[#D4FF00] font-medium">Calculation Complete</span>
+            <CheckCircle className="w-5 h-5 text-[#48E1FD]" />
+            <span className="text-sm text-[#48E1FD] font-medium">Calculation Complete</span>
           </div>
         </div>
 
         {/* Quick Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-[#1E1E1E] rounded-lg border border-[#CCCCCC]/20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-[#03041D] rounded-lg border border-[#B2B1B6]/20">
           <div className="text-center">
-            <Sun className="w-6 h-6 text-[#D4FF00] mx-auto mb-1" />
+            <Sun className="w-6 h-6 text-[#48E1FD] mx-auto mb-1" />
             <div className="text-lg font-bold text-[#FFFFFF]">{calculation.systemSize}kWp</div>
-            <div className="text-xs text-[#CCCCCC]">System Size</div>
+            <div className="text-xs text-[#B2B1B6]">System Size</div>
           </div>
           <div className="text-center">
-            <Battery className="w-6 h-6 text-[#D4FF00] mx-auto mb-1" />
+            <Battery className="w-6 h-6 text-[#48E1FD] mx-auto mb-1" />
             <div className="text-lg font-bold text-[#FFFFFF]">{calculation.batterySize}kWh</div>
-            <div className="text-xs text-[#CCCCCC]">Battery</div>
+            <div className="text-xs text-[#B2B1B6]">Battery</div>
           </div>
           <div className="text-center">
-            <DollarSign className="w-6 h-6 text-[#D4FF00] mx-auto mb-1" />
+            <DollarSign className="w-6 h-6 text-[#48E1FD] mx-auto mb-1" />
             <div className="text-lg font-bold text-[#FFFFFF]">R{calculation.totalCost?.toLocaleString()}</div>
-            <div className="text-xs text-[#CCCCCC]">Investment</div>
+            <div className="text-xs text-[#B2B1B6]">Investment</div>
           </div>
           <div className="text-center">
-            <Zap className="w-6 h-6 text-[#D4FF00] mx-auto mb-1" />
+            <Zap className="w-6 h-6 text-[#48E1FD] mx-auto mb-1" />
             <div className="text-lg font-bold text-[#FFFFFF]">{calculation.paybackPeriod}y</div>
-            <div className="text-xs text-[#CCCCCC]">Payback</div>
+            <div className="text-xs text-[#B2B1B6]">Payback</div>
           </div>
         </div>
       </div>
 
       {/* Template Selection */}
-      <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-6 border border-[#B2B1B6]/20">
         <h3 className="text-lg font-semibold text-[#FFFFFF] mb-4">Choose Proposal Template</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -275,20 +274,20 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
               key={template.id}
               className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
                 selectedTemplate === template.id
-                  ? 'border-[#D4FF00] bg-[#D4FF00]/10'
-                  : 'border-[#CCCCCC]/30 hover:border-[#CCCCCC]/50'
+                  ? 'border-[#48E1FD] bg-[#48E1FD]/10'
+                  : 'border-[#B2B1B6]/30 hover:border-[#B2B1B6]/50'
               }`}
               onClick={() => setSelectedTemplate(template.id)}
             >
               <div className="flex items-center justify-between mb-2">
                 <h4 className="font-semibold text-[#FFFFFF]">{template.name}</h4>
-                <span className="text-xs text-[#CCCCCC]">{template.pages}</span>
+                <span className="text-xs text-[#B2B1B6]">{template.pages}</span>
               </div>
-              <p className="text-sm text-[#CCCCCC] mb-3">{template.description}</p>
-              <ul className="text-xs text-[#CCCCCC] space-y-1">
+              <p className="text-sm text-[#B2B1B6] mb-3">{template.description}</p>
+              <ul className="text-xs text-[#B2B1B6] space-y-1">
                 {template.features.map((feature, index) => (
                   <li key={index} className="flex items-center">
-                    <CheckCircle className="w-3 h-3 text-[#D4FF00] mr-1" />
+                    <CheckCircle className="w-3 h-3 text-[#48E1FD] mr-1" />
                     {feature}
                   </li>
                 ))}
@@ -298,7 +297,7 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
         </div>
 
         {/* Customization Options */}
-        <div className="border-t border-[#CCCCCC]/20 pt-4">
+        <div className="border-t border-[#B2B1B6]/20 pt-4">
           <h4 className="font-semibold text-[#FFFFFF] mb-3">Customization Options</h4>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {Object.entries(customizations).map(([key, value]) => (
@@ -307,9 +306,9 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
                   type="checkbox"
                   checked={value}
                   onChange={(e) => setCustomizations(prev => ({ ...prev, [key]: e.target.checked }))}
-                  className="rounded border-[#CCCCCC]/30 text-[#D4FF00] focus:ring-[#D4FF00] bg-[#1E1E1E]"
+                  className="rounded border-[#B2B1B6]/30 text-[#48E1FD] focus:ring-[#48E1FD] bg-[#03041D]"
                 />
-                <span className="text-[#CCCCCC]">
+                <span className="text-[#B2B1B6]">
                   {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                 </span>
               </label>
@@ -319,44 +318,44 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
       </div>
 
       {/* Generation Options */}
-      <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-6 border border-[#B2B1B6]/20">
         <h3 className="text-lg font-semibold text-[#FFFFFF] mb-4">Generate & Share</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <button
             onClick={() => generateProposal('pdf')}
-            className="flex flex-col items-center p-4 border border-[#CCCCCC]/30 rounded-lg hover:shadow-md transition-shadow hover:bg-[#1E1E1E]/50"
+            className="flex flex-col items-center p-4 border border-[#B2B1B6]/30 rounded-lg hover:shadow-md transition-shadow hover:bg-[#03041D]/50"
           >
-            <Download className="w-8 h-8 text-[#D4FF00] mb-2" />
+            <Download className="w-8 h-8 text-[#48E1FD] mb-2" />
             <span className="font-medium text-[#FFFFFF]">Download PDF</span>
-            <span className="text-xs text-[#CCCCCC]">Professional format</span>
+            <span className="text-xs text-[#B2B1B6]">Professional format</span>
           </button>
           
           <button
             onClick={() => generateProposal('word')}
-            className="flex flex-col items-center p-4 border border-[#CCCCCC]/30 rounded-lg hover:shadow-md transition-shadow hover:bg-[#1E1E1E]/50"
+            className="flex flex-col items-center p-4 border border-[#B2B1B6]/30 rounded-lg hover:shadow-md transition-shadow hover:bg-[#03041D]/50"
           >
-            <FileText className="w-8 h-8 text-[#D4FF00] mb-2" />
+            <FileText className="w-8 h-8 text-[#48E1FD] mb-2" />
             <span className="font-medium text-[#FFFFFF]">Download Word</span>
-            <span className="text-xs text-[#CCCCCC]">Editable document</span>
+            <span className="text-xs text-[#B2B1B6]">Editable document</span>
           </button>
           
           <button
             onClick={() => generateProposal('email')}
-            className="flex flex-col items-center p-4 border border-[#CCCCCC]/30 rounded-lg hover:shadow-md transition-shadow hover:bg-[#1E1E1E]/50"
+            className="flex flex-col items-center p-4 border border-[#B2B1B6]/30 rounded-lg hover:shadow-md transition-shadow hover:bg-[#03041D]/50"
           >
-            <Mail className="w-8 h-8 text-[#D4FF00] mb-2" />
+            <Mail className="w-8 h-8 text-[#48E1FD] mb-2" />
             <span className="font-medium text-[#FFFFFF]">Email Client</span>
-            <span className="text-xs text-[#CCCCCC]">Send directly</span>
+            <span className="text-xs text-[#B2B1B6]">Send directly</span>
           </button>
           
           <button
             onClick={() => setShowPreview(!showPreview)}
-            className="flex flex-col items-center p-4 border border-[#CCCCCC]/30 rounded-lg hover:shadow-md transition-shadow hover:bg-[#1E1E1E]/50"
+            className="flex flex-col items-center p-4 border border-[#B2B1B6]/30 rounded-lg hover:shadow-md transition-shadow hover:bg-[#03041D]/50"
           >
-            <Eye className="w-8 h-8 text-[#D4FF00] mb-2" />
+            <Eye className="w-8 h-8 text-[#48E1FD] mb-2" />
             <span className="font-medium text-[#FFFFFF]">Preview</span>
-            <span className="text-xs text-[#CCCCCC]">View content</span>
+            <span className="text-xs text-[#B2B1B6]">View content</span>
           </button>
         </div>
       </div>
@@ -364,25 +363,25 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
       {/* Preview Modal */}
       {showPreview && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-[#333333] rounded-xl shadow-xl max-w-4xl max-h-[80vh] overflow-hidden border border-[#CCCCCC]/20">
-            <div className="flex items-center justify-between p-4 border-b border-[#CCCCCC]/20">
+          <div className="bg-[#080A24] rounded-xl shadow-xl max-w-4xl max-h-[80vh] overflow-hidden border border-[#B2B1B6]/20">
+            <div className="flex items-center justify-between p-4 border-b border-[#B2B1B6]/20">
               <h3 className="text-lg font-semibold text-[#FFFFFF]">Proposal Preview</h3>
               <button
                 onClick={() => setShowPreview(false)}
-                className="text-[#CCCCCC] hover:text-[#FFFFFF]"
+                className="text-[#B2B1B6] hover:text-[#FFFFFF]"
               >
                 ✕
               </button>
             </div>
             <div className="p-6 overflow-y-auto max-h-[60vh]">
-              <pre className="whitespace-pre-wrap text-sm text-[#CCCCCC] font-mono">
+              <pre className="whitespace-pre-wrap text-sm text-[#B2B1B6] font-mono">
                 {createProposalContent()}
               </pre>
             </div>
-            <div className="flex justify-end space-x-3 p-4 border-t border-[#CCCCCC]/20 bg-[#1E1E1E]">
+            <div className="flex justify-end space-x-3 p-4 border-t border-[#B2B1B6]/20 bg-[#03041D]">
               <button
                 onClick={() => setShowPreview(false)}
-                className="px-4 py-2 text-[#CCCCCC] hover:text-[#FFFFFF]"
+                className="px-4 py-2 text-[#B2B1B6] hover:text-[#FFFFFF]"
               >
                 Close
               </button>
@@ -391,7 +390,7 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
                   generateProposal('pdf');
                   setShowPreview(false);
                 }}
-                className="px-4 py-2 bg-[#D4FF00] text-[#1E1E1E] rounded-lg hover:bg-[#D4FF00]/90"
+                className="px-4 py-2 bg-[#48E1FD] text-[#03041D] rounded-lg hover:bg-[#48E1FD]/90"
               >
                 Download PDF
               </button>
@@ -401,27 +400,38 @@ Proposal ID: ${Date.now().toString(36).toUpperCase()}
       )}
 
       {/* Additional Services */}
-      <div className="bg-gradient-to-r from-[#333333] to-[#1E1E1E] rounded-xl p-6 border border-[#CCCCCC]/20">
+      <div className="bg-gradient-to-r from-[#080A24] to-[#03041D] rounded-xl p-6 border border-[#B2B1B6]/20">
         <h3 className="text-lg font-semibold text-[#FFFFFF] mb-4 flex items-center">
-          <Share2 className="w-5 h-5 mr-2 text-[#D4FF00]" />
+          <Share2 className="w-5 h-5 mr-2 text-[#48E1FD]" />
           Additional Services
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-[#1E1E1E] rounded-lg p-4 border border-[#CCCCCC]/20">
+          <div className="bg-[#03041D] rounded-lg p-4 border border-[#B2B1B6]/20">
             <h4 className="font-semibold text-[#FFFFFF] mb-2">Custom Branding</h4>
-            <p className="text-sm text-[#CCCCCC] mb-3">
+            <p className="text-sm text-[#B2B1B6] mb-3">
               Add your company logo and branding to proposals
             </p>
-            <button className="text-[#D4FF00] hover:text-[#D4FF00]/80 text-sm font-medium">
+            <button
+              type="button"
+              onClick={() => {
+                setCustomizations((current) => ({ ...current, companyLogo: true }));
+                window.alert('Custom branding is enabled for this local proposal.');
+              }}
+              className="text-[#48E1FD] hover:text-[#48E1FD]/80 text-sm font-medium"
+            >
               Setup Branding →
             </button>
           </div>
-          <div className="bg-[#1E1E1E] rounded-lg p-4 border border-[#CCCCCC]/20">
+          <div className="bg-[#03041D] rounded-lg p-4 border border-[#B2B1B6]/20">
             <h4 className="font-semibold text-[#FFFFFF] mb-2">Digital Signatures</h4>
-            <p className="text-sm text-[#CCCCCC] mb-3">
+            <p className="text-sm text-[#B2B1B6] mb-3">
               Enable electronic signing for faster approvals
             </p>
-            <button className="text-[#D4FF00] hover:text-[#D4FF00]/80 text-sm font-medium">
+            <button
+              type="button"
+              onClick={() => window.alert('Digital signatures require a separate local signing tool and are not enabled in this offline build.')}
+              className="text-[#48E1FD] hover:text-[#48E1FD]/80 text-sm font-medium"
+            >
               Enable E-Signatures →
             </button>
           </div>

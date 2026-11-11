@@ -17,7 +17,6 @@ interface ChecklistItem {
 
 export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculation }) => {
   const [completedItems, setCompletedItems] = useState<Set<string>>(new Set());
-  const [selectedDocument, setSelectedDocument] = useState<string | null>(null);
 
   const toggleItem = (itemId: string) => {
     const newCompleted = new Set(completedItems);
@@ -177,15 +176,15 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
 
   if (!calculation) {
     return (
-      <div className="bg-[#333333] rounded-xl shadow-lg p-8 text-center border border-[#CCCCCC]/20">
-        <Shield className="w-16 h-16 text-[#CCCCCC] mx-auto mb-4" />
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-8 text-center border border-[#B2B1B6]/20">
+        <Shield className="w-16 h-16 text-[#B2B1B6] mx-auto mb-4" />
         <h2 className="text-2xl font-bold text-[#FFFFFF] mb-2">Regulatory Support</h2>
-        <p className="text-[#CCCCCC] mb-6">
+        <p className="text-[#B2B1B6] mb-6">
           Complete a solar calculation first to get personalized regulatory guidance for your property type.
         </p>
-        <div className="bg-[#1E1E1E] rounded-lg p-4 border border-[#CCCCCC]/20">
-          <h3 className="font-semibold text-[#D4FF00] mb-2">General Requirements</h3>
-          <ul className="text-sm text-[#CCCCCC] space-y-1 text-left">
+        <div className="bg-[#03041D] rounded-lg p-4 border border-[#B2B1B6]/20">
+          <h3 className="font-semibold text-[#48E1FD] mb-2">General Requirements</h3>
+          <ul className="text-sm text-[#B2B1B6] space-y-1 text-left">
             <li>• Electrical Certificate of Compliance (all installations)</li>
             <li>• HOA approval (sectional title properties)</li>
             <li>• Municipal approval (some areas)</li>
@@ -204,40 +203,40 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-6 border border-[#B2B1B6]/20">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
-            <Shield className="w-8 h-8 text-[#D4FF00]" />
+            <Shield className="w-8 h-8 text-[#48E1FD]" />
             <div>
               <h2 className="text-2xl font-bold text-[#FFFFFF]">Regulatory Support</h2>
-              <p className="text-[#CCCCCC]">
+              <p className="text-[#B2B1B6]">
                 {calculation.propertyType === 'sectional' ? 'Sectional Title' : 
                  calculation.propertyType === 'rental' ? 'Rental Property' : 'Freehold'} Requirements
               </p>
             </div>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold text-[#D4FF00]">{completionPercentage}%</div>
-            <div className="text-sm text-[#CCCCCC]">Complete</div>
+            <div className="text-2xl font-bold text-[#48E1FD]">{completionPercentage}%</div>
+            <div className="text-sm text-[#B2B1B6]">Complete</div>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-[#1E1E1E] rounded-full h-2 mb-4">
+        <div className="w-full bg-[#03041D] rounded-full h-2 mb-4">
           <div 
-            className="bg-[#D4FF00] h-2 rounded-full transition-all duration-300"
+            className="bg-[#48E1FD] h-2 rounded-full transition-all duration-300"
             style={{ width: `${completionPercentage}%` }}
           />
         </div>
 
         {/* Property Type Alert */}
         {calculation.propertyType === 'sectional' && (
-          <div className="bg-[#1E1E1E] border border-[#D4FF00]/30 rounded-lg p-4 mb-4">
+          <div className="bg-[#03041D] border border-[#48E1FD]/30 rounded-lg p-4 mb-4">
             <div className="flex items-start space-x-2">
-              <AlertCircle className="w-5 h-5 text-[#D4FF00] mt-0.5" />
+              <AlertCircle className="w-5 h-5 text-[#48E1FD] mt-0.5" />
               <div>
-                <h4 className="font-semibold text-[#D4FF00]">Sectional Title Property</h4>
-                <p className="text-sm text-[#CCCCCC]">
+                <h4 className="font-semibold text-[#48E1FD]">Sectional Title Property</h4>
+                <p className="text-sm text-[#B2B1B6]">
                   Additional approvals required from your HOA/Body Corporate. This process typically takes 2-6 weeks.
                 </p>
               </div>
@@ -247,9 +246,9 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
       </div>
 
       {/* Checklist */}
-      <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-6 border border-[#B2B1B6]/20">
         <h3 className="text-lg font-semibold text-[#FFFFFF] mb-4 flex items-center">
-          <CheckCircle className="w-5 h-5 mr-2 text-[#D4FF00]" />
+          <CheckCircle className="w-5 h-5 mr-2 text-[#48E1FD]" />
           Compliance Checklist
         </h3>
         
@@ -259,8 +258,8 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
               key={item.id}
               className={`p-4 border rounded-lg transition-colors ${
                 completedItems.has(item.id) 
-                  ? 'bg-[#1E1E1E] border-[#D4FF00]/50' 
-                  : 'bg-[#1E1E1E] border-[#CCCCCC]/20 hover:border-[#CCCCCC]/40'
+                  ? 'bg-[#03041D] border-[#48E1FD]/50'
+                  : 'bg-[#03041D] border-[#B2B1B6]/20 hover:border-[#B2B1B6]/40'
               }`}
             >
               <div className="flex items-start space-x-3">
@@ -268,8 +267,8 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
                   onClick={() => toggleItem(item.id)}
                   className={`mt-1 w-5 h-5 rounded border-2 flex items-center justify-center transition-colors ${
                     completedItems.has(item.id)
-                      ? 'bg-[#D4FF00] border-[#D4FF00] text-[#1E1E1E]'
-                      : 'border-[#CCCCCC]/50 hover:border-[#D4FF00]'
+                      ? 'bg-[#48E1FD] border-[#48E1FD] text-[#03041D]'
+                      : 'border-[#B2B1B6]/50 hover:border-[#48E1FD]'
                   }`}
                 >
                   {completedItems.has(item.id) && <CheckCircle className="w-3 h-3" />}
@@ -278,18 +277,18 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
                 <div className="flex-1">
                   <div className="flex items-center space-x-2">
                     <h4 className={`font-medium ${
-                      completedItems.has(item.id) ? 'text-[#D4FF00]' : 'text-[#FFFFFF]'
+                      completedItems.has(item.id) ? 'text-[#48E1FD]' : 'text-[#FFFFFF]'
                     }`}>
                       {item.title}
                     </h4>
                     {item.required && (
-                      <span className="px-2 py-1 bg-[#D4FF00]/20 text-[#D4FF00] text-xs rounded-full border border-[#D4FF00]/30">
+                      <span className="px-2 py-1 bg-[#48E1FD]/20 text-[#48E1FD] text-xs rounded-full border border-[#48E1FD]/30">
                         Required
                       </span>
                     )}
                   </div>
                   <p className={`text-sm mt-1 ${
-                    completedItems.has(item.id) ? 'text-[#CCCCCC]' : 'text-[#CCCCCC]'
+                    completedItems.has(item.id) ? 'text-[#B2B1B6]' : 'text-[#B2B1B6]'
                   }`}>
                     {item.description}
                   </p>
@@ -301,29 +300,29 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
       </div>
 
       {/* Document Templates */}
-      <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-6 border border-[#B2B1B6]/20">
         <h3 className="text-lg font-semibold text-[#FFFFFF] mb-4 flex items-center">
-          <FileText className="w-5 h-5 mr-2 text-[#D4FF00]" />
+          <FileText className="w-5 h-5 mr-2 text-[#48E1FD]" />
           Document Templates
         </h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {relevantDocuments.map((doc) => (
-            <div key={doc.id} className="border border-[#CCCCCC]/20 rounded-lg p-4 hover:shadow-md transition-shadow bg-[#1E1E1E] hover:border-[#CCCCCC]/40">
+            <div key={doc.id} className="border border-[#B2B1B6]/20 rounded-lg p-4 hover:shadow-md transition-shadow bg-[#03041D] hover:border-[#B2B1B6]/40">
               <div className="flex items-start justify-between mb-2">
                 <h4 className="font-medium text-[#FFFFFF]">{doc.title}</h4>
                 <span className={`px-2 py-1 text-xs rounded-full ${
-                  doc.type === 'template' ? 'bg-[#D4FF00]/20 text-[#D4FF00] border border-[#D4FF00]/30' :
-                  doc.type === 'technical' ? 'bg-[#D4FF00]/20 text-[#D4FF00] border border-[#D4FF00]/30' :
-                  'bg-[#D4FF00]/20 text-[#D4FF00] border border-[#D4FF00]/30'
+                  doc.type === 'template' ? 'bg-[#48E1FD]/20 text-[#48E1FD] border border-[#48E1FD]/30' :
+                  doc.type === 'technical' ? 'bg-[#48E1FD]/20 text-[#48E1FD] border border-[#48E1FD]/30' :
+                  'bg-[#48E1FD]/20 text-[#48E1FD] border border-[#48E1FD]/30'
                 }`}>
                   {doc.type}
                 </span>
               </div>
-              <p className="text-sm text-[#CCCCCC] mb-3">{doc.description}</p>
+              <p className="text-sm text-[#B2B1B6] mb-3">{doc.description}</p>
               <button
                 onClick={() => generateDocument(doc.id)}
-                className="flex items-center space-x-2 text-[#D4FF00] hover:text-[#D4FF00]/80 text-sm font-medium"
+                className="flex items-center space-x-2 text-[#48E1FD] hover:text-[#48E1FD]/80 text-sm font-medium"
               >
                 <Download className="w-4 h-4" />
                 <span>Generate Document</span>
@@ -334,9 +333,9 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
       </div>
 
       {/* Timeline */}
-      <div className="bg-[#333333] rounded-xl shadow-lg p-6 border border-[#CCCCCC]/20">
+      <div className="bg-[#080A24] rounded-xl shadow-lg p-6 border border-[#B2B1B6]/20">
         <h3 className="text-lg font-semibold text-[#FFFFFF] mb-4 flex items-center">
-          <Clock className="w-5 h-5 mr-2 text-[#D4FF00]" />
+          <Clock className="w-5 h-5 mr-2 text-[#48E1FD]" />
           Typical Timeline
         </h3>
         
@@ -348,33 +347,41 @@ export const RegulatorySupport: React.FC<RegulatorySupportProps> = ({ calculatio
             { phase: 'Final Inspections', duration: '1 week', description: 'Electrical CoC and final approvals' }
           ].map((phase, index) => (
             <div key={index} className="flex items-center space-x-4">
-              <div className="w-8 h-8 bg-[#1E1E1E] rounded-full flex items-center justify-center text-[#D4FF00] font-semibold text-sm border border-[#D4FF00]/30">
+              <div className="w-8 h-8 bg-[#03041D] rounded-full flex items-center justify-center text-[#48E1FD] font-semibold text-sm border border-[#48E1FD]/30">
                 {index + 1}
               </div>
               <div className="flex-1">
                 <h4 className="font-medium text-[#FFFFFF]">{phase.phase}</h4>
-                <p className="text-sm text-[#CCCCCC]">{phase.description}</p>
+                <p className="text-sm text-[#B2B1B6]">{phase.description}</p>
               </div>
-              <div className="text-sm font-medium text-[#D4FF00]">{phase.duration}</div>
+              <div className="text-sm font-medium text-[#48E1FD]">{phase.duration}</div>
             </div>
           ))}
         </div>
       </div>
 
       {/* Support Contact */}
-      <div className="bg-gradient-to-r from-[#333333] to-[#1E1E1E] rounded-xl p-6 border border-[#CCCCCC]/20">
+      <div className="bg-gradient-to-r from-[#080A24] to-[#03041D] rounded-xl p-6 border border-[#B2B1B6]/20">
         <div className="flex items-center space-x-3 mb-4">
-          <Building className="w-6 h-6 text-[#D4FF00]" />
+          <Building className="w-6 h-6 text-[#48E1FD]" />
           <h3 className="text-lg font-semibold text-[#FFFFFF]">Need Help?</h3>
         </div>
-        <p className="text-[#CCCCCC] mb-4">
+        <p className="text-[#B2B1B6] mb-4">
           Our regulatory specialists can help you navigate the approval process and ensure compliance.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
-          <button className="px-4 py-2 bg-[#D4FF00] text-[#1E1E1E] rounded-lg hover:bg-[#D4FF00]/90 font-medium">
+          <button
+            type="button"
+            onClick={() => window.alert('Consultation request noted locally. Use the quote form to save contact details without external transmission.')}
+            className="px-4 py-2 bg-[#48E1FD] text-[#03041D] rounded-lg hover:bg-[#48E1FD]/90 font-medium"
+          >
             Schedule Consultation
           </button>
-          <button className="px-4 py-2 border border-[#D4FF00] text-[#D4FF00] rounded-lg hover:bg-[#D4FF00]/10">
+          <button
+            type="button"
+            onClick={() => generateDocument('full-regulatory-guide')}
+            className="px-4 py-2 border border-[#48E1FD] text-[#48E1FD] rounded-lg hover:bg-[#48E1FD]/10"
+          >
             Download Full Guide
           </button>
         </div>
