@@ -13,6 +13,7 @@ Phase S6 in progress: repository integration and cleanup. S4 offline conversion 
 - A fresh authenticated fetch on 2026-11-11 advanced the locally verified AN3S source from `ae29573` to `98d3160`; current `main` includes the official brand graphics, Motion v1, fixed-header/Hero guidance, Discipline Ledger, Chaos Gap, Strata, and AskAnswer documentation.
 - The AN3S visual contract is Neon Night: `deep-space` `#03041d`, `panel` `#080a24`, pink-to-violet-to-blue neon edges, cyan focus/technology cues, Montserrat, 6/10/18px radii, glow-based elevation, and four bounded motion durations with reduced-motion fallbacks.
 - Final browser QA verified the AN3S identity, locally loaded Montserrat, zero legacy UI brands, zero console/page errors, zero horizontal overflow at 1440x1100 and 390x844, working status/admin/settings/calculation/product transitions, and product view scroll position 0.
+- PR review identified and remediation now covers newer localStorage fallback recovery, explicit failure when both durable stores reject a write, itemized equipment persistence, and quote-ID invalidation/recreation after workspace replacement.
 
 ## Files Deeply Reviewed
 - `apps/default/scripts/seed-from-export.ts` (Summary: app/export discovery, resilient JSON parsing, schema/row flattening, Tri-Key collision ownership, deterministic media localization, and migration audit output.)
@@ -29,6 +30,7 @@ Phase S6 in progress: repository integration and cleanup. S4 offline conversion 
 - Vite emits one non-fatal warning because `local-automations.ts` is both dynamically and statically imported; change only if future chunk splitting matters.
 - `npm install` reports 3 audit findings (1 moderate, 2 high) under the user-mandated exact dependency pins; a pin-change security review would require explicit approval to relax those versions.
 - Optional Electron or Tauri packaging was not requested and remains outside the core definition of done.
+- GitHub Actions for PR #1 cannot start because the GitHub account is locked by a billing issue. The check has zero executed steps; merge and feature-branch deletion must wait for account remediation and a successful rerun.
 
 ## Decisions Made & Rationale
 - Decision: Preserve all raw `manifest.json`, `projects/`, `agents/`, `automations/`, and `media/` export records unchanged. Rationale: They are provenance-bearing source records.
@@ -38,11 +40,12 @@ Phase S6 in progress: repository integration and cleanup. S4 offline conversion 
 - Decision: Enforce loopback-only network access by default, including when the static app is hosted on a non-loopback origin. Rationale: This follows the explicit bounded-egress trust boundary.
 - Decision: Deduplicate identical localized media by content/name while retaining both metadata mappings. Rationale: Equal SHA-256 content does not require duplicate public files, but each exported record remains addressable.
 - Decision: Preserve extra root seed/dev/preview CLI arguments with explicit npm separators. Rationale: Workspace forwarding otherwise consumes flags such as `--dry-run`, `--host`, and `--port`.
+- Decision: Use monotonic workspace revisions to reconcile IndexedDB and localStorage, and require at least one durable backend to acknowledge every mutation. Rationale: silent dual-backend failure and stale-primary hydration can otherwise lose records while reporting success.
 
 ## Next Immediate Steps
-1. Commit and push the verified offline migration, AN3S redesign, CI workflow, and context index on `codex/integrate-offline-an3s`.
-2. Open a PR, inspect all review threads and checks, resolve actionable feedback, and merge only when eligible.
-3. Confirm the PR commit is contained in `origin/main` before deleting the remote and local feature branch.
+1. Commit and push the four verified PR review remediations on `codex/integrate-offline-an3s`, then reply to and resolve each review thread.
+2. After the GitHub billing lock is cleared, rerun PR #1 CI and confirm it passes before merging.
+3. Confirm the merged PR commit is contained in `origin/main` before deleting the remote and local feature branch.
 
 ## Patterns & Recurring Issues Noticed
 - Exported UI components originally mixed local state with Taskade-relative network calls; the final runtime centralizes data and flow behavior in local modules.
@@ -56,3 +59,4 @@ Phase S6 in progress: repository integration and cleanup. S4 offline conversion 
 - [2026-11-11] S5 started. Refetched the named AN3S repository, corrected the source revision to current `origin/main` `98d3160`, and recorded the redesign token/pattern contract before implementation.
 - [2026-11-11] S5 completed. Applied AN3S branding/tokens/assets to all active surfaces, removed unsupported inherited brand claims, fixed view-transition scroll, and passed TypeScript, production build, desktop/mobile visual QA, workflow navigation, static cloud/brand scans, and project-index refresh.
 - [2026-11-11] S6 started. Confirmed the remote has only `main`, zero open or merged PRs, zero review comments, zero CI workflows, no protection/rulesets, and no secret-like files in the proposed tree; created `codex/integrate-offline-an3s` and added a CI integration gate.
+- [2026-11-12] PR #1 opened from `codex/integrate-offline-an3s`. Addressed all four Codex review findings and verified TypeScript, production build, newer-fallback hydration, and dual-backend failure propagation. GitHub Actions remains externally blocked before step execution by an account billing lock, so no merge or branch deletion is permitted.

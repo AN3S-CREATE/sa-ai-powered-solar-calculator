@@ -48,3 +48,8 @@
 
 - **Decision:** Integrate the accumulated offline migration and AN3S redesign through `codex/integrate-offline-an3s` and a pull request, with CI running the exact pinned install, dry-run seeding, typecheck, build, and cloud-reference scan.
 - **Rationale:** The repository had no workflows, rulesets, prior PRs, or branch protection. A PR plus repeatable CI creates an auditable pre-merge gate instead of pushing a large verified change directly to `main`.
+
+## 2026-11-11 — Reconcile dual storage by monotonic workspace revision
+
+- **Decision:** Increment a workspace revision for every mutation or replacement, hydrate from the newest valid IndexedDB/localStorage snapshot, and reject a write when neither backend acknowledges durable persistence.
+- **Rationale:** IndexedDB can remain readable while quota or transaction failures force a newer write into localStorage. Preferring IndexedDB unconditionally loses the newer snapshot, while swallowing failures from both stores falsely reports a durable save.

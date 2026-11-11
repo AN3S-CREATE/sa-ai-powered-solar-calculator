@@ -74,6 +74,15 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
     }
   }, []);
 
+  useEffect(() => {
+    const handleWorkspaceReplacement = (event: Event) => {
+      const detail = (event as CustomEvent<{ projectId?: string }>).detail;
+      if (detail?.projectId === '*') quoteNodeIdRef.current = null;
+    };
+    window.addEventListener('genesis-data-updated', handleWorkspaceReplacement);
+    return () => window.removeEventListener('genesis-data-updated', handleWorkspaceReplacement);
+  }, []);
+
   const saveFormData = async (
     isAutoSave = false,
     calculationResults: CalculatorResults | null = results,
@@ -83,8 +92,12 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
     setSaveStatus('saving');
 
     try {
-      // Save to localStorage first (immediate backup)
-      localStorage.setItem('solarCalculatorFormData', JSON.stringify(formData));
+      // Keep an immediate recovery copy when localStorage is available, without blocking IndexedDB.
+      try {
+        localStorage.setItem('solarCalculatorFormData', JSON.stringify(formData));
+      } catch (backupError) {
+        console.warn('[RUNTIME:DATA] Form recovery backup is unavailable.', backupError);
+      }
 
       // If we have calculation results, save to database
       if (calculationResults) {
@@ -111,8 +124,16 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
             '/attributes/note': `${isAutoSave ? 'Auto-saved' : 'Manual save'} calculation on ${new Date().toISOString()}`
         };
         if (quoteNodeIdRef.current) {
-          await updateNode('aCGbHMAbWUZzTmna', quoteNodeIdRef.current, quoteFields);
-        } else {
+          try {
+            await updateNode('aCGbHMAbWUZzTmna', quoteNodeIdRef.current, quoteFields);
+          } catch (updateError) {
+            const missingNode =
+              updateError instanceof Error && updateError.message.includes('was not found in project');
+            if (!missingNode) throw updateError;
+            quoteNodeIdRef.current = null;
+          }
+        }
+        if (!quoteNodeIdRef.current) {
           const node = await createNode('aCGbHMAbWUZzTmna', quoteFields);
           quoteNodeIdRef.current = node.id;
         }
@@ -131,8 +152,11 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
       console.error('Error saving data:', error);
       setSaveStatus('error');
       
-      // Ensure data is at least saved locally
-      localStorage.setItem('solarCalculatorFormData', JSON.stringify(formData));
+      try {
+        localStorage.setItem('solarCalculatorFormData', JSON.stringify(formData));
+      } catch (backupError) {
+        console.warn('[RUNTIME:DATA] Form recovery backup could not be written.', backupError);
+      }
     }
   };
 
@@ -308,7 +332,7 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
       case 'success':
         return lastSaved ? `Saved ${lastSaved.toLocaleTimeString()}` : 'Saved';
       case 'error':
-        return 'Save failed - Data stored locally';
+        return 'Save failed - recovery copy retained when storage permits';
       default:
         return 'Auto-save enabled';
     }

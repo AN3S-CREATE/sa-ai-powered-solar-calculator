@@ -22,6 +22,7 @@ export interface WorkspaceState {
   generatedAt: string;
   schemas: Record<string, Record<string, FieldSchema>>;
   projects: Record<string, LocalNode[]>;
+  revision?: number;
 }
 
 type FieldInput = Record<string, unknown>;
@@ -35,8 +36,33 @@ const STATE_KEY = 'state';
 const LOCAL_STORAGE_LIMIT = 4_000_000;
 const BLOCKED_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
 
-let cache: WorkspaceState = structuredClone(factorySeed);
+let cache: WorkspaceState = { ...structuredClone(factorySeed), revision: 0 };
 let persistenceQueue = Promise.resolve();
+
+function getRevision(state: WorkspaceState | null): number {
+  if (
+    !state ||
+    typeof state.revision !== 'number' ||
+    !Number.isSafeInteger(state.revision) ||
+    state.revision < 0
+  ) {
+    return 0;
+  }
+  return state.revision;
+}
+
+function advanceRevision() {
+  cache.revision = getRevision(cache) + 1;
+}
+
+function newestState(
+  indexedState: WorkspaceState | null,
+  localState: WorkspaceState | null,
+): WorkspaceState | null {
+  if (!indexedState) return localState;
+  if (!localState) return indexedState;
+  return getRevision(localState) > getRevision(indexedState) ? localState : indexedState;
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -128,6 +154,14 @@ function isWorkspaceState(value: unknown): value is WorkspaceState {
   try {
     if (!isRecord(value) || value.spaceId !== factorySeed.spaceId) return false;
     if (typeof value.generatedAt !== 'string') return false;
+    if (
+      value.revision !== undefined &&
+      (typeof value.revision !== 'number' ||
+        !Number.isSafeInteger(value.revision) ||
+        value.revision < 0)
+    ) {
+      return false;
+    }
     if (!isRecord(value.projects) || !isRecord(value.schemas)) return false;
     assertSafeRecord(value, 'workspace import');
     return Object.values(value.projects).every(
@@ -208,22 +242,49 @@ function readLocalState(): WorkspaceState | null {
 
 async function persistState(): Promise<void> {
   const snapshot = structuredClone(cache);
+  let indexedPersisted = false;
+  let localPersisted = false;
+  let indexedError: unknown;
+  let localError: unknown;
+
   try {
     await writeIndexedState(snapshot);
+    indexedPersisted = true;
   } catch (error) {
+    indexedError = error;
     console.warn('[RUNTIME:DATA] IndexedDB persistence failed; using localStorage fallback.', error);
   }
 
   const serialized = JSON.stringify(snapshot);
   if (serialized.length > LOCAL_STORAGE_LIMIT) {
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
-    console.info('[RUNTIME:DATA] State exceeds localStorage limit; retained in IndexedDB only.');
-    return;
+    try {
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+    } catch (error) {
+      console.warn('[RUNTIME:DATA] Oversized localStorage fallback could not be removed.', error);
+    }
+    if (indexedPersisted) {
+      console.info('[RUNTIME:DATA] State exceeds localStorage limit; retained in IndexedDB only.');
+    }
+  } else {
+    try {
+      localStorage.setItem(LOCAL_STORAGE_KEY, serialized);
+      localPersisted = true;
+    } catch (error) {
+      localError = error;
+      console.warn(
+        indexedPersisted
+          ? '[RUNTIME:DATA] localStorage quota unavailable; IndexedDB remains durable.'
+          : '[RUNTIME:DATA] localStorage persistence also failed.',
+        error,
+      );
+    }
   }
-  try {
-    localStorage.setItem(LOCAL_STORAGE_KEY, serialized);
-  } catch (error) {
-    console.warn('[RUNTIME:DATA] localStorage quota unavailable; retained in IndexedDB only.', error);
+
+  if (!indexedPersisted && !localPersisted) {
+    const cause = indexedError ?? localError;
+    const failure = new Error('No durable workspace storage backend accepted the update.');
+    if (cause !== undefined) Object.assign(failure, { cause });
+    throw failure;
   }
 }
 
@@ -252,15 +313,23 @@ async function dispatchAutomation(
 }
 
 export const dataReady = (async () => {
-  let stored: WorkspaceState | null = null;
+  let indexedState: WorkspaceState | null = null;
   try {
-    stored = await readIndexedState();
+    indexedState = await readIndexedState();
   } catch (error) {
     console.warn('[RUNTIME:DATA] IndexedDB hydration failed.', error);
   }
-  stored ??= readLocalState();
-  if (stored) cache = stored;
-  else await queuePersistence();
+  const localState = readLocalState();
+  const stored = newestState(indexedState, localState);
+  if (stored) {
+    cache = { ...stored, revision: getRevision(stored) };
+  } else {
+    try {
+      await queuePersistence();
+    } catch (error) {
+      console.warn('[RUNTIME:DATA] Factory seed is available in memory only.', error);
+    }
+  }
   console.info('[RUNTIME:DATA] Local workspace hydrated.', {
     projects: Object.keys(cache.projects).length,
   });
@@ -299,6 +368,7 @@ export async function createNode(
   };
   cache.projects[projectId] ??= [];
   cache.projects[projectId].push(node);
+  advanceRevision();
   await queuePersistence();
   announce(projectId);
   await dispatchAutomation('task.custom_attribute_updated', projectId, node);
@@ -323,6 +393,7 @@ export async function updateNode(
   node.fieldValues = { ...node.fieldValues, ...mirrored };
   node.content = mirrored.Name || mirrored.Title || node.content;
   node.updatedAt = new Date().toISOString();
+  advanceRevision();
   await queuePersistence();
   announce(projectId);
   await dispatchAutomation('task.custom_attribute_updated', projectId, node);
@@ -339,6 +410,7 @@ export async function deleteNode(projectId: string, nodeId: string): Promise<boo
   const index = rows.findIndex((candidate) => candidate.id === nodeId);
   if (index < 0) return false;
   rows.splice(index, 1);
+  advanceRevision();
   await queuePersistence();
   announce(projectId);
   return true;
@@ -346,13 +418,21 @@ export async function deleteNode(projectId: string, nodeId: string): Promise<boo
 
 export async function importWorkspace(value: unknown): Promise<void> {
   if (!isWorkspaceState(value)) throw new TypeError('Invalid workspace JSON.');
-  cache = structuredClone(value);
+  const currentRevision = getRevision(cache);
+  const imported = structuredClone(value);
+  cache = {
+    ...imported,
+    revision: Math.max(currentRevision, getRevision(imported)) + 1,
+  };
   await queuePersistence();
   window.dispatchEvent(new CustomEvent('genesis-data-updated', { detail: { projectId: '*' } }));
 }
 
 export async function resetToFactorySeed(): Promise<void> {
-  cache = structuredClone(factorySeed);
+  cache = {
+    ...structuredClone(factorySeed),
+    revision: getRevision(cache) + 1,
+  };
   await queuePersistence();
   window.dispatchEvent(new CustomEvent('genesis-data-updated', { detail: { projectId: '*' } }));
 }

@@ -13,8 +13,8 @@ Last refreshed: 2026-11-11
 | `.index/architecture.md` | High-level components, offline data flows, AN3S presentation layer, and constraints. | Active; S5 refreshed |
 | `.index/key-decisions.md` | Lightweight technical and process decision log, including AN3S provenance and CI-gated PR integration. | Active; S6 refreshed |
 | `.index/dead-code.md` | Evidence-backed dead-code and technical-debt register. | Active |
-| `.index/context-refresh-log.md` | Index refresh history through verified S5 AN3S completion. | Active |
-| `REPO_ANALYSIS_MEMORY.md` | Persistent state for multi-message repository analysis; S6 tracks CI-gated integration and cleanup. | Active |
+| `.index/context-refresh-log.md` | Index refresh history through PR #1 review remediation and external CI-blocker verification. | Active; S6 refreshed |
+| `REPO_ANALYSIS_MEMORY.md` | Persistent state for multi-message repository analysis; S6 tracks PR review resolution and the billing-blocked CI gate. | Active |
 | `README.md` | Repository overview, local setup commands, layout, and Taskade integration boundary. | Active |
 | `package.json` | Root npm workspace and shared development/build/typecheck/preview commands; forwards seed, dev, and preview CLI arguments to the app workspace. | Active |
 | `manifest.json` | Taskade export metadata for the Geologix IO Energy space. | Active |
@@ -49,14 +49,14 @@ Last refreshed: 2026-11-11
 | `apps/default/src/components/UserGuide.tsx` | Legacy guide copy rebranded to AN3S with local-settings support guidance. | Unreferenced; retained |
 | `apps/default/src/components/ProposalGenerator.tsx` | Legacy proposal output rebranded to AN3S and labelled as locally generated planning material. | Unreferenced; retained |
 | `apps/default/src/components/blocks/agent-chat/FloatingAgentChat.tsx` | Exported-agent selector, bounded workspace grounding, local OpenAI-compatible streaming, deterministic offline fallback, and chat-pane-contained auto-scroll. | Active; browser verified |
-| `apps/default/src/components/EnhancedSolarCalculator.tsx` | AN3S-styled local calculator/form with deterministic pricing-flow validation and create-once/update-thereafter quote persistence. | Active; calculation and navigation verified |
+| `apps/default/src/components/EnhancedSolarCalculator.tsx` | AN3S-styled local calculator/form with deterministic pricing-flow validation, workspace-replacement ID invalidation, and missing-node quote recreation. | Active; PR feedback remediated |
 | `apps/default/src/components/StatsBar.tsx` | Evidence-based offline capability strip using migration counts instead of inherited supplier/impact claims. | Active |
-| `apps/default/src/components/ProductRecommendations.tsx` | AN3S panel/ledger product selection, quantities, ZAR pricing, financing comparison, and local quote/configuration persistence; inherited supplier contact claims removed. | Active; browser verified |
+| `apps/default/src/components/ProductRecommendations.tsx` | AN3S panel/ledger product selection, quantities, ZAR pricing, financing comparison, and durable itemized equipment/financing persistence; inherited supplier contact claims removed. | Active; PR feedback remediated |
 | `apps/default/src/components/QuoteRequestManager.tsx` | AN3S-styled local quote recovery, autosave, retry, and persistence status surface with local-only copy. | Active; browser verified |
 | `apps/default/src/components/SystemStatusChecker.tsx` | AN3S ledger-style diagnostics for local data, pricing flows, agents, knowledge, and browser update events. | Active; browser verified |
 | `apps/default/src/components/Loading.css` | Loading animation styles. | Active if `Loading.tsx` is used |
 | `apps/default/src/lib/genesis.tsx` | Taskade lifecycle logging, error boundary, and root provider. Uses local structural types so the public standalone build does not require a private Taskade package. | Active, platform-aware |
-| `apps/default/src/lib/genesis-data/client.ts` | Synchronous-cache local data engine with factory seed, IndexedDB primary persistence, bounded localStorage fallback, Tri-Key CRUD mirroring, import/export/reset, validation, events, and automation dispatch. | Active; browser persistence/reset verified |
+| `apps/default/src/lib/genesis-data/client.ts` | Synchronous-cache local data engine with monotonic revisions, newest-store hydration, IndexedDB/localStorage durability acknowledgement, Tri-Key CRUD, import/export/reset, validation, events, and automation dispatch. | Active; PR durability feedback remediated |
 | `apps/default/src/lib/genesis-flows/client.ts` | Validated local form submission, manual flow, and attribute-update facade. | Active; build and calculator-flow verified |
 | `apps/default/src/lib/local-automations.ts` | Exported-flow interpreter supporting local task creation, deterministic pricing actions, and isolated offline skips for cloud-only actions. | Active; manual controls and pricing flow verified |
 | `apps/default/src/lib/genesis-client-shim.ts` | Local `@taskade/genesis-client` proxy shim with secret resolution, bounded egress, and 15-second zero-retry requests. | Active; type/build verified |

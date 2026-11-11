@@ -363,6 +363,12 @@ const ProductRecommendations: React.FC<ProductRecommendationsProps> = ({
       
       const financingCalc = financingDetails ? 
         calculateFinancing(pricing.total, financingDetails) : null;
+      const equipmentSummary = selectedProductDetails
+        .map(
+          (item) =>
+            `${item.brand} ${item.name} x${item.quantity} @ R${item.unitPrice.toLocaleString('en-ZA')} = R${item.lineTotal.toLocaleString('en-ZA')}`,
+        )
+        .join('; ');
 
       // Create email content
       const emailSubject = `Solar System Quote Request - Customer`;
@@ -423,7 +429,22 @@ Generated on: ${new Date().toLocaleString()}
           '/attributes/@calc16': pricing.total,
           '/attributes/@calc17': calculatorData.propertyType,
           '/attributes/@calc18': 'quote',
-          '/attributes/note': `Quote request with selected products. Total: R${pricing.total.toLocaleString()} ${financingDetails ? `| Financing: ${financingDetails.name}` : ''}`
+          'Selected Equipment': JSON.stringify(selectedProductDetails),
+          'Equipment Summary': equipmentSummary,
+          'Quote Subtotal (ZAR)': pricing.subtotal,
+          'Quote VAT (ZAR)': pricing.vat,
+          'Quote Total (ZAR)': pricing.total,
+          'Financing Selection': financingDetails
+            ? JSON.stringify({
+                id: financingDetails.id,
+                name: financingDetails.name,
+                termMonths: financingDetails.termMonths,
+                downPayment: financingCalc?.downPayment ?? 0,
+                monthlyPayment: financingCalc?.monthlyPayment ?? 0,
+                totalInterest: financingCalc?.totalInterest ?? 0,
+              })
+            : '',
+          '/attributes/note': `Quote request with selected products. ${equipmentSummary}. Total: R${pricing.total.toLocaleString('en-ZA')} ${financingDetails ? `| Financing: ${financingDetails.name}` : ''}`
       });
 
       try {
