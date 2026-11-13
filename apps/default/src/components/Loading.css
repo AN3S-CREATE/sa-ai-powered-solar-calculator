@@ -30,8 +30,8 @@
   }
 
   body.auto .grid-bg {
-    background-image: linear-gradient(to right, #202020 1px, transparent 1px),
-      linear-gradient(to bottom, #202020 1px, transparent 1px);
+    background-image: linear-gradient(to right, #080A24 1px, transparent 1px),
+      linear-gradient(to bottom, #080A24 1px, transparent 1px);
     background-color: #1a1a1a;
   }
 
@@ -59,8 +59,8 @@ body.dark {
 }
 
 body.dark .grid-bg {
-  background-image: linear-gradient(to right, #202020 1px, transparent 1px),
-    linear-gradient(to bottom, #202020 1px, transparent 1px);
+  background-image: linear-gradient(to right, #080A24 1px, transparent 1px),
+    linear-gradient(to bottom, #080A24 1px, transparent 1px);
   background-color: #1a1a1a;
 }
 

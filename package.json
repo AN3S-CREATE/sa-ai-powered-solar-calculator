@@ -1,0 +1,19 @@
+{
+  "name": "sa-ai-powered-solar-calculator",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/default"
+  ],
+  "engines": {
+    "node": ">=20.11.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "seed": "npm run seed --workspace=apps/default --",
+    "dev": "npm run dev --workspace=apps/default --",
+    "build": "npm run build --workspace=apps/default",
+    "typecheck": "npm run typecheck --workspace=apps/default",
+    "preview": "npm run preview --workspace=apps/default --"
+  }
+}

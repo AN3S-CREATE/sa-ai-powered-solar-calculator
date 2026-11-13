@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+node_modules.partial-*/
+
+# Build and test output
+dist/
+coverage/
+.vite/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

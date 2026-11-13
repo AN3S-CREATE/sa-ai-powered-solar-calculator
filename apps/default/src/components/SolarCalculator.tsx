@@ -1,6 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Calculator, Zap, DollarSign, Calendar, TrendingUp, ShoppingCart, AlertCircle } from 'lucide-react';
 import { CalculatorResults, CalculatorData } from '../App';
+import { createNode } from '../lib/genesis-data/client';
+
+export interface SolarCalculation {
+  id?: string;
+  userName: string;
+  email: string;
+  phone: string;
+  monthlyBill: number;
+  location: string;
+  roofOrientation: string;
+  roofSize: number;
+  loadshedding: string;
+  propertyType: string;
+  systemSize?: number;
+  batterySize?: number;
+  inverterSize?: number;
+  totalCost?: number;
+  monthlySavings?: number;
+  annualSavings?: number;
+  paybackPeriod?: number;
+  roi?: number;
+  status?: string;
+}
 
 interface SolarCalculatorProps {
   onViewProducts: (results: CalculatorResults, data: CalculatorData) => void;
@@ -144,13 +167,8 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
     if (!results) return;
 
     try {
-      const response = await fetch('/api/taskade/projects/aCGbHMAbWUZzTmna/nodes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          '/text': `Solar Calculation - ${new Date().toLocaleDateString()}`,
+      await createNode('aCGbHMAbWUZzTmna', {
+          Name: `Solar Calculation - ${new Date().toLocaleDateString('en-ZA')}`,
           '/attributes/@calc1': 'Anonymous User', // We don't have user name in this form
           '/attributes/@calc2': '', // No email in this form
           '/attributes/@calc3': '', // No phone in this form
@@ -170,17 +188,11 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
           '/attributes/@calc17': formData.propertyType,
           '/attributes/@calc18': 'quote',
           '/attributes/note': `Calculation performed on ${new Date().toISOString()}`
-        }),
       });
-
-      if (response.ok) {
-        alert('Calculation saved! Our team will contact you soon with a detailed quote.');
-      } else {
-        throw new Error('Failed to save calculation');
-      }
+      alert('Calculation saved locally. You can export it from Local Standalone Settings.');
     } catch (error) {
       console.error('Error saving calculation:', error);
-      alert('Unable to save calculation at this time. Please try again later.');
+      alert('Unable to save the calculation locally. Please export your workspace backup and try again.');
     }
   };
 
@@ -210,7 +222,7 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
             type="number"
             value={formData.monthlyBill || ''}
             onChange={(e) => handleInputChange('monthlyBill', Number(e.target.value))}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full bg-[#080A24] border border-[#080A24] rounded-lg px-3 py-2 text-white placeholder-[#B2B1B6] focus:outline-none focus:border-[#48E1FD]/50"
             placeholder="e.g. 2500"
             min="0"
           />
@@ -224,7 +236,7 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
             type="text"
             value={formData.location}
             onChange={(e) => handleInputChange('location', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full bg-[#080A24] border border-[#080A24] rounded-lg px-3 py-2 text-white placeholder-[#B2B1B6] focus:outline-none focus:border-[#48E1FD]/50"
             placeholder="e.g. Johannesburg"
           />
         </div>
@@ -237,7 +249,7 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
             type="number"
             value={formData.roofSize || ''}
             onChange={(e) => handleInputChange('roofSize', Number(e.target.value))}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full bg-[#080A24] border border-[#080A24] rounded-lg px-3 py-2 text-white placeholder-[#B2B1B6] focus:outline-none focus:border-[#48E1FD]/50"
             placeholder="e.g. 50"
             min="0"
           />
@@ -250,7 +262,7 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
           <select
             value={formData.roofOrientation}
             onChange={(e) => handleInputChange('roofOrientation', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full bg-[#080A24] border border-[#080A24] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#48E1FD]/50"
           >
             <option value="north">North (Best)</option>
             <option value="north-east">North-East</option>
@@ -270,7 +282,7 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
           <select
             value={formData.loadshedding}
             onChange={(e) => handleInputChange('loadshedding', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full bg-[#080A24] border border-[#080A24] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#48E1FD]/50"
           >
             <option value="low">Low (1-2 times/week)</option>
             <option value="medium">Medium (3-4 times/week)</option>
@@ -285,7 +297,7 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
           <select
             value={formData.propertyType}
             onChange={(e) => handleInputChange('propertyType', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full bg-[#080A24] border border-[#080A24] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#48E1FD]/50"
           >
             <option value="freehold">Freehold Property</option>
             <option value="sectional">Sectional Title/Complex</option>
@@ -296,11 +308,11 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
         <button
           onClick={calculateSolar}
           disabled={isCalculating || formData.monthlyBill <= 0 || formData.roofSize <= 0}
-          className="w-full bg-[#D4FF00] text-[#1E1E1E] py-3 rounded-lg hover:bg-[#D4FF00]/90 disabled:bg-[#333333] disabled:text-[#CCCCCC] disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 font-bold"
+          className="w-full bg-[#48E1FD] text-[#03041D] py-3 rounded-lg hover:bg-[#48E1FD]/90 disabled:bg-[#080A24] disabled:text-[#B2B1B6] disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 font-bold"
         >
           {isCalculating ? (
             <>
-              <div className="w-4 h-4 border-2 border-[#1E1E1E] border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-4 h-4 border-2 border-[#03041D] border-t-transparent rounded-full animate-spin"></div>
               Calculating...
             </>
           ) : (
@@ -314,53 +326,53 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
 
       {/* Results */}
       {results && (
-        <div className="border-t border-[#D4FF00]/20 pt-6 space-y-4">
+        <div className="border-t border-[#48E1FD]/20 pt-6 space-y-4">
           <h3 className="text-lg font-semibold text-white mb-4">Your Solar Estimate</h3>
           
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-[#333333] rounded-lg p-3">
+            <div className="bg-[#080A24] rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
-                <Zap className="w-4 h-4 text-[#D4FF00]" />
-                <span className="text-xs text-[#CCCCCC]">System Size</span>
+                <Zap className="w-4 h-4 text-[#48E1FD]" />
+                <span className="text-xs text-[#B2B1B6]">System Size</span>
               </div>
               <div className="text-lg font-bold text-white">{results.systemSize} kW</div>
             </div>
             
-            <div className="bg-[#333333] rounded-lg p-3">
+            <div className="bg-[#080A24] rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
-                <DollarSign className="w-4 h-4 text-[#D4FF00]" />
-                <span className="text-xs text-[#CCCCCC]">Monthly Savings</span>
+                <DollarSign className="w-4 h-4 text-[#48E1FD]" />
+                <span className="text-xs text-[#B2B1B6]">Monthly Savings</span>
               </div>
               <div className="text-lg font-bold text-white">R{results.monthlySavings.toLocaleString()}</div>
             </div>
             
-            <div className="bg-[#333333] rounded-lg p-3">
+            <div className="bg-[#080A24] rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
-                <Calendar className="w-4 h-4 text-[#D4FF00]" />
-                <span className="text-xs text-[#CCCCCC]">Payback Period</span>
+                <Calendar className="w-4 h-4 text-[#48E1FD]" />
+                <span className="text-xs text-[#B2B1B6]">Payback Period</span>
               </div>
               <div className="text-lg font-bold text-white">{results.paybackPeriod} years</div>
             </div>
             
-            <div className="bg-[#333333] rounded-lg p-3">
+            <div className="bg-[#080A24] rounded-lg p-3">
               <div className="flex items-center gap-2 mb-1">
-                <TrendingUp className="w-4 h-4 text-[#D4FF00]" />
-                <span className="text-xs text-[#CCCCCC]">ROI</span>
+                <TrendingUp className="w-4 h-4 text-[#48E1FD]" />
+                <span className="text-xs text-[#B2B1B6]">ROI</span>
               </div>
               <div className="text-lg font-bold text-white">{(results.roi * 100).toFixed(1)}%</div>
             </div>
           </div>
 
-          <div className="bg-[#D4FF00]/10 border border-[#D4FF00]/20 rounded-lg p-4">
-            <div className="text-sm text-[#D4FF00] mb-2 font-medium">Estimated System Cost</div>
+          <div className="bg-[#48E1FD]/10 border border-[#48E1FD]/20 rounded-lg p-4">
+            <div className="text-sm text-[#48E1FD] mb-2 font-medium">Estimated System Cost</div>
             <div className="text-2xl font-bold text-white">R{results.systemCost.toLocaleString()}</div>
-            <div className="text-xs text-[#CCCCCC] mt-1">Including installation & battery backup</div>
+            <div className="text-xs text-[#B2B1B6] mt-1">Including installation & battery backup</div>
           </div>
 
           <div className="space-y-3">
             <button
               onClick={handleViewProducts}
-              className="w-full bg-[#D4FF00] text-[#1E1E1E] py-3 rounded-lg hover:bg-[#D4FF00]/90 transition-all duration-300 flex items-center justify-center gap-2 font-bold"
+              className="w-full bg-[#48E1FD] text-[#03041D] py-3 rounded-lg hover:bg-[#48E1FD]/90 transition-all duration-300 flex items-center justify-center gap-2 font-bold"
             >
               <ShoppingCart className="w-4 h-4" />
               View Product Recommendations
@@ -368,7 +380,7 @@ const SolarCalculator: React.FC<SolarCalculatorProps> = ({ onViewProducts }) => 
 
             <button
               onClick={saveCalculation}
-              className="w-full bg-[#333333] hover:bg-[#333333]/80 text-white py-2 rounded-lg transition-colors text-sm"
+              className="w-full bg-[#080A24] hover:bg-[#080A24]/80 text-white py-2 rounded-lg transition-colors text-sm"
             >
               Save & Request Detailed Quote
             </button>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CheckCircle, AlertTriangle, RefreshCw, Database, Bot, Zap, Shield, Wifi, WifiOff } from 'lucide-react';
+import agents from '../data/agents.json';
+import { dataReady, getProjectRows, getWorkspaceSnapshot } from '../lib/genesis-data/client';
+import { runFlow } from '../lib/genesis-flows/client';
 
 interface SystemStatus {
   database: 'online' | 'offline' | 'checking';
@@ -34,12 +37,10 @@ const SystemStatusChecker: React.FC = () => {
   const checkDatabase = async (): Promise<{ status: 'online' | 'offline', responseTime: number }> => {
     const startTime = Date.now();
     try {
-      const response = await fetch('/api/taskade/projects/aCGbHMAbWUZzTmna/nodes', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-      });
+      await dataReady;
+      getWorkspaceSnapshot();
       const responseTime = Date.now() - startTime;
-      return { status: response.ok ? 'online' : 'offline', responseTime };
+      return { status: 'online', responseTime };
     } catch (error) {
       return { status: 'offline', responseTime: Date.now() - startTime };
     }
@@ -49,19 +50,15 @@ const SystemStatusChecker: React.FC = () => {
   const checkPricingValidation = async (): Promise<{ status: 'online' | 'offline', responseTime: number }> => {
     const startTime = Date.now();
     try {
-      const response = await fetch('/api/taskade/webhooks/01K4ZV0WPB4T9A65P6T86E98FC/run', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          totalCost: 100000,
-          systemSize: 5,
-          batterySize: 10,
-          monthlyBill: 2000,
-          inverterSize: 5
-        })
+      await runFlow('01K4ZV0WPB4T9A65P6T86E98FC', {
+        totalCost: 100000,
+        systemSize: 5,
+        batterySize: 10,
+        monthlyBill: 2000,
+        inverterSize: 5,
       });
       const responseTime = Date.now() - startTime;
-      return { status: response.ok ? 'online' : 'offline', responseTime };
+      return { status: 'online', responseTime };
     } catch (error) {
       return { status: 'offline', responseTime: Date.now() - startTime };
     }
@@ -71,15 +68,9 @@ const SystemStatusChecker: React.FC = () => {
   const checkAIAgent = async (): Promise<{ status: 'online' | 'offline', responseTime: number }> => {
     const startTime = Date.now();
     try {
-      const response = await fetch('/api/taskade/webhooks/01K50T1N2GV55SCBF0QXY56ZT2/run', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          topic: 'Solar system status check'
-        })
-      });
+      if (!Array.isArray(agents) || agents.length === 0) throw new Error('No local agents.');
       const responseTime = Date.now() - startTime;
-      return { status: response.ok ? 'online' : 'offline', responseTime };
+      return { status: 'online', responseTime };
     } catch (error) {
       return { status: 'offline', responseTime: Date.now() - startTime };
     }
@@ -89,12 +80,10 @@ const SystemStatusChecker: React.FC = () => {
   const checkKnowledgeBase = async (): Promise<{ status: 'online' | 'offline', responseTime: number }> => {
     const startTime = Date.now();
     try {
-      const response = await fetch('/api/taskade/projects/1q5m78aS38jzufAu/nodes', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const rows = getProjectRows('1q5m78aS38jzufAu');
+      if (rows.length === 0) throw new Error('Pricing seed is empty.');
       const responseTime = Date.now() - startTime;
-      return { status: response.ok ? 'online' : 'offline', responseTime };
+      return { status: 'online', responseTime };
     } catch (error) {
       return { status: 'offline', responseTime: Date.now() - startTime };
     }
@@ -104,13 +93,15 @@ const SystemStatusChecker: React.FC = () => {
   const checkRealTimeConnection = async (): Promise<{ status: 'online' | 'offline', responseTime: number }> => {
     const startTime = Date.now();
     try {
-      // Test WebSocket or real-time endpoint
-      const response = await fetch('/api/taskade/projects/riGaYZx337LNfa2c/nodes', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
-      });
+      let observed = false;
+      const listener = () => {
+        observed = true;
+      };
+      window.addEventListener('genesis-data-updated', listener, { once: true });
+      window.dispatchEvent(new CustomEvent('genesis-data-updated', { detail: { projectId: 'status-check' } }));
+      window.removeEventListener('genesis-data-updated', listener);
       const responseTime = Date.now() - startTime;
-      return { status: response.ok ? 'online' : 'offline', responseTime };
+      return { status: observed ? 'online' : 'offline', responseTime };
     } catch (error) {
       return { status: 'offline', responseTime: Date.now() - startTime };
     }
@@ -168,22 +159,22 @@ const SystemStatusChecker: React.FC = () => {
   const getStatusIcon = (status: 'online' | 'offline' | 'checking') => {
     switch (status) {
       case 'online':
-        return <CheckCircle className="w-5 h-5 text-green-400" />;
+        return <CheckCircle className="h-5 w-5 text-success" />;
       case 'offline':
-        return <AlertTriangle className="w-5 h-5 text-red-400" />;
+        return <AlertTriangle className="h-5 w-5 text-danger" />;
       case 'checking':
-        return <RefreshCw className="w-5 h-5 text-blue-400 animate-spin" />;
+        return <RefreshCw className="h-5 w-5 animate-spin text-cyan" />;
     }
   };
 
   const getStatusColor = (status: 'online' | 'offline' | 'checking') => {
     switch (status) {
       case 'online':
-        return 'text-green-400';
+        return 'text-success';
       case 'offline':
-        return 'text-red-400';
+        return 'text-danger';
       case 'checking':
-        return 'text-blue-400';
+        return 'text-cyan';
     }
   };
 
@@ -198,7 +189,7 @@ const SystemStatusChecker: React.FC = () => {
       name: 'Pricing Validation System',
       status: systemStatus.pricingValidation,
       icon: Shield,
-      description: 'Real-time cost verification and validation'
+      description: 'Deterministic local cost verification and validation'
     },
     {
       name: 'AI Solar Agent',
@@ -213,10 +204,10 @@ const SystemStatusChecker: React.FC = () => {
       description: 'Solar component pricing and specifications'
     },
     {
-      name: 'Real-time Connection',
+      name: 'Local Update Bus',
       status: systemStatus.realTimeConnection,
       icon: systemStatus.realTimeConnection === 'online' ? Wifi : WifiOff,
-      description: 'Live data synchronization and updates'
+      description: 'In-browser data-change notifications'
     }
   ];
 
@@ -224,26 +215,26 @@ const SystemStatusChecker: React.FC = () => {
   const anySystemOffline = Object.values(systemStatus).some(status => status === 'offline');
 
   return (
-    <div className="bg-[#333333]/80 backdrop-blur-sm rounded-2xl border border-[#D4FF00]/20 p-6">
-      <div className="flex items-center justify-between mb-6">
+    <section className="an3s-panel p-5 sm:p-6" data-tone="blue">
+      <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div className="flex items-center gap-3">
-          <div className={`w-3 h-3 rounded-full ${
-            allSystemsOnline ? 'bg-green-400' : 
-            anySystemOffline ? 'bg-red-400' : 
-            'bg-blue-400 animate-pulse'
+          <div className={`h-3 w-3 rounded-full ${
+            allSystemsOnline ? 'bg-success' :
+            anySystemOffline ? 'bg-danger' :
+            'animate-pulse bg-cyan'
           }`} />
-          <h2 className="text-xl font-bold text-white">System Status Monitor</h2>
+          <h2 className="text-xl font-bold text-ink">Local system status</h2>
         </div>
         <div className="flex items-center gap-3">
           {lastFullCheck && (
-            <span className="text-sm text-[#CCCCCC]">
+            <span className="text-sm text-ink-muted">
               Last check: {lastFullCheck.toLocaleTimeString()}
             </span>
           )}
           <button
             onClick={runSystemCheck}
             disabled={isChecking}
-            className="px-4 py-2 bg-[#D4FF00] text-[#1E1E1E] rounded-lg hover:bg-[#D4FF00]/90 disabled:opacity-50 font-medium flex items-center gap-2"
+            className="an3s-action-primary flex items-center gap-2 px-4 py-2 disabled:opacity-50"
           >
             <RefreshCw className={`w-4 h-4 ${isChecking ? 'animate-spin' : ''}`} />
             {isChecking ? 'Checking...' : 'Check Now'}
@@ -252,16 +243,16 @@ const SystemStatusChecker: React.FC = () => {
       </div>
 
       {/* Overall Status */}
-      <div className={`p-4 rounded-lg mb-6 border ${
+      <div className={`mb-6 border-y p-4 ${
         allSystemsOnline 
-          ? 'bg-green-500/10 border-green-500/30' 
+          ? 'border-success/30 bg-success/10'
           : anySystemOffline 
-            ? 'bg-red-500/10 border-red-500/30'
-            : 'bg-blue-500/10 border-blue-500/30'
+            ? 'border-danger/30 bg-danger/10'
+            : 'border-cyan/30 bg-cyan/10'
       }`}>
         <div className="flex items-center gap-2">
           {getStatusIcon(allSystemsOnline ? 'online' : anySystemOffline ? 'offline' : 'checking')}
-          <span className="text-white font-semibold">
+          <span className="font-semibold text-ink">
             {allSystemsOnline 
               ? 'All Systems Operational' 
               : anySystemOffline 
@@ -270,9 +261,9 @@ const SystemStatusChecker: React.FC = () => {
             }
           </span>
         </div>
-        <p className="text-sm text-[#CCCCCC] mt-1">
+        <p className="mt-1 text-sm text-ink-muted">
           {allSystemsOnline 
-            ? 'AI agents, databases, and real-time connections are fully operational'
+            ? 'Local agents, storage, pricing data, and update events are operational'
             : anySystemOffline 
               ? 'Some systems are experiencing issues - check details below'
               : 'Running comprehensive system diagnostics...'
@@ -281,16 +272,16 @@ const SystemStatusChecker: React.FC = () => {
       </div>
 
       {/* Individual System Status */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="divide-y divide-line border-y border-line md:grid md:grid-cols-2 md:divide-x md:divide-y-0 lg:grid-cols-3">
         {systemChecks.map((check, index) => {
           const Icon = check.icon;
           return (
-            <div key={index} className="bg-[#1E1E1E] rounded-lg p-4 border border-[#CCCCCC]/20">
+            <div key={index} className="p-4">
               <div className="flex items-center gap-3 mb-2">
                 <Icon className={`w-5 h-5 ${getStatusColor(check.status)}`} />
-                <h3 className="font-semibold text-white text-sm">{check.name}</h3>
+                <h3 className="text-sm font-semibold text-ink">{check.name}</h3>
               </div>
-              <p className="text-xs text-[#CCCCCC] mb-3">{check.description}</p>
+              <p className="mb-3 text-xs text-ink-muted">{check.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   {getStatusIcon(check.status)}
@@ -300,7 +291,7 @@ const SystemStatusChecker: React.FC = () => {
                   </span>
                 </div>
                 {check.responseTime && (
-                  <span className="text-xs text-[#CCCCCC]">
+                  <span className="text-xs text-ink-muted">
                     {check.responseTime}ms
                   </span>
                 )}
@@ -311,29 +302,29 @@ const SystemStatusChecker: React.FC = () => {
       </div>
 
       {/* AI Agent Details */}
-      <div className="mt-6 p-4 bg-[#1E1E1E] rounded-lg border border-[#D4FF00]/20">
-        <h3 className="font-semibold text-[#D4FF00] mb-2 flex items-center gap-2">
+      <div className="mt-6 border-t border-line pt-5">
+        <h3 className="mb-2 flex items-center gap-2 font-semibold text-cyan-glow">
           <Bot className="w-5 h-5" />
           AI Agent Status Details
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
           <div>
-            <p className="text-[#CCCCCC] mb-1">Agent Name:</p>
-            <p className="text-white font-medium">Solar Knowledge Test Agent</p>
+            <p className="mb-1 text-ink-muted">Agent name:</p>
+            <p className="font-medium text-ink">Solar Knowledge Test Agent</p>
           </div>
           <div>
-            <p className="text-[#CCCCCC] mb-1">Agent ID:</p>
-            <p className="text-white font-mono text-xs">01K50T1A1F12Z63DDM6SE1HZV9</p>
+            <p className="mb-1 text-ink-muted">Agent ID:</p>
+            <p className="font-mono text-xs text-ink">01K50T1A1F12Z63DDM6SE1HZV9</p>
           </div>
           <div>
-            <p className="text-[#CCCCCC] mb-1">Knowledge Access:</p>
-            <p className={`font-medium ${systemStatus.knowledgeBase === 'online' ? 'text-green-400' : 'text-red-400'}`}>
+            <p className="mb-1 text-ink-muted">Knowledge access:</p>
+            <p className={`font-medium ${systemStatus.knowledgeBase === 'online' ? 'text-success' : 'text-danger'}`}>
               {systemStatus.knowledgeBase === 'online' ? 'Full Access' : 'Limited Access'}
             </p>
           </div>
           <div>
-            <p className="text-[#CCCCCC] mb-1">Real-time Updates:</p>
-            <p className={`font-medium ${systemStatus.realTimeConnection === 'online' ? 'text-green-400' : 'text-red-400'}`}>
+            <p className="mb-1 text-ink-muted">Local updates:</p>
+            <p className={`font-medium ${systemStatus.realTimeConnection === 'online' ? 'text-success' : 'text-danger'}`}>
               {systemStatus.realTimeConnection === 'online' ? 'Active' : 'Inactive'}
             </p>
           </div>
@@ -345,28 +336,28 @@ const SystemStatusChecker: React.FC = () => {
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${
-              systemStatus.database === 'online' ? 'bg-green-400' : 'bg-red-400'
+              systemStatus.database === 'online' ? 'bg-success' : 'bg-danger'
             }`} />
-            <span className="text-[#CCCCCC]">Database</span>
+            <span className="text-ink-muted">Database</span>
           </div>
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${
-              systemStatus.pricingValidation === 'online' ? 'bg-green-400' : 'bg-red-400'
+              systemStatus.pricingValidation === 'online' ? 'bg-success' : 'bg-danger'
             }`} />
-            <span className="text-[#CCCCCC]">Pricing API</span>
+            <span className="text-ink-muted">Pricing flow</span>
           </div>
           <div className="flex items-center gap-2">
             <div className={`w-2 h-2 rounded-full ${
-              systemStatus.aiAgent === 'online' ? 'bg-green-400' : 'bg-red-400'
+              systemStatus.aiAgent === 'online' ? 'bg-success' : 'bg-danger'
             }`} />
-            <span className="text-[#CCCCCC]">AI Agent</span>
+            <span className="text-ink-muted">AI agent</span>
           </div>
         </div>
-        <div className="text-[#CCCCCC]">
+        <div className="text-ink-muted">
           Auto-refresh: 30s
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

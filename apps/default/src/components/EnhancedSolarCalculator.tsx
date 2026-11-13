@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Calculator, Zap, DollarSign, Calendar, TrendingUp, ShoppingCart, AlertCircle, Save, Shield, CheckCircle } from 'lucide-react';
 import { CalculatorResults, CalculatorData } from '../App';
+import { createNode, updateNode } from '../lib/genesis-data/client';
+import { runFlow } from '../lib/genesis-flows/client';
 
 interface EnhancedSolarCalculatorProps {
   onViewProducts: (results: CalculatorResults, data: CalculatorData) => void;
@@ -33,6 +35,7 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
   
   const autoSaveTimeoutRef = useRef<NodeJS.Timeout>();
+  const quoteNodeIdRef = useRef<string | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
   // Auto-save mechanism
@@ -71,24 +74,35 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
     }
   }, []);
 
-  const saveFormData = async (isAutoSave = false) => {
+  useEffect(() => {
+    const handleWorkspaceReplacement = (event: Event) => {
+      const detail = (event as CustomEvent<{ projectId?: string }>).detail;
+      if (detail?.projectId === '*') quoteNodeIdRef.current = null;
+    };
+    window.addEventListener('genesis-data-updated', handleWorkspaceReplacement);
+    return () => window.removeEventListener('genesis-data-updated', handleWorkspaceReplacement);
+  }, []);
+
+  const saveFormData = async (
+    isAutoSave = false,
+    calculationResults: CalculatorResults | null = results,
+  ) => {
     if (!formData.userName || !formData.email) return;
 
     setSaveStatus('saving');
 
     try {
-      // Save to localStorage first (immediate backup)
-      localStorage.setItem('solarCalculatorFormData', JSON.stringify(formData));
+      // Keep an immediate recovery copy when localStorage is available, without blocking IndexedDB.
+      try {
+        localStorage.setItem('solarCalculatorFormData', JSON.stringify(formData));
+      } catch (backupError) {
+        console.warn('[RUNTIME:DATA] Form recovery backup is unavailable.', backupError);
+      }
 
       // If we have calculation results, save to database
-      if (results) {
-        const response = await fetch('/api/taskade/projects/aCGbHMAbWUZzTmna/nodes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            '/text': `Quote Request - ${formData.userName} - ${new Date().toLocaleDateString()}`,
+      if (calculationResults) {
+        const quoteFields = {
+            Name: `Quote Request - ${formData.userName} - ${new Date().toLocaleDateString('en-ZA')}`,
             '/attributes/@calc1': formData.userName,
             '/attributes/@calc2': formData.email,
             '/attributes/@calc3': formData.phone,
@@ -97,30 +111,37 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
             '/attributes/@calc6': formData.roofOrientation,
             '/attributes/@calc7': formData.roofSize,
             '/attributes/@calc8': formData.loadshedding,
-            '/attributes/@calc9': results.systemSize,
-            '/attributes/@calc10': results.batterySize,
-            '/attributes/@calc11': results.inverterSize,
-            '/attributes/@calc12': results.monthlySavings,
-            '/attributes/@calc13': results.annualSavings,
-            '/attributes/@calc14': results.paybackPeriod,
-            '/attributes/@calc15': results.roi,
-            '/attributes/@calc16': results.systemCost,
+            '/attributes/@calc9': calculationResults.systemSize,
+            '/attributes/@calc10': calculationResults.batterySize,
+            '/attributes/@calc11': calculationResults.inverterSize,
+            '/attributes/@calc12': calculationResults.monthlySavings,
+            '/attributes/@calc13': calculationResults.annualSavings,
+            '/attributes/@calc14': calculationResults.paybackPeriod,
+            '/attributes/@calc15': calculationResults.roi,
+            '/attributes/@calc16': calculationResults.systemCost,
             '/attributes/@calc17': formData.propertyType,
             '/attributes/@calc18': 'quote',
             '/attributes/note': `${isAutoSave ? 'Auto-saved' : 'Manual save'} calculation on ${new Date().toISOString()}`
-          }),
-        });
-
-        if (response.ok) {
-          setSaveStatus('success');
-          setLastSaved(new Date());
-          
-          // Clear localStorage after successful database save
-          if (!isAutoSave) {
-            localStorage.removeItem('solarCalculatorFormData');
+        };
+        if (quoteNodeIdRef.current) {
+          try {
+            await updateNode('aCGbHMAbWUZzTmna', quoteNodeIdRef.current, quoteFields);
+          } catch (updateError) {
+            const missingNode =
+              updateError instanceof Error && updateError.message.includes('was not found in project');
+            if (!missingNode) throw updateError;
+            quoteNodeIdRef.current = null;
           }
-        } else {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        }
+        if (!quoteNodeIdRef.current) {
+          const node = await createNode('aCGbHMAbWUZzTmna', quoteFields);
+          quoteNodeIdRef.current = node.id;
+        }
+        setSaveStatus('success');
+        setLastSaved(new Date());
+
+        if (!isAutoSave) {
+          localStorage.removeItem('solarCalculatorFormData');
         }
       } else {
         // Just form data, no calculation yet
@@ -131,33 +152,25 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
       console.error('Error saving data:', error);
       setSaveStatus('error');
       
-      // Ensure data is at least saved locally
-      localStorage.setItem('solarCalculatorFormData', JSON.stringify(formData));
+      try {
+        localStorage.setItem('solarCalculatorFormData', JSON.stringify(formData));
+      } catch (backupError) {
+        console.warn('[RUNTIME:DATA] Form recovery backup could not be written.', backupError);
+      }
     }
   };
 
   const validatePricing = async (calculationResults: CalculatorResults) => {
     try {
-      const response = await fetch('/api/taskade/webhooks/01K4ZV0WPB4T9A65P6T86E98FC/run', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      return await runFlow('01K4ZV0WPB4T9A65P6T86E98FC', {
           totalCost: calculationResults.systemCost,
           systemSize: calculationResults.systemSize,
           batterySize: calculationResults.batterySize,
           monthlyBill: formData.monthlyBill,
           inverterSize: calculationResults.inverterSize
-        }),
       });
-
-      if (response.ok) {
-        const validationResult = await response.json();
-        return validationResult;
-      }
     } catch (error) {
-      console.error('Pricing validation error:', error);
+      console.error('Local pricing validation error:', error);
     }
     return null;
   };
@@ -231,8 +244,8 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
 
         setResults(calculationResults);
         
-        // Auto-save the complete calculation
-        setTimeout(() => saveFormData(true), 1000);
+        // Persist the new result directly so this save does not depend on a stale render closure.
+        await saveFormData(true, calculationResults);
         
       } catch (err) {
         setError('Error calculating solar system. Please check your inputs and try again.');
@@ -302,13 +315,13 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
   const getSaveStatusIcon = () => {
     switch (saveStatus) {
       case 'saving':
-        return <Save className="w-4 h-4 animate-pulse text-blue-400" />;
+        return <Save className="h-4 w-4 animate-pulse text-cyan" />;
       case 'success':
-        return <CheckCircle className="w-4 h-4 text-green-400" />;
+        return <CheckCircle className="h-4 w-4 text-success" />;
       case 'error':
-        return <AlertCircle className="w-4 h-4 text-red-400" />;
+        return <AlertCircle className="h-4 w-4 text-danger" />;
       default:
-        return <Shield className="w-4 h-4 text-[#CCCCCC]" />;
+        return <Shield className="h-4 w-4 text-ink-muted" />;
     }
   };
 
@@ -319,67 +332,67 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
       case 'success':
         return lastSaved ? `Saved ${lastSaved.toLocaleTimeString()}` : 'Saved';
       case 'error':
-        return 'Save failed - Data stored locally';
+        return 'Save failed - recovery copy retained when storage permits';
       default:
         return 'Auto-save enabled';
     }
   };
 
   return (
-    <div ref={formRef} className="p-6 space-y-6 h-full overflow-y-auto">
+    <div ref={formRef} className="h-full space-y-7 overflow-y-auto p-5 sm:p-6">
       {/* Save Status Bar */}
-      <div className="flex items-center justify-between p-3 bg-[#1E1E1E] rounded-lg border border-[#CCCCCC]/20">
+      <div className="flex items-center justify-between rounded-md border border-line bg-deep-space px-4 py-3">
         <div className="flex items-center space-x-2">
           {getSaveStatusIcon()}
-          <span className="text-sm text-[#CCCCCC]">{getSaveStatusMessage()}</span>
+          <span className="text-sm text-ink-muted">{getSaveStatusMessage()}</span>
         </div>
         <label className="flex items-center space-x-2">
           <input
             type="checkbox"
             checked={autoSaveEnabled}
             onChange={(e) => setAutoSaveEnabled(e.target.checked)}
-            className="rounded border-[#CCCCCC]/30 text-[#D4FF00] focus:ring-[#D4FF00] bg-[#333333]"
+            className="rounded border-line-strong bg-panel text-cyan focus:ring-cyan"
           />
-          <span className="text-xs text-[#CCCCCC]">Auto-save</span>
+          <span className="text-xs text-ink-muted">Auto-save</span>
         </label>
       </div>
 
       {/* Error Display */}
       {error && (
-        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 flex items-center gap-2">
-          <AlertCircle className="w-5 h-5 text-red-400" />
-          <span className="text-red-400 text-sm">{error}</span>
+        <div className="flex items-center gap-2 rounded-md border border-danger/50 bg-danger/10 p-4">
+          <AlertCircle className="h-5 w-5 text-danger" />
+          <span className="text-sm text-danger">{error}</span>
         </div>
       )}
 
       {/* Customer Information */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-white">Customer Information</h3>
+        <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-ink">Customer information</h3>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-white mb-2">
+            <label className="mb-2 block text-sm font-medium text-ink-soft">
               Full Name *
             </label>
             <input
               type="text"
               value={formData.userName}
               onChange={(e) => handleInputChange('userName', e.target.value)}
-              className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+              className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink placeholder:text-ink-muted focus:border-cyan focus:outline-none"
               placeholder="Enter your full name"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-white mb-2">
+            <label className="mb-2 block text-sm font-medium text-ink-soft">
               Email Address *
             </label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
-              className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+              className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink placeholder:text-ink-muted focus:border-cyan focus:outline-none"
               placeholder="your.email@example.com"
               required
             />
@@ -387,14 +400,14 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
+          <label className="mb-2 block text-sm font-medium text-ink-soft">
             Phone Number
           </label>
           <input
             type="tel"
             value={formData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink placeholder:text-ink-muted focus:border-cyan focus:outline-none"
             placeholder="+27 82 123 4567"
           />
         </div>
@@ -402,17 +415,17 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
 
       {/* System Requirements */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-white">System Requirements</h3>
+        <h3 className="text-sm font-bold uppercase tracking-[0.14em] text-ink">System requirements</h3>
         
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
+          <label className="mb-2 block text-sm font-medium text-ink-soft">
             Monthly Electricity Bill (ZAR) *
           </label>
           <input
             type="number"
             value={formData.monthlyBill || ''}
             onChange={(e) => handleInputChange('monthlyBill', Number(e.target.value))}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink placeholder:text-ink-muted focus:border-cyan focus:outline-none"
             placeholder="e.g. 2500"
             min="0"
             required
@@ -420,28 +433,28 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
+          <label className="mb-2 block text-sm font-medium text-ink-soft">
             Location *
           </label>
           <input
             type="text"
             value={formData.location}
             onChange={(e) => handleInputChange('location', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink placeholder:text-ink-muted focus:border-cyan focus:outline-none"
             placeholder="e.g. Johannesburg"
             required
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
+          <label className="mb-2 block text-sm font-medium text-ink-soft">
             Available Roof Space (m²) *
           </label>
           <input
             type="number"
             value={formData.roofSize || ''}
             onChange={(e) => handleInputChange('roofSize', Number(e.target.value))}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white placeholder-[#CCCCCC] focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink placeholder:text-ink-muted focus:border-cyan focus:outline-none"
             placeholder="e.g. 50"
             min="0"
             required
@@ -449,13 +462,13 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
+          <label className="mb-2 block text-sm font-medium text-ink-soft">
             Roof Orientation
           </label>
           <select
             value={formData.roofOrientation}
             onChange={(e) => handleInputChange('roofOrientation', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink focus:border-cyan focus:outline-none"
           >
             <option value="north">North (Best)</option>
             <option value="north-east">North-East</option>
@@ -469,13 +482,13 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
+          <label className="mb-2 block text-sm font-medium text-ink-soft">
             Load-shedding Frequency
           </label>
           <select
             value={formData.loadshedding}
             onChange={(e) => handleInputChange('loadshedding', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink focus:border-cyan focus:outline-none"
           >
             <option value="low">Low (1-2 times/week)</option>
             <option value="medium">Medium (3-4 times/week)</option>
@@ -484,13 +497,13 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
+          <label className="mb-2 block text-sm font-medium text-ink-soft">
             Property Type
           </label>
           <select
             value={formData.propertyType}
             onChange={(e) => handleInputChange('propertyType', e.target.value)}
-            className="w-full bg-[#333333] border border-[#333333] rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#D4FF00]/50"
+            className="w-full rounded-md border border-line-strong bg-deep-space px-3 py-2 text-ink focus:border-cyan focus:outline-none"
           >
             <option value="freehold">Freehold Property</option>
             <option value="sectional">Sectional Title/Complex</option>
@@ -502,11 +515,11 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
           <button
             onClick={calculateSolar}
             disabled={isCalculating || formData.monthlyBill <= 0 || formData.roofSize <= 0 || !formData.userName || !formData.email}
-            className="flex-1 bg-[#D4FF00] text-[#1E1E1E] py-3 rounded-lg hover:bg-[#D4FF00]/90 disabled:bg-[#333333] disabled:text-[#CCCCCC] disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 font-bold"
+            className="an3s-action-primary flex flex-1 items-center justify-center gap-2 py-3 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {isCalculating ? (
               <>
-                <div className="w-4 h-4 border-2 border-[#1E1E1E] border-t-transparent rounded-full animate-spin"></div>
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-deep-space border-t-transparent" />
                 Calculating...
               </>
             ) : (
@@ -520,7 +533,7 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
           <button
             onClick={() => saveFormData(false)}
             disabled={!formData.userName || !formData.email}
-            className="px-4 py-3 bg-[#333333] hover:bg-[#333333]/80 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="an3s-action-secondary px-4 py-3 disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Save className="w-4 h-4" />
           </button>
@@ -529,53 +542,53 @@ const EnhancedSolarCalculator: React.FC<EnhancedSolarCalculatorProps> = ({ onVie
 
       {/* Results */}
       {results && (
-        <div className="border-t border-[#D4FF00]/20 pt-6 space-y-4">
-          <h3 className="text-lg font-semibold text-white mb-4">Your Solar Estimate</h3>
+        <div className="space-y-4 border-t border-line pt-6">
+          <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.14em] text-ink">Your solar estimate</h3>
           
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-[#333333] rounded-lg p-3">
+            <div className="rounded-md border border-line bg-deep-space p-3">
               <div className="flex items-center gap-2 mb-1">
-                <Zap className="w-4 h-4 text-[#D4FF00]" />
-                <span className="text-xs text-[#CCCCCC]">System Size</span>
+                <Zap className="h-4 w-4 text-pink-glow" />
+                <span className="text-xs text-ink-muted">System size</span>
               </div>
-              <div className="text-lg font-bold text-white">{results.systemSize} kW</div>
+              <div className="text-lg font-bold text-ink">{results.systemSize} kW</div>
             </div>
             
-            <div className="bg-[#333333] rounded-lg p-3">
+            <div className="rounded-md border border-line bg-deep-space p-3">
               <div className="flex items-center gap-2 mb-1">
-                <DollarSign className="w-4 h-4 text-[#D4FF00]" />
-                <span className="text-xs text-[#CCCCCC]">Monthly Savings</span>
+                <DollarSign className="h-4 w-4 text-cyan-glow" />
+                <span className="text-xs text-ink-muted">Monthly savings</span>
               </div>
-              <div className="text-lg font-bold text-white">R{results.monthlySavings.toLocaleString()}</div>
+              <div className="text-lg font-bold text-ink">R{results.monthlySavings.toLocaleString()}</div>
             </div>
             
-            <div className="bg-[#333333] rounded-lg p-3">
+            <div className="rounded-md border border-line bg-deep-space p-3">
               <div className="flex items-center gap-2 mb-1">
-                <Calendar className="w-4 h-4 text-[#D4FF00]" />
-                <span className="text-xs text-[#CCCCCC]">Payback Period</span>
+                <Calendar className="h-4 w-4 text-violet-glow" />
+                <span className="text-xs text-ink-muted">Payback period</span>
               </div>
-              <div className="text-lg font-bold text-white">{results.paybackPeriod} years</div>
+              <div className="text-lg font-bold text-ink">{results.paybackPeriod} years</div>
             </div>
             
-            <div className="bg-[#333333] rounded-lg p-3">
+            <div className="rounded-md border border-line bg-deep-space p-3">
               <div className="flex items-center gap-2 mb-1">
-                <TrendingUp className="w-4 h-4 text-[#D4FF00]" />
-                <span className="text-xs text-[#CCCCCC]">ROI</span>
+                <TrendingUp className="h-4 w-4 text-cyan-glow" />
+                <span className="text-xs text-ink-muted">ROI</span>
               </div>
-              <div className="text-lg font-bold text-white">{(results.roi * 100).toFixed(1)}%</div>
+              <div className="text-lg font-bold text-ink">{(results.roi * 100).toFixed(1)}%</div>
             </div>
           </div>
 
-          <div className="bg-[#D4FF00]/10 border border-[#D4FF00]/20 rounded-lg p-4">
-            <div className="text-sm text-[#D4FF00] mb-2 font-medium">Estimated System Cost</div>
-            <div className="text-2xl font-bold text-white">R{results.systemCost.toLocaleString()}</div>
-            <div className="text-xs text-[#CCCCCC] mt-1">Including installation & battery backup</div>
+          <div className="rounded-md border border-cyan/30 bg-cyan/10 p-4">
+            <div className="mb-2 text-sm font-semibold uppercase tracking-[0.1em] text-cyan-glow">Estimated system cost</div>
+            <div className="text-2xl font-extrabold text-ink">R{results.systemCost.toLocaleString()}</div>
+            <div className="mt-1 text-xs text-ink-muted">Including installation &amp; battery backup</div>
           </div>
 
           <div className="space-y-3">
             <button
               onClick={handleViewProducts}
-              className="w-full bg-[#D4FF00] text-[#1E1E1E] py-3 rounded-lg hover:bg-[#D4FF00]/90 transition-all duration-300 flex items-center justify-center gap-2 font-bold"
+              className="an3s-action-primary flex w-full items-center justify-center gap-2 py-3"
             >
               <ShoppingCart className="w-4 h-4" />
               View Product Recommendations

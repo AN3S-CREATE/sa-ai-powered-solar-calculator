@@ -35,8 +35,8 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ calculation, compact =
     // Initialize with welcome message
     if (messages.length === 0) {
       const welcomeContent = calculation 
-        ? `Hello ${calculation.userName}! I'm your AI solar advisor from IO Green, South Africa's leader in sustainable solar energy solutions. I can help explain your solar calculation results, answer technical questions, and guide you through our installation process. What would you like to know?`
-        : "Hello! I'm your AI solar advisor from IO Green (Pty) Ltd. As South Africa's leader in sustainable solar energy solutions, I'm here to help you understand solar energy, explain technical terms, and guide you through our solar installation process. We've helped produce 85 MW of solar energy annually and prevented 123,165 tons of CO₂ emissions. Please complete a calculation first, or ask me any questions about solar power!";
+        ? `Hello ${calculation.userName}! I'm the local advisor inside AN3S Solar Intelligence. I can explain your estimate, answer technical questions, and help you prepare the next planning step. What would you like to know?`
+        : "Hello! I'm the local advisor inside AN3S Solar Intelligence. I can explain solar-planning terms and help you use the offline calculator without inventing supplier, installation, or regulatory facts. Complete a calculation first, or ask a general solar-planning question.";
 
       const welcomeMessage: Message = {
         id: '1',
@@ -94,12 +94,12 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ calculation, compact =
     },
     {
       icon: HelpCircle,
-      question: "What maintenance does IO Green provide?",
+      question: "What maintenance should I plan for?",
       category: "Maintenance"
     },
     {
       icon: Lightbulb,
-      question: "Tell me about IO Green's technology",
+      question: "How does this local tool work?",
       category: "Technology"
     }
   ];
@@ -107,9 +107,9 @@ export const AIAssistant: React.FC<AIAssistantProps> = ({ calculation, compact =
   const generateAIResponse = (userMessage: string): string => {
     const message = userMessage.toLowerCase();
     
-    // IO Green company information
-    if (message.includes('io green') || message.includes('company') || message.includes('about')) {
-      return `IO Green (Pty) Ltd is South Africa's leader in sustainable solar energy solutions! Here's what makes us special:
+    // Product information
+    if (message.includes('an3s') || message.includes('company') || message.includes('about')) {
+      return `AN3S Solar Intelligence is a private, offline-first planning application. Its purpose is to turn locally stored workspace data into a structured solar estimate.
 
 **Our Mission**: To accelerate the adoption of renewable energy through innovative, reliable, and accessible solar solutions.
 
@@ -130,7 +130,7 @@ We're committed to creating a greener, more sustainable future by reducing carbo
 
     // Technology and innovation
     if (message.includes('technology') || message.includes('innovation') || message.includes('ai') || message.includes('monitoring')) {
-      return `IO Green utilizes cutting-edge technology to optimize your solar experience:
+      return `AN3S Solar Intelligence combines local calculation logic, exported workspace data, and an optional loopback-only language model:
 
 **Advanced AI-Driven Systems**:
 - AI-powered monitoring and analytics for system optimization
@@ -153,7 +153,7 @@ Our technology ensures your solar system operates at peak efficiency while provi
 
     // Maintenance and support
     if (message.includes('maintenance') || message.includes('support') || message.includes('service')) {
-      return `IO Green provides comprehensive maintenance and support services:
+      return `Use this checklist when discussing maintenance and support with a qualified installer:
 
 **Routine Maintenance Plans**:
 - Scheduled system inspections and cleaning
@@ -182,7 +182,7 @@ Our goal is to ensure your solar system operates flawlessly for decades with min
     
     if (message.includes('calculate') || message.includes('system size')) {
       return calculation 
-        ? `Great question! Using IO Green's advanced AI-driven analytics, I calculated your ${calculation.systemSize}kWp system based on several factors:
+        ? `Great question! The local calculator estimated your ${calculation.systemSize}kWp system from these factors:
 
 1. **Energy Consumption**: Your R${calculation.monthlyBill} monthly bill suggests you use about ${Math.round(calculation.monthlyBill / 2.5)} kWh per month.
 
@@ -193,11 +193,11 @@ Our goal is to ensure your solar system operates flawlessly for decades with min
 4. **Load-shedding**: With ${calculation.loadshedding} frequency, I sized your battery at ${calculation.batterySize}kWh for backup power.
 
 The system will generate approximately ${Math.round((calculation.systemSize || 0) * 5.8 * 30)} kWh monthly, covering about 80% of your electricity needs! Our IoT monitoring will track this performance in real-time.`
-        : "I'd be happy to explain IO Green's solar calculations! Our advanced AI-driven system considers South African solar conditions, your specific location, and load-shedding patterns. Please complete the calculator first so I can give you personalized insights.";
+        : "The local calculator considers South African solar conditions, your location, roof details, and load-shedding pattern. Complete the calculator first so I can explain the resulting estimate.";
     }
     
     if (message.includes('load') || message.includes('shedding')) {
-      return `Absolutely! IO Green's systems are specifically designed for South African load-shedding conditions with smart technology:
+      return `The planning estimate includes battery capacity for South African load-shedding conditions:
 
 **During Load-shedding:**
 - Your ${calculation?.batterySize || 'X'}kWh battery provides backup power
@@ -222,7 +222,7 @@ Our advanced monitoring system will send you alerts and optimize your system's p
     
     if (message.includes('cost') || message.includes('price') || message.includes('expensive') || message.includes('financing')) {
       return calculation 
-        ? `Let me break down your R${calculation.totalCost?.toLocaleString()} investment with IO Green:
+        ? `Here is the local planning breakdown for the R${calculation.totalCost?.toLocaleString()} estimate:
 
 **System Breakdown:**
 - High-quality solar panels (${calculation.systemSize}kWp): ~R${Math.round((calculation.systemSize || 0) * 12000).toLocaleString()}
@@ -234,18 +234,18 @@ Our advanced monitoring system will send you alerts and optimize your system's p
 - Payback period: ${calculation.paybackPeriod} years
 - 20-year savings: R${((calculation.annualSavings || 0) * 20).toLocaleString()}
 
-**IO Green Financing Options:**
+**Financing options to verify with a provider:**
 - Cash purchase (best ROI)
 - Solar loans with partner banks
 - Flexible payment plans
 - Green energy financing options
 
 Plus, you'll contribute to our mission of preventing CO₂ emissions and supporting renewable energy in South Africa!`
-        : "IO Green offers competitive pricing with transparent communication. We source high-quality equipment and provide comprehensive financing options. Complete the calculator to get personalized pricing!";
+        : "Complete the calculator to produce a local planning estimate. Confirm current equipment pricing, finance terms, and installation scope with qualified providers before making a decision.";
     }
     
     if (message.includes('installation') || message.includes('install')) {
-      return `IO Green's professional installation process is designed for minimal disruption and maximum quality:
+      return `A qualified provider should confirm an installation plan covering these stages:
 
 **Pre-Installation (1-2 weeks):**
 - Professional site survey and custom system design
@@ -275,7 +275,7 @@ Most installations are completed without any power interruptions to your home!`;
     }
 
     if (message.includes('environment') || message.includes('impact') || message.includes('carbon') || message.includes('green')) {
-      return `IO Green is deeply committed to environmental sustainability and making a measurable difference:
+      return `Solar can reduce grid electricity demand, but environmental outcomes depend on the installed system and operating conditions:
 
 **Our Environmental Impact:**
 - 123,165 tons of CO₂ emissions prevented annually
@@ -296,18 +296,18 @@ With your ${calculation?.systemSize || 'X'}kWp system, you'll:
 - Supporting South Africa's renewable energy transition
 - Building a more sustainable future for all
 
-Every solar installation with IO Green is a step toward a greener, more sustainable South Africa!`;
+Treat these figures as planning estimates and verify them against the final system design.`;
     }
     
     // Default response
-    return `I'm here to help with all your solar questions as your IO Green AI advisor! I can explain:
+    return `I'm the local AN3S Solar Intelligence advisor. I can explain:
 
 **Technical Information:**
 - How your solar calculation was determined using our AI analytics
 - Load-shedding solutions with smart technology
 - Our advanced IoT monitoring and diagnostics
 
-**IO Green Services:**
+**Planning workflow:**
 - Our comprehensive installation process
 - Maintenance plans and smart diagnostics
 - Financing options and transparent pricing
@@ -387,11 +387,11 @@ What specific aspect would you like to know more about?`;
 
   if (compact) {
     return (
-      <div ref={containerRef} className="h-full flex flex-col bg-[#333333] overflow-hidden">
+      <div ref={containerRef} className="h-full flex flex-col bg-[#080A24] overflow-hidden">
         {/* Quick Questions - Compact */}
         {messages.length <= 1 && (
-          <div className="p-4 border-b border-[#CCCCCC]/20 flex-shrink-0">
-            <p className="text-xs text-[#CCCCCC] mb-3">Quick questions to get started:</p>
+          <div className="p-4 border-b border-[#B2B1B6]/20 flex-shrink-0">
+            <p className="text-xs text-[#B2B1B6] mb-3">Quick questions to get started:</p>
             <div className="grid grid-cols-1 gap-2">
               {quickQuestions.map((q, index) => {
                 const Icon = q.icon;
@@ -399,9 +399,9 @@ What specific aspect would you like to know more about?`;
                   <button
                     key={index}
                     onClick={() => handleQuickQuestion(q.question)}
-                    className="flex items-center space-x-2 p-2 text-left text-sm bg-[#1E1E1E] hover:bg-[#1E1E1E]/80 rounded-lg transition-colors border border-[#CCCCCC]/20"
+                    className="flex items-center space-x-2 p-2 text-left text-sm bg-[#03041D] hover:bg-[#03041D]/80 rounded-lg transition-colors border border-[#B2B1B6]/20"
                   >
-                    <Icon className="w-4 h-4 text-[#D4FF00]" />
+                    <Icon className="w-4 h-4 text-[#48E1FD]" />
                     <span className="text-white">{q.question}</span>
                   </button>
                 );
@@ -422,8 +422,8 @@ What specific aspect would you like to know more about?`;
               }`}>
                 <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 ${
                   message.type === 'user' 
-                    ? 'bg-[#D4FF00] text-[#1E1E1E]' 
-                    : 'bg-[#1E1E1E] text-[#D4FF00] border border-[#CCCCCC]/20'
+                    ? 'bg-[#48E1FD] text-[#03041D]'
+                    : 'bg-[#03041D] text-[#48E1FD] border border-[#B2B1B6]/20'
                 }`}>
                   {message.type === 'user' ? (
                     <User className="w-4 h-4" />
@@ -433,15 +433,15 @@ What specific aspect would you like to know more about?`;
                 </div>
                 <div className={`p-3 rounded-lg ${
                   message.type === 'user'
-                    ? 'bg-[#D4FF00] text-[#1E1E1E]'
-                    : 'bg-[#1E1E1E] text-white border border-[#CCCCCC]/20'
+                    ? 'bg-[#48E1FD] text-[#03041D]'
+                    : 'bg-[#03041D] text-white border border-[#B2B1B6]/20'
                 }`}>
                   <p className="text-sm whitespace-pre-line">
                     {message.displayContent || message.content}
                     {message.isAnimating && <span className="animate-pulse">|</span>}
                   </p>
                   <p className={`text-xs mt-1 ${
-                    message.type === 'user' ? 'text-[#1E1E1E]/70' : 'text-[#CCCCCC]'
+                    message.type === 'user' ? 'text-[#03041D]/70' : 'text-[#B2B1B6]'
                   }`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
@@ -453,14 +453,14 @@ What specific aspect would you like to know more about?`;
           {isTyping && (
             <div className="flex justify-start">
               <div className="flex items-start space-x-2">
-                <div className="w-7 h-7 bg-[#1E1E1E] rounded-full flex items-center justify-center border border-[#CCCCCC]/20">
-                  <Bot className="w-4 h-4 text-[#D4FF00]" />
+                <div className="w-7 h-7 bg-[#03041D] rounded-full flex items-center justify-center border border-[#B2B1B6]/20">
+                  <Bot className="w-4 h-4 text-[#48E1FD]" />
                 </div>
-                <div className="bg-[#1E1E1E] p-3 rounded-lg border border-[#CCCCCC]/20">
+                <div className="bg-[#03041D] p-3 rounded-lg border border-[#B2B1B6]/20">
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-[#D4FF00] rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-[#D4FF00] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-[#D4FF00] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="w-2 h-2 bg-[#48E1FD] rounded-full animate-bounce"></div>
+                    <div className="w-2 h-2 bg-[#48E1FD] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                    <div className="w-2 h-2 bg-[#48E1FD] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                   </div>
                 </div>
               </div>
@@ -470,7 +470,7 @@ What specific aspect would you like to know more about?`;
         </div>
 
         {/* Input - Compact */}
-        <div className="p-4 border-t border-[#CCCCCC]/20 flex-shrink-0">
+        <div className="p-4 border-t border-[#B2B1B6]/20 flex-shrink-0">
           <div className="flex space-x-2">
             <input
               type="text"
@@ -478,13 +478,13 @@ What specific aspect would you like to know more about?`;
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
               placeholder="Ask me anything about solar..."
-              className="flex-1 px-3 py-2 text-sm border border-[#CCCCCC]/30 rounded-lg focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent bg-[#1E1E1E] text-white placeholder-[#CCCCCC]"
+              className="flex-1 px-3 py-2 text-sm border border-[#B2B1B6]/30 rounded-lg focus:ring-2 focus:ring-[#48E1FD] focus:border-transparent bg-[#03041D] text-white placeholder-[#B2B1B6]"
               disabled={isTyping}
             />
             <button
               onClick={handleSendMessage}
               disabled={!inputMessage.trim() || isTyping}
-              className="px-4 py-2 bg-[#D4FF00] text-[#1E1E1E] rounded-lg hover:bg-[#D4FF00]/90 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-[#48E1FD] text-[#03041D] rounded-lg hover:bg-[#48E1FD]/90 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Send className="w-4 h-4" />
             </button>
@@ -496,24 +496,24 @@ What specific aspect would you like to know more about?`;
 
   // Full-size version
   return (
-    <div className="bg-[#333333] rounded-xl shadow-lg h-[600px] flex flex-col border border-[#CCCCCC]/20">
+    <div className="bg-[#080A24] rounded-xl shadow-lg h-[600px] flex flex-col border border-[#B2B1B6]/20">
       {/* Header */}
-      <div className="p-6 border-b border-[#CCCCCC]/20">
+      <div className="p-6 border-b border-[#B2B1B6]/20">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-[#1E1E1E] rounded-full flex items-center justify-center border border-[#CCCCCC]/20">
-            <Bot className="w-6 h-6 text-[#D4FF00]" />
+          <div className="w-10 h-10 bg-[#03041D] rounded-full flex items-center justify-center border border-[#B2B1B6]/20">
+            <Bot className="w-6 h-6 text-[#48E1FD]" />
           </div>
           <div>
             <h2 className="text-xl font-bold text-white">AI Solar Assistant</h2>
-            <p className="text-sm text-[#CCCCCC]">Get expert guidance from IO Green</p>
+            <p className="text-sm text-[#B2B1B6]">Local guidance from AN3S Solar Intelligence</p>
           </div>
         </div>
       </div>
 
       {/* Quick Questions */}
       {messages.length <= 1 && (
-        <div className="p-4 border-b border-[#CCCCCC]/20">
-          <p className="text-sm text-[#CCCCCC] mb-3">Quick questions to get started:</p>
+        <div className="p-4 border-b border-[#B2B1B6]/20">
+          <p className="text-sm text-[#B2B1B6] mb-3">Quick questions to get started:</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {quickQuestions.map((q, index) => {
               const Icon = q.icon;
@@ -521,9 +521,9 @@ What specific aspect would you like to know more about?`;
                 <button
                   key={index}
                   onClick={() => handleQuickQuestion(q.question)}
-                  className="flex items-center space-x-2 p-2 text-left text-sm bg-[#1E1E1E] hover:bg-[#1E1E1E]/80 rounded-lg transition-colors border border-[#CCCCCC]/20"
+                  className="flex items-center space-x-2 p-2 text-left text-sm bg-[#03041D] hover:bg-[#03041D]/80 rounded-lg transition-colors border border-[#B2B1B6]/20"
                 >
-                  <Icon className="w-4 h-4 text-[#D4FF00]" />
+                  <Icon className="w-4 h-4 text-[#48E1FD]" />
                   <span className="text-white">{q.question}</span>
                 </button>
               );
@@ -544,8 +544,8 @@ What specific aspect would you like to know more about?`;
             }`}>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
                 message.type === 'user' 
-                  ? 'bg-[#D4FF00] text-[#1E1E1E]' 
-                  : 'bg-[#1E1E1E] text-[#D4FF00] border border-[#CCCCCC]/20'
+                  ? 'bg-[#48E1FD] text-[#03041D]'
+                  : 'bg-[#03041D] text-[#48E1FD] border border-[#B2B1B6]/20'
               }`}>
                 {message.type === 'user' ? (
                   <User className="w-4 h-4" />
@@ -555,15 +555,15 @@ What specific aspect would you like to know more about?`;
               </div>
               <div className={`p-3 rounded-lg ${
                 message.type === 'user'
-                  ? 'bg-[#D4FF00] text-[#1E1E1E]'
-                  : 'bg-[#1E1E1E] text-white border border-[#CCCCCC]/20'
+                  ? 'bg-[#48E1FD] text-[#03041D]'
+                  : 'bg-[#03041D] text-white border border-[#B2B1B6]/20'
               }`}>
                 <p className="text-sm whitespace-pre-line">
                   {message.displayContent || message.content}
                   {message.isAnimating && <span className="animate-pulse">|</span>}
                 </p>
                 <p className={`text-xs mt-1 ${
-                  message.type === 'user' ? 'text-[#1E1E1E]/70' : 'text-[#CCCCCC]'
+                  message.type === 'user' ? 'text-[#03041D]/70' : 'text-[#B2B1B6]'
                 }`}>
                   {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                 </p>
@@ -575,14 +575,14 @@ What specific aspect would you like to know more about?`;
         {isTyping && (
           <div className="flex justify-start">
             <div className="flex items-start space-x-2">
-              <div className="w-8 h-8 bg-[#1E1E1E] rounded-full flex items-center justify-center border border-[#CCCCCC]/20">
-                <Bot className="w-4 h-4 text-[#D4FF00]" />
+              <div className="w-8 h-8 bg-[#03041D] rounded-full flex items-center justify-center border border-[#B2B1B6]/20">
+                <Bot className="w-4 h-4 text-[#48E1FD]" />
               </div>
-              <div className="bg-[#1E1E1E] p-3 rounded-lg border border-[#CCCCCC]/20">
+              <div className="bg-[#03041D] p-3 rounded-lg border border-[#B2B1B6]/20">
                 <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-[#D4FF00] rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-[#D4FF00] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                  <div className="w-2 h-2 bg-[#D4FF00] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                  <div className="w-2 h-2 bg-[#48E1FD] rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-[#48E1FD] rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-2 h-2 bg-[#48E1FD] rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
               </div>
             </div>
@@ -592,7 +592,7 @@ What specific aspect would you like to know more about?`;
       </div>
 
       {/* Input */}
-      <div className="p-4 border-t border-[#CCCCCC]/20">
+      <div className="p-4 border-t border-[#B2B1B6]/20">
         <div className="flex space-x-2">
           <input
             type="text"
@@ -600,13 +600,13 @@ What specific aspect would you like to know more about?`;
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
             placeholder="Ask me anything about solar energy..."
-            className="flex-1 px-4 py-2 border border-[#CCCCCC]/30 rounded-lg focus:ring-2 focus:ring-[#D4FF00] focus:border-transparent bg-[#1E1E1E] text-white placeholder-[#CCCCCC]"
+            className="flex-1 px-4 py-2 border border-[#B2B1B6]/30 rounded-lg focus:ring-2 focus:ring-[#48E1FD] focus:border-transparent bg-[#03041D] text-white placeholder-[#B2B1B6]"
             disabled={isTyping}
           />
           <button
             onClick={handleSendMessage}
             disabled={!inputMessage.trim() || isTyping}
-            className="px-4 py-2 bg-[#D4FF00] text-[#1E1E1E] rounded-lg hover:bg-[#D4FF00]/90 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-[#48E1FD] text-[#03041D] rounded-lg hover:bg-[#48E1FD]/90 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Send className="w-4 h-4" />
           </button>

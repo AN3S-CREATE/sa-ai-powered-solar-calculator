@@ -1,0 +1,14 @@
+{
+  "name": "AN3S Design System",
+  "repository": "https://github.com/AN3S-CREATE/an3s-design-system.git",
+  "revision": "98d3160fefd9133284d263285bcb6dc1e9d3ac7d",
+  "ref": "origin/main",
+  "verifiedAt": "2026-11-11",
+  "theme": "Neon Night",
+  "font": {
+    "family": "Montserrat",
+    "sourceRepository": "https://github.com/JulietaUla/Montserrat",
+    "sourceRevision": "cc8daf2e7085006b9c112542fc82b58afc13521d",
+    "license": "SIL Open Font License 1.1"
+  }
+}

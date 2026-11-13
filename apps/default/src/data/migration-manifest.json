@@ -1,0 +1,43 @@
+{
+  "spaceId": "fxjjdys47j56499v",
+  "generatedAt": "2026-11-11T00:15:17.205Z",
+  "dryRun": false,
+  "apps": [
+    "default"
+  ],
+  "counts": {
+    "projects": 3,
+    "rows": 88,
+    "mediaFiles": 3,
+    "agents": 1,
+    "flows": 5,
+    "quarantinedFiles": 0,
+    "activeCloudReferences": 0
+  },
+  "decisions": [
+    {
+      "level": "INFO",
+      "code": "WIRED_LOCAL_CRUD",
+      "source": "apps/default/src",
+      "message": "UI data mutations are wired to the local Tri-Key data engine."
+    },
+    {
+      "level": "INFO",
+      "code": "WIRED_LOCAL_FLOWS",
+      "source": "apps/default/src",
+      "message": "UI flow actions are wired to the isolated local automation engine."
+    },
+    {
+      "level": "INFO",
+      "code": "WIRED_LOCAL_AGENT_CHAT",
+      "source": "apps/default/src",
+      "message": "The active agent chat supports local inference with deterministic offline fallback."
+    },
+    {
+      "level": "INFO",
+      "code": "WIRED_STANDALONE_SETTINGS",
+      "source": "apps/default/src",
+      "message": "The standalone control panel exposes local settings, import, export, reset, and flow controls."
+    }
+  ]
+}

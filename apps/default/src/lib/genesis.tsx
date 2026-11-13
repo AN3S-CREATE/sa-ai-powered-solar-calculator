@@ -1,10 +1,19 @@
-import type {
-  LogFunction,
-  LoggerEntryInput,
-  SpaceAppLogLifecycleData,
-} from '@taskade/parade-shared';
 import * as React from 'react';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
+
+interface SpaceAppLogLifecycleData {
+  code: 'error.boundary';
+  message: string;
+  stack?: string;
+}
+
+interface LoggerEntryInput {
+  level: 'error';
+  message: string;
+  data: SpaceAppLogLifecycleData;
+}
+
+type LogFunction = (entry: LoggerEntryInput) => void;
 
 // ---------------------------------------------------------------------------
 // Lifecycle logger (injected by Director Preview via window global)
